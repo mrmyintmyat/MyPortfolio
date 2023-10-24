@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+@import url('https://fonts.cdnfonts.com/css/snap-itc');
+body, html{
+    overflow-x: hidden;
+}
+
+.title_icon{
+    color: #61ABFF;
+    font-family: Snap ITC;
+    font-size: 1.5625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+p {
+    font-family: 'Nunito', sans-serif;
+}
+.text-blue{
+    color: #0DA0F2;
+}
+
+.text-brow{
+    color: #555;
+}
+
+.bg_style-blue{
+    background-color: #0DA0F2;
+}
+
+.font-Lato{
+    font-family: 'Lato';
+    font-weight: 700;
+}
+
+.nav-link{
+  color: #000000c5;
+  font-size: 20px;
+}
+
+.nav_style li .active{
+  color: #0DA0F2;
+}
+
+.nav_style li a:focus{
+    color: #000000;
+}
+
+.nav_style li a:hover{
+    color: #0DA0F2;
+}
+
+#hello{
+    font-size: 2.6rem;
+}
+
+#MMA{
+    font-size: 2.5rem;
+}
+
+.btn-home a{
+   border: 3px solid #0DA0F2;
+}
+
+.btn-home a:hover{
+    background-color: #0da2f2e2;
+    border: 3px solid #0DA0F2;
+    color: white;
+ }
+
+ .home_img{
+    height: 28rem;
+ }
+
+ .home_img_sm{
+    height: 23rem;
+    max-width: 360px;
+ }
+
+ #sed_msg_input{
+    border: 1px solid rgba(0, 0, 0, 0.06); background: #fafafa62;
+    color: #0DA0F2;
+ }
+
+ #sed_msg_input::placeholder{
+    color: #0DA0F2;
+ }
+
+ footer{
+    background-color: rgba(217, 217, 217, 0.272);
+    padding: 1rem;
+ }
+
+ @media(max-width: 404px)
+{
+    #hello{
+        font-size: 2rem;
+    }
+
+    #MMA{
+        font-size: 2rem;
+    }
+
+}
+
+.collapse p{
+    margin-bottom: 0px;
+}
+
+
+.circle-div {
+    width: 130px; /* Adjust the width and height to control the size of the circle */
+    height: 130px;
+    background-color: #0DA0F2; /* Set the background color */
+    border-radius: 50%; /* Makes the div a circle by setting border-radius to 50% */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

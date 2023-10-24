@@ -1,0 +1,185 @@
+
+
+.main{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+@media (min-width: 2000px)
+{
+  .row-cols-desktop-7>*{
+    flex:0 0 auto;
+    width: 12%;
+    margin-right: 10px;
+  }
+}
+
+#nav{
+    border-radius: 50px;
+    box-shadow: 5px 5px 20px rgba(181, 181, 181, 0.2);
+}
+
+#nav_icon{
+    font-size: 2.5rem;
+}
+
+#search{
+    height: 3.3rem;
+    border-color: rgba(190, 190, 190, 0.5);
+    border-radius: 20px;
+}
+
+#btn-mother{
+    max-width: 900px;
+    display: flex;
+    overflow-x: scroll;
+}
+
+#btn-item{
+    height: 2.5rem;
+    border-color: rgba(190, 190, 190, 0.5);
+    margin-left: 10px;
+}
+
+#btn-item:nth-child(1){
+    margin-left: 0px;
+}
+  #btn-mother::-webkit-scrollbar{
+    height: 2px;
+    width: 0px;
+   }
+   #btn-mother::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  .scroll_style::-webkit-scrollbar{
+    height: 4px;
+    width: 0px;
+   }
+
+   .scroll_style::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+.parent{
+    position: relative;
+    overflow: hidden;
+}
+
+.home-card{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#card{
+    max-width: 480px;
+}
+
+.home-card:hover {
+    box-shadow: 0px 15px 15px rgb(0, 0, 0, 0.08);
+}
+.card_img{
+    height: 180px;
+    transition: all 0.6s;
+  }
+
+  .card_img img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    position: absolute;
+    object-fit: cover;
+    transition: all 1s;
+  }
+
+.card_img:hover {
+   transform: scale(1.2);
+}
+
+@media (max-width: 992px) {
+    #nav_icon{
+        font-size: 30px;
+    }
+
+    #nav_icon:nth-child(2){
+        font-size: 45px;
+    }
+
+    #nav{
+        border-radius: 0px;
+        box-shadow: none;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.542);
+    }
+    .card_img{
+        height: 160px;
+      }
+}
+
+#reduced_price{
+    color: #ff0505; font-weight: 700;
+}
+@media (min-width: 992px) {
+  #photos_container{
+      max-height: 10rem;
+   }
+}
+@media (max-width: 992px) {
+    #navbar-sm{
+        box-shadow: 5px 5px 5px 8px rgba(181, 181, 181, 0.2);
+        background-color: white;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    #item_container{
+        margin-bottom: 6rem;
+    }
+
+    #modal_body_height{
+        height: 100vh;
+    }
+
+    #margin-zero{
+        margin: 0px;
+    }
+}
+
+
+.see-more-btn {
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: -1px;
+    position: relative;
+}
+
+.see-more-btn::before {
+    content: '';
+    display: none;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    position: absolute;
+    bottom: -0.2px;
+    left: 0;
+    transition: all 0.3s;
+}
+
+.see-more-btn:hover::before {
+    display: block;
+    z-index: -1;
+}
+
+/* Define the animation */
+@keyframes colorChange {
+    0% { color: gold; }
+    50% { color: rgb(255, 0, 0); } /* Change to your desired color */
+    100% { color: gold; }
+}
+
+/* Apply the animation to the specified class */
+.animate-text-color {
+    animation: colorChange 3s infinite; /* Adjust duration and other properties as needed */
+}
+
