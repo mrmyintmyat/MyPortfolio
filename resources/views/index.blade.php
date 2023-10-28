@@ -148,9 +148,9 @@
                                         discuss
                                         potential collaborations or if you have any questions about my work.
                                     </div>
-                                    <a id="see_more" onclick="toggleText(event)" class="text-dark"
+                                    <a id="see_more" onclick="toggleText(event)" class="text-dark text-decoration-none text-muted"
                                         data-bs-toggle="collapse" href="#collapseExample" role="button"
-                                        aria-expanded="false" aria-controls="collapseExample">See more</a>
+                                        aria-expanded="false" aria-controls="collapseExample">... See more</a>
                                 </div>
                             </div>
                         </div>
@@ -195,9 +195,9 @@
                                         shopping experience. Customers can browse a wide range of products, add items to
                                         their cart, and securely complete their purchases.
                                     </span>
-                                    <a id="see_more" onclick="toggleText(event)" class="text-dark"
+                                    <a id="see_more" onclick="toggleText(event)" class="text-dark text-decoration-none text-muted"
                                         data-bs-toggle="collapse" href="#e-commerce" role="button"
-                                        aria-expanded="false" aria-controls="e-commerce">See more</a>
+                                        aria-expanded="false" aria-controls="e-commerce">... See more</a>
                                 </p>
                                 <a href="#scrollspyCONTACT"
                                     class="btn btn-info text-white bg_style-blue p-2 px-3 font-Lato">CONTACT ME</a>
@@ -221,9 +221,9 @@
                                             href="#" data-bs-toggle="modal"
                                             data-bs-target="#contact-him">contact him</a>.
                                     </span>
-                                    <a id="see_more" onclick="toggleText(event)" class="text-dark"
+                                    <a id="see_more" onclick="toggleText(event)" class="text-dark text-decoration-none text-muted"
                                         data-bs-toggle="collapse" href="#ftadminpanel" role="button"
-                                        aria-expanded="false" aria-controls="ftadminpanel">See more</a>
+                                        aria-expanded="false" aria-controls="ftadminpanel">... See more</a>
                                 </p>
                                 </p>
                                 <a href="#scrollspyCONTACT"
@@ -248,9 +248,9 @@
                                         The result is an interactive and educational quiz game that challenges your
                                         knowledge across various topics. Test your wits and have fun while learning!
                                     </span>
-                                    <a id="see_more" onclick="toggleText(event)" class="text-dark"
+                                    <a id="see_more" onclick="toggleText(event)" class="text-dark text-decoration-none text-muted"
                                         data-bs-toggle="collapse" href="#quiz-game" role="button"
-                                        aria-expanded="false" aria-controls="quiz-game">See more</a>
+                                        aria-expanded="false" aria-controls="quiz-game">... See more</a>
                                 </p>
                                 <a href="#scrollspyCONTACT"
                                     class="btn btn-info text-white bg_style-blue p-2 px-3 font-Lato">CONTACT ME</a>
