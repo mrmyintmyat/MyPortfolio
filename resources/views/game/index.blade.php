@@ -190,7 +190,7 @@ function formatDownloads($downloads)
     </section>
 @endsection
 @section('script')
-    <script src="/js/game_scroll_data.js"></script>
+    <script src="/js/game_scroll_data.js?v=33"></script>
     <script>
 
         function toggleSeeMore() {

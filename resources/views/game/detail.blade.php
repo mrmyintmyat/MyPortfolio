@@ -373,7 +373,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             new ClipboardJS('#copyButton', {
                 text: function() {
-                    return `{{ request()->path() }}`;
+                    return `games.myintmyat.dev`+`{{ request()->path() }}`;
                 }
             });
 
@@ -406,7 +406,7 @@
                 }
             });
             $.ajax({
-                url: '{{ url(route("games_increment")) }}',
+                url: '/increment-downloads',
                 method: 'POST',
                 data: {
                     id: gameId
