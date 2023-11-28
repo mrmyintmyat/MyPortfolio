@@ -96,7 +96,7 @@
                     <div class="row mb-3">
                         <label for="category" class="form-label">Category (Actions, Rpg ...)</label>
                         <div class="">
-                            <input type="text" id="category" name="category"
+                            <input  value="{{ old('category') }}" type="text" id="category" name="category"
                                 class="form-control @error('category') is-invalid @enderror">
                             @error('category')
                                 <span class="invalid-feedback" role="alert">

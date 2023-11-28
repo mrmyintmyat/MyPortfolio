@@ -5,6 +5,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
+
+    <meta name="description"
+        content="Let's download @yield('title')">
+    {{-- <meta name="keywords"
+        content=""> --}}
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://games.myintmyat.dev">
+    <link rel="alternate" href="https://games.myintmyat.dev" hreflang="en">
+    <link rel="icon" type="png" href="@yield('logo')">
+    <!-- Open Graph (OG) Tags for Social Media Sharing -->
+    <meta property="og:title" content="@yield('title')">
+    <meta property="og:description"
+        content="Let's download @yield('title')">
+    <meta property="og:image" content="@yield('image')">
+    <meta property="og:url" content="https://games.myintmyat.dev">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f0be33b496.js" crossorigin="anonymous"></script>

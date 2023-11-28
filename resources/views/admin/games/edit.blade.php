@@ -111,13 +111,10 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="category" class="form-label">Category</label>
+                        <label for="category" class="form-label">Category (Actions, Rpg ...)</label>
                         <div class="">
-                            <select id="category" name="category"
-                                class="form-select @error('category') is-invalid @enderror">
-                                <option value="pubg" {{ $game->category == 'pubg' ? 'selected' : '' }}>Pubg</option>
-                                <option value="ml"{{ $game->category == 'ml' ? 'selected' : '' }}>Ml</option>
-                            </select>
+                            <input value="{{ $game->category }}" type="text" id="category" name="category"
+                                class="form-control @error('category') is-invalid @enderror">
                             @error('category')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

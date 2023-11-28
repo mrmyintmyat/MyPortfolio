@@ -2,6 +2,15 @@
 @section('title')
     {{ $game->name }}
 @endsection
+@section('logo')
+    {{ $game->logo }}
+@endsection
+@section('image')
+    @php
+        $images = $game->image;
+    @endphp
+    {{ $images[0] }}
+@endsection
 @section('style')
     <style>
         body {
@@ -106,7 +115,7 @@
     <nav id="navbar" class="navbar shadow-sm bg-white navbar-expand-lg fixed-top d-flex px-2" data-aos="fade-down"
         data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true">
         <div class="container p-0">
-            <a href="{{route("games_index")}}" class="navbar-brand title_icon col-lg-2 m-0" href="#">
+            <a href="{{ route('games_index') }}" class="navbar-brand title_icon col-lg-2 m-0" href="#">
                 ZYNN
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -167,8 +176,9 @@
                                     </div>
                                     <div onclick="" class="card-body py-3 d-flex justify-content-between"
                                         id="item_title">
-                                        <div class="d-flex" >
-                                            <img style="width: 4rem;" class="rounded-2" src="{{ $game->logo }}" alt="">
+                                        <div class="d-flex">
+                                            <img style="width: 4rem;" class="rounded-2" src="{{ $game->logo }}"
+                                                alt="">
                                             <div class="ms-2" style="line-height: 1.1rem">
                                                 <h5 class="card-title m-0 text-truncate" style="max-width: 200px; "
                                                     id="title">
@@ -295,7 +305,8 @@
                             @if (!$noGames)
                                 @foreach ($games as $game)
                                     <div class="col">
-                                        <a href="{{url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)]))}}" id="card"
+                                        <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
+                                            id="card"
                                             class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
                                             <div class="card home-card h-100 border border-1">
                                                 <div class="">
@@ -373,7 +384,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             new ClipboardJS('#copyButton', {
                 text: function() {
-                    return `games.myintmyat.dev`+`{{ request()->path() }}`;
+                    return `games.myintmyat.dev/` + `{{ request()->path() }}`;
                 }
             });
 
