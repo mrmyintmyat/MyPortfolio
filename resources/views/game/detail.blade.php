@@ -406,7 +406,7 @@
                 }
             });
             $.ajax({
-                url: '{{route("games_increment")}}', // Replace with your actual route
+                url: '{{secure_url(route("games_increment"))}}', // Replace with your actual route
                 method: 'POST',
                 data: {
                     id: gameId
