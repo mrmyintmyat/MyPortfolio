@@ -29,7 +29,7 @@ Route::post('/post/info', [ShopController::class, 'get_info'])->name('get_info.d
 
 //auth
 Auth::routes(['register' => false]);
-
+//kk
 //game
 Route::get('/games', [GameController::class, 'index']);
 Route::post('/games/search', [GameController::class, 'games_search']);
