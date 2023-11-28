@@ -129,7 +129,7 @@
     </nav>
 @endsection
 @section('main')
-    <section class="container px-0">
+    <section class="px-0 container">
         <div class="">
             <ul class="list-unstyled game_detail_hide">
                 {{-- <h1 class="m-0">News</h1> --}}
