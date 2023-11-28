@@ -31,13 +31,13 @@ Route::post('/post/info', [ShopController::class, 'get_info'])->name('get_info.d
 Auth::routes(['register' => false]);
 //kk
 //game
-Route::domain('games.myintmyat.dev')->group(function () {
-    Route::get('/', [GameController::class, 'index'])->name('games_index');
-    Route::post('/search', [GameController::class, 'games_search'])->name('games_search');
-    Route::post('/increment-downloads', [GameController::class, 'increment_downloads'])->name('games_increment');
-    Route::get('/search', [GameController::class, 'games_search_scroll'])->name('games_search_scroll');
-    Route::get('/{id}/{name}', [GameController::class, 'detail'])->name('games_detail');;
-});
+// Route::domain('games.myintmyat.dev')->group(function () {
+//     Route::get('/', [GameController::class, 'index'])->name('games_index');
+//     Route::post('/search', [GameController::class, 'games_search'])->name('games_search');
+//     Route::post('/increment-downloads', [GameController::class, 'increment_downloads'])->name('games_increment');
+//     Route::get('/search', [GameController::class, 'games_search_scroll'])->name('games_search_scroll');
+//     Route::get('/{id}/{name}', [GameController::class, 'detail'])->name('games_detail');;
+// });
 //shop
 // Route::resource('/shop', ShopController::class);
 // Route::post('/buy', [ShopController::class, 'buy']);
