@@ -13,7 +13,7 @@ $(document).ready(function() {
         if (inputLength != 0) {
             $.ajax({
                 type: 'POST',
-                url: '{{route("games_search")}}',
+                url: '/search',
                 data: {
                     _token: csrfToken,
                     query: query
@@ -131,12 +131,12 @@ $(document).ready(function() {
     // Detect scroll event
     $(".scroll_page").scroll(
         function() {
-            on_scroll(this, "{{route('games_index')}}");
+            on_scroll(this, "/");
         });
 
     $(".search_scroll_page").scroll(
         function() {
-            on_scroll(this, "{{route('games_search_scroll')}}");
+            on_scroll(this, "/search");
         });
 
      function on_scroll(element, route) {
@@ -153,7 +153,7 @@ $(document).ready(function() {
             if (navigator.onLine) {
                 if (nomoreitems === false) {
                     loadMoreItems(route);
-                    if (route === "{{route('games_search_scroll')}}") {
+                    if (route === "/search") {
                         check_search = true;
                     }
                 }

@@ -79,7 +79,7 @@ function formatDownloads($downloads)
                     class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 row-cols-desktop-7 px-2 g-sm-2 g-3">
                     @foreach ($games as $game)
                         <div class="col">
-                            <a href="{{ route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)]) }}" id="card"
+                            <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}" id="card"
                                 class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
                                 <div class="card home-card h-100 border border-1">
                                     <div class="">

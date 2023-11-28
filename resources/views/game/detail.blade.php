@@ -295,7 +295,7 @@
                             @if (!$noGames)
                                 @foreach ($games as $game)
                                     <div class="col">
-                                        <a href="/games/{{ $game->id }}/{{ $game->name }}" id="card"
+                                        <a href="{{url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)]))}}" id="card"
                                             class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
                                             <div class="card home-card h-100 border border-1">
                                                 <div class="">
@@ -373,7 +373,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             new ClipboardJS('#copyButton', {
                 text: function() {
-                    return `{{ url()->full() }}`;
+                    return `{{ request()->path() }}`;
                 }
             });
 
@@ -406,7 +406,7 @@
                 }
             });
             $.ajax({
-                url: '{{secure_url(route("games_increment"))}}', // Replace with your actual route
+                url: '{{ url(route("games_increment")) }}',
                 method: 'POST',
                 data: {
                     id: gameId
