@@ -106,7 +106,7 @@
     <nav id="navbar" class="navbar shadow-sm bg-white navbar-expand-lg fixed-top d-flex px-2" data-aos="fade-down"
         data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true">
         <div class="container p-0">
-            <a href="/games" class="navbar-brand title_icon col-lg-2 m-0" href="#">
+            <a href="{{route("games_index")}}" class="navbar-brand title_icon col-lg-2 m-0" href="#">
                 ZYNN
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -406,7 +406,7 @@
                 }
             });
             $.ajax({
-                url: '/games/increment-downloads', // Replace with your actual route
+                url: '{{route("games_increment")}}', // Replace with your actual route
                 method: 'POST',
                 data: {
                     id: gameId

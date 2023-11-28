@@ -22,7 +22,7 @@ use App\Http\Controllers\Message\FacebookWebhookController;
 */
 
 // portfolio
-Route::resource('/', PortfolioController::class);
+Route::get('/', [PortfolioController::class, 'index']);
 Route::post('/send_message', [PortfolioController::class, 'send_message'])->name('send_message');
 Route::get('/privacy-policy', [HomeController::class, 'privacy_policy']);
 Route::post('/post/info', [ShopController::class, 'get_info'])->name('get_info.data');
@@ -31,18 +31,19 @@ Route::post('/post/info', [ShopController::class, 'get_info'])->name('get_info.d
 Auth::routes(['register' => false]);
 //kk
 //game
-Route::get('/games', [GameController::class, 'index']);
-Route::post('/games/search', [GameController::class, 'games_search']);
-Route::post('/games/increment-downloads', [GameController::class, 'increment_downloads']);
-Route::get('/games/search', [GameController::class, 'games_search_scroll']);
-Route::get('/games/{id}/{name}', [GameController::class, 'detail']);
-
+Route::domain('games.myintmyat.dev')->group(function () {
+    Route::get('/', [GameController::class, 'index'])->name('games_index');
+    Route::post('/search', [GameController::class, 'games_search'])->name('games_search');
+    Route::post('/increment-downloads', [GameController::class, 'increment_downloads'])->name('games_increment');
+    Route::get('/search', [GameController::class, 'games_search_scroll'])->name('games_search_scroll');
+    Route::get('/{id}/{name}', [GameController::class, 'detail'])->name('games_detail');;
+});
 //shop
 // Route::resource('/shop', ShopController::class);
 // Route::post('/buy', [ShopController::class, 'buy']);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/search', [ShopController::class, 'search']);
-Route::get('/search', [ShopController::class, 'search_scroll']);
+// Route::get('/search', [ShopController::class, 'search_scroll']);
 
 //admin panel
 Route::group(['middleware' => ['auth', 'checkstatus']], function () {

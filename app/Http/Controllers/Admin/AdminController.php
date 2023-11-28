@@ -116,6 +116,7 @@ class AdminController extends Controller
             'online_or_offline' => $request->online_or_offline,
             'logo' => $logo,
             'category' => $request->category,
+            'downloads' => "0",
             'download_links' => json_decode($request->download_links, true),
             'image' => $images,
             'user_id' => Auth::user()->id,

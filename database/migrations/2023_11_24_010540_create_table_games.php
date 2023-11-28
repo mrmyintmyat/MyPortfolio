@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->longText('about');
             $table->string('size');
+            $table->integer('post_status')->default(0);
             $table->string('online_or_offline');
             $table->string('category');
-            $table->string('downloads');
+            $table->longText('downloads');
             $table->longText('download_links')->json();
             $table->longText("image")->json();
             $table->string('logo');
