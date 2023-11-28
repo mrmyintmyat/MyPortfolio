@@ -28,7 +28,7 @@ Route::get('/privacy-policy', [HomeController::class, 'privacy_policy']);
 Route::post('/post/info', [ShopController::class, 'get_info'])->name('get_info.data');
 
 //auth
-Auth::routes();
+Auth::routes(['register' => false]);
 
 //game
 Route::get('/games', [GameController::class, 'index']);
@@ -58,11 +58,11 @@ Route::group(['middleware' => ['auth', 'checkstatus']], function () {
 });
 
 //facebook login message
-Route::get('/webhook', [FacebookWebhookController::class, 'verify']);
-Route::post('/facebook/webhook', [FacebookWebhookController::class, 'handle']);
-Route::post('/webhook', [FacebookWebhookController::class, 'verify']);
+// Route::get('/webhook', [FacebookWebhookController::class, 'verify']);
+// Route::post('/facebook/webhook', [FacebookWebhookController::class, 'handle']);
+// Route::post('/webhook', [FacebookWebhookController::class, 'verify']);
 
-Route::get('auth/facebook', [LoginController::class, 'redirectToFacebook']);
-Route::get('auth/facebook/callback', [LoginController::class, 'handleFacebookCallback']);
+// Route::get('auth/facebook', [LoginController::class, 'redirectToFacebook']);
+// Route::get('auth/facebook/callback', [LoginController::class, 'handleFacebookCallback']);
 
-Route::post('/send-message-to-user', [FacebookWebhookController::class, 'sendMessageToPage']);
+// Route::post('/send-message-to-user', [FacebookWebhookController::class, 'sendMessageToPage']);
