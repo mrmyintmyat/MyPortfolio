@@ -389,7 +389,7 @@
                         </div>
                         <h3 class="mt-2">Accounts</h3>
                         <div class="d-flex flex-column">
-                            <a href="https://t.me/zynn_80" class="fw-semibold text-black">Telegram Account</a>
+                            <a href="https://t.me/DEVZYNN" class="fw-semibold text-black">Telegram Account</a>
                             <a href="https://www.facebook.com/profile.php?id=100046213381464"
                                 class="fw-semibold text-black">Facebook Account</a>
                         </div>
