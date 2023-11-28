@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('name');
             $table->longText('about');
-            $table->string('price');
-            $table->longText("image")->json();
-            $table->string('reduced_price')->nullable();
+            $table->string('size');
+            $table->string('online_or_offline');
             $table->string('category');
+            $table->string('downloads');
+            $table->longText('download_links')->json();
+            $table->longText("image")->json();
+            $table->string('logo');
             $table->string('user_id');
             $table->timestamps();
         });
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('games');
     }
 };

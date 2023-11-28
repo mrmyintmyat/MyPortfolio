@@ -1,0 +1,43 @@
+body{
+    overflow-x: hidden;
+}
+
+.menu{
+    height: 100vh;
+}
+
+.bg-menu{
+   background-color: #15C7FF;
+    /* background: linear-gradient(to right, rgba(189, 203, 190, 0.622) 0%, #00c1fb 100%); */
+}
+
+.main_page{
+    height: 100vh;
+}
+
+.hover_menu_tag a:hover{
+    background: rgba(255, 255, 255, 0.106);
+}
+
+.hover_menu_tag a:focus{
+    background: rgba(255, 255, 255, 0.251);
+}
+
+/* #focus_tag{
+    border-left: 3px solid #ff0505 !important;
+    background: rgba(255, 255, 255, 0.251);
+} */
+
+@media (max-width: 768px) {
+    .menu{
+        height: 100%;
+    }
+    .hover_menu_tag{
+        /* padding: 0.6rem; */
+    }
+
+    #focus_tag{
+     border-left: 0px !important;
+    }
+ }
+

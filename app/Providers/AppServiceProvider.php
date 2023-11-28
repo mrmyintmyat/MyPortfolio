@@ -21,12 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::directive('formatCurrency', function ($expression) {
-            return "<?php
-                \$price = preg_replace('/[^0-9]/', '', $expression);
-                \$symbol = str_replace(\$price, '', $expression);
-                \$formatted = number_format(\$price);
-                echo \$formatted . (\$symbol ? \$symbol . ' ' : '');
-            ?>";
+            return "<?php preg_match('/(\d+)/', $expression, \$matches); \$price = isset(\$matches[1]) ? \$matches[1] : ''; \$symbol = str_replace(\$price, '', $expression); \$formatted = number_format(\$price); echo \$formatted . (\$symbol ? \$symbol . ' ' : ''); ?>";
         });
+
     }
 }

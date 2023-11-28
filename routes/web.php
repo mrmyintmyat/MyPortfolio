@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Game\GameController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\Message\FacebookWebhookController;
 
@@ -18,23 +21,48 @@ use App\Http\Controllers\Message\FacebookWebhookController;
 |
 */
 
+// portfolio
 Route::resource('/', PortfolioController::class);
 Route::post('/send_message', [PortfolioController::class, 'send_message'])->name('send_message');
 Route::get('/privacy-policy', [HomeController::class, 'privacy_policy']);
-
 Route::post('/post/info', [ShopController::class, 'get_info'])->name('get_info.data');
 
-// Route::resource('/shop', ShopController::class);
-
+//auth
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//game
+Route::get('/games', [GameController::class, 'index']);
+Route::post('/games/search', [GameController::class, 'games_search']);
+Route::post('/games/increment-downloads', [GameController::class, 'increment_downloads']);
+Route::get('/games/search', [GameController::class, 'games_search_scroll']);
+Route::get('/games/{id}/{name}', [GameController::class, 'detail']);
 
-// Route::post('/facebook/webhook', [FacebookWebhookController::class, 'handle']);
+//shop
+// Route::resource('/shop', ShopController::class);
+// Route::post('/buy', [ShopController::class, 'buy']);
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/search', [ShopController::class, 'search']);
+Route::get('/search', [ShopController::class, 'search_scroll']);
+
+//admin panel
+Route::group(['middleware' => ['auth', 'checkstatus']], function () {
+    // Route::get('/admin/users', [AdminController::class, 'showUsersPage'])->name('admin.users');
+    Route::get('/admin/panel/games/create', [AdminController::class, 'post_game']);
+    Route::post('/admin/panel/games/store', [AdminController::class, 'store_game']);
+    Route::get('/admin/panel/games', [AdminController::class, 'games']);
+    Route::get('/admin/panel/games/{id}', [AdminController::class, 'edit_game_page']);
+    Route::delete('/admin/panel/games/{id}', [AdminController::class, 'delete_game']);
+    Route::post('/admin/panel/games/update/{id}', [AdminController::class, 'update_game']);
+
+    Route::resource('/admin/panel', AdminController::class);
+});
+
+//facebook login message
+Route::get('/webhook', [FacebookWebhookController::class, 'verify']);
 Route::post('/facebook/webhook', [FacebookWebhookController::class, 'handle']);
-// routes/web.php
+Route::post('/webhook', [FacebookWebhookController::class, 'verify']);
 
-// Route::get('/webhook', [FacebookWebhookController::class, 'verify']);
+Route::get('auth/facebook', [LoginController::class, 'redirectToFacebook']);
+Route::get('auth/facebook/callback', [LoginController::class, 'handleFacebookCallback']);
 
-// Route::get('/webhook', [MessageController::class, 'webhookVerification']);
-Route::post('/webhook', [MessageController::class, 'webhook']);
+Route::post('/send-message-to-user', [FacebookWebhookController::class, 'sendMessageToPage']);

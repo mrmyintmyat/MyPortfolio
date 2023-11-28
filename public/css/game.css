@@ -5,10 +5,15 @@ body{
 }
 
 .scroll_page, .search_scroll_page{
-    height: 87vh;
+    height: 92vh;
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.scroll_page::-webkit-scrollbar, .search_scroll_page::-webkit-scrollbar{
+    height: 4px;
+    width: 0px;
+   }
 
 @media (min-width: 2000px)
 {
@@ -147,6 +152,10 @@ body{
     margin-top: 4rem;
 }
 
+#photos_container_games{
+    max-height: 16rem;
+   }
+
 @media (min-width: 992px) {
   #photos_container{
       max-height: 10rem;
@@ -158,10 +167,6 @@ body{
 
    #navbar-sm{
     min-height: 80vh;
-   }
-
-   main{
-     height: 100vh;
    }
 }
 

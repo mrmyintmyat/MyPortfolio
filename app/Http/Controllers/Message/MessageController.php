@@ -37,7 +37,7 @@ class MessageController extends Controller
 
     public function sendTextMessage($recipientId, $messageText)
     {
-        $accessToken = 'EAAEHjOfhmfYBO2dGfnNTlyn0YmVGzfCBLZAZBwkzRGoc3DGKkLOGZAbmlTHu3P9KR9mAfYHzn9kSTQ8FKwSsO6boUtEw7p9QkbnvoKZCq5YNHo8QeDOyWSYt0JyHJ6ovXNYOlZCjHSTKPmsefi0vZB165PHZBe9cbdOaciV8q2Lx8wz7GP0efQyPFIFE9xT3BCSc4clsVWv89n4jAns1PvwbHoZD';
+        $accessToken = 'EAAEHjOfhmfYBOyQirVzJ6KW4gISziIxX17kWCiL7BC0fMOxwHYI7Hs498W0SlZC0ZAAmrTVXe82ZAUTFFAtlZBPNy4SFMl3MOMZB2z35Eay160ZCjRs18zDKqQgW40StqJDylWkrEooMCmbvbzhJx2izWxDYkI5MepneHVr61J1o4pOoDLp3D2e5Ae2OA3UkaX';
 
         $client = new Client();
 

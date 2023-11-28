@@ -4,7 +4,7 @@
             <div class="card-body p-0">
                 <h5 class="card-title">
                     {{ $item->title }}
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                 </h5>
                 <p onclick="toggleSeeMore()" id="see-more-content" class="my-1 d-none px-2 see-block">
                     {{ $item['about'] }}
@@ -25,19 +25,18 @@
     <div class="modal-body pt-0" id="modal_body_height">
         <div class="mt-3">
             @php
-                $images = json_decode($item->image);
+                $images = $item->image;
             @endphp
             @foreach ($images as $image)
-                <img class="w-100 h-100" src="{{ $image }}" alt="">
+                <img class="w-100 h-100" src="{{ $image }}" alt="ERROR">
                 <div style="height: 3px; width: 100%;" class="my-2 bg-black"></div>
             @endforeach
         </div>
     </div>
     <div class="modal-footer p-0">
-        <div class="row row-cols-3 w-100">
-            <div class="col d-flex justify-content-center py-2 btn fw-semibold">Like</div>
-            <div class="col d-flex justify-content-center py-2 btn fw-semibold">Comment</div>
-            <div class="col d-flex justify-content-center py-2 btn fw-semibold">Share</div>
+        <div class="row row-cols-2 w-100 m-0 p-0">
+            <button class="col d-flex justify-content-center py-2 btn fw-semibold shadow_style rounded-0" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            <button onclick="buy_now({{ $item->id }})" class="col d-flex justify-content-center py-2 btn btn-primary rounded-0 fw-semibold" id="buy_now">BUY NOW</button>
         </div>
         {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Understood</button> --}}

@@ -28,24 +28,24 @@
 </head>
 
 <body>
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <i class="fa-solid fa-circle-check me-2" style="color: #07ed2e;"></i>
-                <strong class="me-auto">Success</strong>
-
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    <div class="toast-container position-fixed top-0 end-0 p-2">
+        <div id="liveToast" class="toast border-0 rounded-0 bg-white" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <i class="fa-solid fa-circle-check d-flex align-items-center ms-2" style="color: rgb(16, 174, 16);"></i>
+                <div class="toast-body" id="success_text"></div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
             </div>
-            <div class="toast-body" id="success_text"></div>
         </div>
     </div>
     <main class="container">
 
-        <nav id="navbar-example2" class="navbar navbar-expand-lg bg-white fixed-top" data-aos="fade-down"
+        <nav id="navbar-example2" class="navbar shadow-sm navbar-expand-lg bg-white fixed-top" data-aos="fade-down"
             data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true">
             <div class="container">
                 <a class="navbar-brand title_icon" href="#">
-                    MMA
+                    NULL
                 </a>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -148,9 +148,10 @@
                                         discuss
                                         potential collaborations or if you have any questions about my work.
                                     </div>
-                                    <a id="see_more" onclick="toggleText(event)" class="text-dark text-decoration-none text-muted"
-                                        data-bs-toggle="collapse" href="#collapseExample" role="button"
-                                        aria-expanded="false" aria-controls="collapseExample">... See more</a>
+                                    <a id="see_more" onclick="toggleText(event)"
+                                        class="text-dark text-decoration-none text-muted" data-bs-toggle="collapse"
+                                        href="#collapseExample" role="button" aria-expanded="false"
+                                        aria-controls="collapseExample">... See more</a>
                                 </div>
                             </div>
                         </div>
@@ -191,13 +192,15 @@
                                     I crafted this e-commerce website using a powerful tech stack, including HTML, CSS,
                                     Bootstrap, jQuery, Laravel,
                                     <span class="collapse" id="e-commerce">
-                                        and MySQL. This online shopping platform is designed to offer a seamless and feature-rich
+                                        and MySQL. This online shopping platform is designed to offer a seamless and
+                                        feature-rich
                                         shopping experience. Customers can browse a wide range of products, add items to
                                         their cart, and securely complete their purchases.
                                     </span>
-                                    <a id="see_more" onclick="toggleText(event)" class="text-dark text-decoration-none text-muted"
-                                        data-bs-toggle="collapse" href="#e-commerce" role="button"
-                                        aria-expanded="false" aria-controls="e-commerce">... See more</a>
+                                    <a id="see_more" onclick="toggleText(event)"
+                                        class="text-dark text-decoration-none text-muted" data-bs-toggle="collapse"
+                                        href="#e-commerce" role="button" aria-expanded="false"
+                                        aria-controls="e-commerce">... See more</a>
                                 </p>
                                 <a href="#scrollspyCONTACT"
                                     class="btn btn-info text-white bg_style-blue p-2 px-3 font-Lato">CONTACT ME</a>
@@ -206,7 +209,11 @@
                     </div>
                     <div class="col" data-aos="fade-up">
                         <div class="card shadow-sm h-100 m-lg-3 border-0">
-                                <iframe class="card-img-top w-100" style="min-height: 200px;" src="https://www.youtube.com/embed/SdG_Nmt5r-g" title="Football Admin Panel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe class="card-img-top w-100" style="min-height: 200px;"
+                                src="https://www.youtube.com/embed/SdG_Nmt5r-g" title="Football Admin Panel"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
                             <div class="card-body">
                                 <h5 class="card-title">Football AdminPanel</h5>
                                 <p class="card-text">
@@ -221,9 +228,10 @@
                                             href="#" data-bs-toggle="modal"
                                             data-bs-target="#contact-him">contact him</a>.
                                     </span>
-                                    <a id="see_more" onclick="toggleText(event)" class="text-dark text-decoration-none text-muted"
-                                        data-bs-toggle="collapse" href="#ftadminpanel" role="button"
-                                        aria-expanded="false" aria-controls="ftadminpanel">... See more</a>
+                                    <a id="see_more" onclick="toggleText(event)"
+                                        class="text-dark text-decoration-none text-muted" data-bs-toggle="collapse"
+                                        href="#ftadminpanel" role="button" aria-expanded="false"
+                                        aria-controls="ftadminpanel">... See more</a>
                                 </p>
                                 </p>
                                 <a href="#scrollspyCONTACT"
@@ -234,7 +242,10 @@
                     <div class="col" data-aos="fade-up">
                         <div class="card shadow-sm h-100 m-lg-3 border-0">
 
-                                <iframe class="card-img-top w-100" style="min-height: 200px;" src="https://www.youtube.com/embed/_F6BLt8-sqc" title="Quiz game" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe class="card-img-top w-100" style="min-height: 200px;"
+                                src="https://www.youtube.com/embed/_F6BLt8-sqc" title="Quiz game" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
 
                             <div class="card-body">
                                 <h5 class="card-title">Quiz game</h5>
@@ -248,9 +259,10 @@
                                         The result is an interactive and educational quiz game that challenges your
                                         knowledge across various topics. Test your wits and have fun while learning!
                                     </span>
-                                    <a id="see_more" onclick="toggleText(event)" class="text-dark text-decoration-none text-muted"
-                                        data-bs-toggle="collapse" href="#quiz-game" role="button"
-                                        aria-expanded="false" aria-controls="quiz-game">... See more</a>
+                                    <a id="see_more" onclick="toggleText(event)"
+                                        class="text-dark text-decoration-none text-muted" data-bs-toggle="collapse"
+                                        href="#quiz-game" role="button" aria-expanded="false"
+                                        aria-controls="quiz-game">... See more</a>
                                 </p>
                                 <a href="#scrollspyCONTACT"
                                     class="btn btn-info text-white bg_style-blue p-2 px-3 font-Lato">CONTACT ME</a>
@@ -259,8 +271,8 @@
                     </div>
                 </div>
             </section>
-{{-- ll --}}
-            <section class="mb-5" id="scrollspyServices">
+            {{-- ll --}}
+            <section class="mb-5 mt-3" id="scrollspyServices">
                 <div class="d-flex flex-column align-items-center mb-4">
                     <h2 class="" data-aos="zoom-in-down">SERVICES</h2>
                     <div style="height: 3px; width: 310px; opacity: 0.3;" class="bg_style-blue" data-aos="zoom-in">
@@ -319,7 +331,9 @@
                             </div>
                             <div class="card-body pb-0">
                                 <h3 class="card-title text-center fw-medium">NULL</h3>
-                                <p class="card-text text-center fw-medium">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit, sint tenetur saepe nemo eum officia unde voluptates itaque suscipit architecto consectetur </p>
+                                <p class="card-text text-center fw-medium">Lorem, ipsum dolor sit amet consectetur
+                                    adipisicing elit. Sit, sint tenetur saepe nemo eum officia unde voluptates itaque
+                                    suscipit architecto consectetur </p>
                                 <div class="d-flex justify-content-center">
                                     <a href="#scrollspyCONTACT"
                                         class="btn btn-info text-white bg_style-blue p-2 px-3 font-Lato">CONTACT ME</a>
@@ -397,10 +411,10 @@
                                 placeholder="Your Full Name" aria-label="Your Full Name">
                         </div>
                         <div class="col-md-6" data-aos="zoom-in-left" data-aos-duration="1100">
-                            <input type="text" name="email_or_phone" required
+                            <input type="email" name="email_or_phone" required
                                 class="form-control rounded-pill p-2 px-4 text-blue" id="sed_msg_input"
-                                placeholder="Your Email Address Or Phone Number"
-                                aria-label="Your Email Address Or Phone Number">
+                                placeholder="Your Email Address"
+                                aria-label="Your Email Address">
                         </div>
                         <div class="col-12" data-aos="fade-right" data-aos-duration="1100">
                             <input type="text" name="subject" required
@@ -422,7 +436,7 @@
 
         </div>
 
-        <footer class="mt-5">
+        <footer class="mt-5 shadow-sm">
             <h2 class="fs-6 mb-0">Copyright © <span class="text-blue">2023</span></h2>
         </footer>
     </main>
@@ -461,10 +475,10 @@
     <script>
         function toggleText(event) {
             const link = event.target;
-            if (link.textContent === "See more") {
+            if (link.textContent === "... See more") {
                 link.textContent = "See less";
             } else {
-                link.textContent = "See more";
+                link.textContent = "... See more";
             }
         }
         $(document).ready(function() {
@@ -498,7 +512,7 @@
                         $("#messageForm")[0].reset();
                     },
                     error: function(error) {
-                        alert(error);
+                        alert("error");
                     }
                 });
             });
