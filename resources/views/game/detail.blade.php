@@ -277,13 +277,17 @@
                                         <div class="card-text">
                                             <?php
                                             $about = strlen($game->about) > 400 ? substr($game->about, 0, 400) : $game->about;
-                                            echo $about;
+                                            $about = nl2br(htmlspecialchars($about)); // Convert newline characters to <br> and escape HTML entities
+                                            $about = str_replace('<br>', '</p><p>', $about); // Replace <br> with </p><p> for paragraphs
+                                            echo '<p>' . $about . '</p>';
                                             ?>
                                             @if (strlen($game->about) > 400)
                                                 <span class="collapse" id="more_about">
                                                     <?php
                                                     $about2 = strlen($game->about) > 400 ? substr($game->about, 400, 10000) : $game->about;
-                                                    echo $about2;
+                                                    $about2 = nl2br(htmlspecialchars($about2)); // Convert newline characters to <br> and escape HTML entities
+                                                    $about2 = str_replace('<br>', '</p><p>', $about2); // Replace <br> with </p><p> for paragraphs
+                                                    echo '<p>' . $about2 . '</p>';
                                                     ?>
                                                 </span>
                                                 <a id="see_more" onclick="toggleText(event)"
@@ -384,7 +388,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             new ClipboardJS('#copyButton', {
                 text: function() {
-                    return `games.myintmyat.dev/` + `{{ request()->path() }}`;
+                    return `https://games.myintmyat.dev/` + `{{ request()->path() }}`;
                 }
             });
 
