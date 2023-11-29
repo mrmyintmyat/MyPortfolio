@@ -10,12 +10,13 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://myintmyat.dev">
     <link rel="alternate" href="https://myintmyat.dev" hreflang="en">
+    <link rel="icon" type="png" href="https://myintmyat.dev/img/mma.jpg">
 
     <!-- Open Graph (OG) Tags for Social Media Sharing -->
     <meta property="og:title" content="ZYNN">
     <meta property="og:description"
         content="Passionate web developer specializing in front-end technologies. Proven track record in creating visually appealing and user-friendly websites. Explore my portfolio to see examples of my work and discover how I can bring your digital projects to life.">
-    <meta property="og:image" content="/img/mma_og_image.png">
+    <meta property="og:image" content="https://myintmyat.dev/img/mma_og_image.png">
     <meta property="og:url" content="https://myintmyat.dev">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
