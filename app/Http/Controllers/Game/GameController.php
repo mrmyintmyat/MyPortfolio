@@ -59,7 +59,12 @@ class GameController extends Controller
             return response()->json(['html' => $html]);
         }
 
-        $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
+        $queries = explode(' ', $query);
+        $games = Game::where(function ($queryBuilder) use ($queries) {
+            foreach ($queries as $q) {
+                $queryBuilder->orWhere('name', 'ILIKE', '%' . strtolower($q) . '%');
+            }
+        })
         ->where('post_status', '!=', '0')
         ->latest()
         ->paginate(10);
