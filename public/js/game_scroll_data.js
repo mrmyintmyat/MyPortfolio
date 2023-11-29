@@ -151,11 +151,11 @@ $(document).ready(function() {
         // Internet connection available, proceed with loading more items
         if (scrollTop + clientHeight + 49 >= scrollHeight) {
             if (navigator.onLine) {
-                if (nomoreitems === false) {
+                if (route === "/search" && nomoreitems === false) {
+                    check_search = true;
                     loadMoreItems(route);
-                    if (route === "/search") {
-                        check_search = true;
-                    }
+                } else if(nomoreitems === false){
+                    loadMoreItems(route);
                 }
             } else {
                 // No internet connection, display error message

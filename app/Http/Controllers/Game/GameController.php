@@ -54,7 +54,7 @@ class GameController extends Controller
             $games = Game::where('name', 'LIKE', '%' . $query . '%')
                 ->where('post_status', '!=', '0')
                 ->latest()
-                ->paginate(3, ['*'], 'page', $page);
+                ->paginate(10, ['*'], 'page', $page);
             $html = view('results.search-results-games', ['games' => $games])->render();
             return response()->json(['html' => $html]);
         }
@@ -62,7 +62,7 @@ class GameController extends Controller
         $games = Game::where('name', 'LIKE', '%' . $query . '%')
             ->where('post_status', '!=', '0')
             ->latest()
-            ->paginate(3);
+            ->paginate(10);
 
         $html = view('results.search-results-games', ['games' => $games])->render();
         return response()->json(['html' => $html]);
@@ -77,7 +77,7 @@ class GameController extends Controller
             $games = Game::where('name', 'LIKE', '%' . $query . '%')
                 ->where('post_status', '!=', '0')
                 ->latest()
-                ->paginate(3, ['*'], 'page', $page);
+                ->paginate(10, ['*'], 'page', $page);
             $html = view('results.search-results-games', ['games' => $games])->render();
             return response()->json(['html' => $html]);
         }

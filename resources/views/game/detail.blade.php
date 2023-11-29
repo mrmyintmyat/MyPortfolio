@@ -66,13 +66,17 @@
 
         div.scroll-image-container button {
             padding: 2px;
+            max-height: 100%;
+        }
+
+        div.scroll-image-container button img {
             max-height: 35vh;
         }
 
         @media (min-width: 992px) {
             div.scroll-image-container button {
-                width: 53%;
-                max-height: 100%;
+                /* width: 53%; */
+                max-height: 35vh;
             }
         }
 
@@ -460,6 +464,7 @@
             if (aspectRatio === 9 / 16) {
                 // Apply the custom style
                 button.style.width = '10rem';
+                image.classList.remove('w-100');
             }
         });
     </script>

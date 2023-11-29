@@ -71,7 +71,7 @@ function formatDownloads($downloads)
     </nav>
 @endsection
 @section('main')
-    <section class="px-2">
+    <section class="container px-0">
         <div class="">
             <ul class="list-unstyled scroll_page">
                 {{-- <h1 class="m-0">News</h1> --}}
