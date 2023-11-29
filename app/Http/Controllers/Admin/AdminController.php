@@ -222,6 +222,8 @@ class AdminController extends Controller
                 Storage::disk('public')->delete(str_replace('/storage/', '', $image));
             }
         }
+
+        Storage::disk('public')->delete(str_replace('/storage/', '', $game->logo));
         // Delete the game
         $game->delete();
 

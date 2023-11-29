@@ -86,6 +86,8 @@ $(document).ready(function() {
             beforeSend: function() {
                 $('.auto-load').show();
                 $('.error-message').hide();
+                $('.search-auto-load').show();
+                $('.search-error-message').hide();
                 // $(".main").scrollTop($(".main")[0].scrollHeight);
                 // $(window).scrollTop($(document).height()); // Scroll to the bottom of the page
 
@@ -94,6 +96,7 @@ $(document).ready(function() {
                 if (response.length > 0) {
                   setTimeout(() => {
                     $('.auto-load').hide();
+                $('.search-auto-load').hide();
                     $('#item_container').append(response);
                     nextPage++;
                     isLoading = false;
@@ -101,6 +104,7 @@ $(document).ready(function() {
                 } else if(check_search && response.html.length > 0){
                   setTimeout(() => {
                         $('.auto-load').hide();
+                        $('.search-auto-load').hide();
                         $('#item_container_search').append(response.html);
                         search_nextPage++;
                         isLoading = false;
@@ -112,8 +116,13 @@ $(document).ready(function() {
                     $('.error-message').html(
                         `<div class=" text-info"><i class="fa-solid fa-magnifying-glass mb-2 me-2"></i>No more items</div> `
                         );
+                        $('.search-error-message').html(
+                            `<div class=" text-info"><i class="fa-solid fa-magnifying-glass mb-2 me-2"></i>No more items</div> `
+                            );
                     $('.error-message').show();
+                    $('.search-error-message').show();
                     $('.auto-load').hide();
+                $('.search-auto-load').hide();
                     nomoreitems = true;
                     isLoading = false;
                     check_search = false;
@@ -124,6 +133,7 @@ $(document).ready(function() {
                 // console.log(error);
                 isLoading = false;
                 $('.auto-load').hide();
+        $('.search-auto-load').hide();
             }
         });
     }
@@ -151,7 +161,7 @@ $(document).ready(function() {
         // Internet connection available, proceed with loading more items
         if (scrollTop + clientHeight + 49 >= scrollHeight) {
             if (navigator.onLine) {
-                if (route === "/search" && nomoreitems === false) {
+                if (route === "/search") {
                     check_search = true;
                     loadMoreItems(route);
                 } else if(nomoreitems === false){
@@ -160,7 +170,6 @@ $(document).ready(function() {
             } else {
                 // No internet connection, display error message
                 // Show error message to the user
-                console.log("jsdv")
                 $(".error-message").html(`<div class=" text-danger">
 <i class="fa-solid fa-triangle-exclamation fa-fade"></i>Connection Error
 </div> `);
