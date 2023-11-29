@@ -51,18 +51,18 @@ class GameController extends Controller
 
         $page = $request->input('search_nextPage');
         if ($page) {
-            $games = Game::where('name', 'LIKE', '%' . $query . '%')
-                ->where('post_status', '!=', '0')
-                ->latest()
-                ->paginate(10, ['*'], 'page', $page);
+            $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
+            ->where('post_status', '!=', '0')
+            ->latest()
+            ->paginate(10, ['*'], 'page', $page);
             $html = view('results.search-results-games', ['games' => $games])->render();
             return response()->json(['html' => $html]);
         }
 
-        $games = Game::where('name', 'LIKE', '%' . $query . '%')
-            ->where('post_status', '!=', '0')
-            ->latest()
-            ->paginate(10);
+        $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
+        ->where('post_status', '!=', '0')
+        ->latest()
+        ->paginate(10);
 
         $html = view('results.search-results-games', ['games' => $games])->render();
         return response()->json(['html' => $html]);
@@ -74,10 +74,10 @@ class GameController extends Controller
 
         $page = $request->input('search_nextPage');
         if ($page) {
-            $games = Game::where('name', 'LIKE', '%' . $query . '%')
-                ->where('post_status', '!=', '0')
-                ->latest()
-                ->paginate(10, ['*'], 'page', $page);
+            $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
+            ->where('post_status', '!=', '0')
+            ->latest()
+            ->paginate(10, ['*'], 'page', $page);
             $html = view('results.search-results-games', ['games' => $games])->render();
             return response()->json(['html' => $html]);
         }
