@@ -1,6 +1,9 @@
 @extends('layouts.game')
 @section('title')
-    ZYNN GAMES
+    GAMES
+@endsection
+@section('logo')
+    /img/game_logo.jpg
 @endsection
 @section('style')
     <style>

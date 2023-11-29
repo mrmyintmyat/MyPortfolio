@@ -277,14 +277,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-body border-top border-0">
-                                        <div class="card-text">
-                                            <p><strong>How to install:</strong>
-                                                {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
-                                            </p>
-                                            <iframe src="https://www.youtube.com/embed/4qNIC8dt3oY" title="Frontline Commando D day for Android 12+.                                     #dday #games #gaming" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    @if ($game->id === 9)
+                                        <div class="card card-body border-top border-0">
+                                            <div class="card-text">
+                                                <p><strong>How to install:</strong>
+                                                    {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
+                                                </p>
+                                                <iframe class="w-100" style="min-height: 20rem;" src="https://www.youtube.com/embed/4qNIC8dt3oY"
+                                                    title="Frontline Commando D day for Android 12+.                                     #dday #games #gaming"
+                                                    frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    allowfullscreen></iframe>
+                                                <p><strong>Password:</strong> myintmyat.dev
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                     <div class="card card-body border-top border-0">
                                         <div class="card-text">
                                             <?php

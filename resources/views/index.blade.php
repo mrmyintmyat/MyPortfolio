@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ZYNN</title>
-    <meta name="description"
-        content="Stream live sports events online at Fotliv Sports. Enjoy real-time coverage of your favorite games. Join us now for the action!">
-    <meta name="keywords"
-        content="live sports streaming, watch sports online, live game coverage, sports events streaming">
+    <meta name="description" content="Passionate web developer specializing in front-end technologies. Proven track record in creating visually appealing and user-friendly websites. Explore my portfolio to see examples of my work and discover how I can bring your digital projects to life.">
+    <meta name="keywords" content="web development, front-end development, responsive design, JavaScript, HTML, CSS, portfolio, web design, UI/UX, Jquery, Php, Laravel, Node Js, Bootstrap">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://myintmyat.dev">
     <link rel="alternate" href="https://myintmyat.dev" hreflang="en">
@@ -16,8 +14,8 @@
     <!-- Open Graph (OG) Tags for Social Media Sharing -->
     <meta property="og:title" content="ZYNN">
     <meta property="og:description"
-        content="Stream live sports events online at Fotliv Sports. Enjoy real-time coverage of your favorite games. Join us now for the action!">
-    <meta property="og:image" content="https://myintmyat.dev/your-image.jpg">
+        content="Passionate web developer specializing in front-end technologies. Proven track record in creating visually appealing and user-friendly websites. Explore my portfolio to see examples of my work and discover how I can bring your digital projects to life.">
+    <meta property="og:image" content="/img/mma_og_image.png">
     <meta property="og:url" content="https://myintmyat.dev">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
