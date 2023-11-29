@@ -163,6 +163,7 @@ body{
 
    #photos_container_games{
     max-height: 15rem;
+    min-height: 15rem;
    }
 
    #navbar-sm{
