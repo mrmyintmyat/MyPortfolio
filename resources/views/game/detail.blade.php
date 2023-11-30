@@ -264,8 +264,7 @@
                                                     Download
                                                 </button>
                                             @else
-                                                <a href="{{$game->download_links['MediaFire']}}" class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5"
-                                                    data-bs-toggle="collapse">
+                                                <a href="{{$game->download_links['MediaFire']}}" class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
                                                     <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
                                                     Download
                                                 </a>
