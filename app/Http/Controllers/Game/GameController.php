@@ -18,6 +18,11 @@ class GameController extends Controller
             ->where('post_status', '!=', '0')
             ->paginate(10);
 
+        $popular_games = Game::orderBy('downloads', 'desc')
+        ->where('post_status', '!=', '0')
+        ->where('downloads', '>', 20)
+        ->paginate(5);
+
         if ($request->ajax()) {
             $page = $request->input('page');
             $games = Game::latest()
@@ -52,17 +57,17 @@ class GameController extends Controller
         $page = $request->input('search_nextPage');
         if ($page) {
             $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
-            ->where('post_status', '!=', '0')
-            ->latest()
-            ->paginate(10, ['*'], 'page', $page);
+                ->where('post_status', '!=', '0')
+                ->latest()
+                ->paginate(10, ['*'], 'page', $page);
             $html = view('results.search-results-games', ['games' => $games])->render();
             return response()->json(['html' => $html]);
         }
 
         $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
-        ->where('post_status', '!=', '0')
-        ->latest()
-        ->paginate(10);
+            ->where('post_status', '!=', '0')
+            ->latest()
+            ->paginate(10);
 
         $html = view('results.search-results-games', ['games' => $games])->render();
         return response()->json(['html' => $html]);
@@ -75,9 +80,9 @@ class GameController extends Controller
         $page = $request->input('search_nextPage');
         if ($page) {
             $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
-            ->where('post_status', '!=', '0')
-            ->latest()
-            ->paginate(10, ['*'], 'page', $page);
+                ->where('post_status', '!=', '0')
+                ->latest()
+                ->paginate(10, ['*'], 'page', $page);
             $html = view('results.search-results-games', ['games' => $games])->render();
             return response()->json(['html' => $html]);
         }

@@ -1,3 +1,17 @@
+@php
+function formatDownloads($downloads)
+{
+    if ($downloads < 1000) {
+        return $downloads;
+    } elseif ($downloads < 1000000) {
+        $formatted = number_format($downloads / 1000, 1);
+        return rtrim($formatted, '.0') . 'k+';
+    } else {
+        $formatted = number_format($downloads / 1000000, 1);
+        return rtrim($formatted, '.0') . 'M +';
+    }
+}
+@endphp
 @foreach ($games as $game)
     <div class="col">
         <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}" id="card"
