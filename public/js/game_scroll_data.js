@@ -2,10 +2,12 @@ $(document).ready(function() {
     //search
     let check_search = false;
     let input_val;
+    let searchnogames = false
     $('#searchForm').submit(function(e) {
         e.preventDefault();
     })
     $('#search').keyup(function(e) {
+        searchnogames = false;
         var query = $(this).val();
         input_val = query;
         var inputLength = query.length;
@@ -36,15 +38,16 @@ $(document).ready(function() {
                         searchResultsDiv.empty();
                         searchResultsDiv.append(data.html);
                     } else {
-                        // No more items available
+                        // No more games available
                         // $('.search_scroll_page').hide();
                         var searchResultsDiv = $('#item_container_search');
                         searchResultsDiv.empty();
                         $('.search-error-message').html(
-                            `<div class=" text-info"><i class="fa-solid fa-magnifying-glass fa-spin fa-spin-reverse me-2"></i>No more items found</div> `
+                            `<div class=" text-info"><i class="fa-solid fa-magnifying-glass fa-spin fa-spin-reverse me-2"></i>No more games found</div> `
                             );
                         $('.search-error-message').show();
                         $('.search-auto-load').hide();
+                        searchnogames = true;
                     }
 
                 },
@@ -66,7 +69,7 @@ $(document).ready(function() {
     var search_nextPage = 2;
     var isLoading = false; // Track whether data is being loaded
     let nomoreitems = false;
-    // Function to load more items
+    // Function to load more games
     function loadMoreItems(route) {
         if (isLoading) {
             return;
@@ -111,13 +114,13 @@ $(document).ready(function() {
                         check_search = false;
                   }, 1500);
                 } else {
-                    // No more items available
+                    // No more games available
                     setTimeout(() => {
                     $('.error-message').html(
-                        `<div class=" text-info"><i class="fa-solid fa-magnifying-glass mb-2 me-2"></i>No more items</div> `
+                        `<div class=" text-info"><i class="fa-solid fa-magnifying-glass mb-2 me-2"></i>No more games</div> `
                         );
                         $('.search-error-message').html(
-                            `<div class=" text-info"><i class="fa-solid fa-magnifying-glass mb-2 me-2"></i>No more items</div> `
+                            `<div class=" text-info"><i class="fa-solid fa-magnifying-glass mb-2 me-2"></i>No more games</div> `
                             );
                     $('.error-message').show();
                     $('.search-error-message').show();
@@ -158,10 +161,10 @@ $(document).ready(function() {
         // console.log(scrollHeight)
 
 
-        // Internet connection available, proceed with loading more items
+        // Internet connection available, proceed with loading more games
         if (scrollTop + clientHeight + 49 >= scrollHeight) {
             if (navigator.onLine) {
-                if (route === "/search") {
+                if (route === "/search" && searchnogames === false) {
                     check_search = true;
                     loadMoreItems(route);
                 } else if(nomoreitems === false){
