@@ -33,7 +33,7 @@ class GameController extends Controller
         }
 
         // $request->session()->put('sender_id', 'yo');
-        return view('game.index', compact('games'));
+        return view('game.index', compact('games', 'popular_games'));
     }
 
     public function detail($id, $name)
