@@ -286,10 +286,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @if ($game->id === 9)
+                                    @if ($game->id === 2)
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
-                                                <p><strong>Zarchiver:</strong></p><a href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver"></a>
+                                                <p><strong>Zarchiver:</strong><a  class="text-decoration-none"
+                                                    style="cursor: pointer;" href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver"> Download</a>
+                                                </p>
                                                 <p><strong>How to install:</strong>
                                                     {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
                                                 </p>
