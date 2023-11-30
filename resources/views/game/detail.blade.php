@@ -443,7 +443,7 @@
         })
 
         function handleDownloadClick(gameId, link) {
-            let isDownloading = false;
+            let isDownloading = true;
 
             // Make an AJAX request to increment downloads
             if (!isDownloading) {
