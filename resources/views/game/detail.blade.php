@@ -447,7 +447,6 @@
             // Make an AJAX request to increment downloads
             if (!isDownloading) {
                 isDownloading = true;
-                console.log(isDownloading)
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -461,7 +460,7 @@
                     },
                     success: function(response) {
                         if (isMediaFire === 'mediafire') {
-                            window.open(link);
+                            window.location.href = link;
                         }else{
                             window.open(link, '_blank');
                         }
@@ -475,7 +474,7 @@
                         }, 5000);
 
                         if (isMediaFire === 'mediafire') {
-                            window.open(link);
+                            window.location.href = link;
                         }else{
                             window.open(link, '_blank');
                         }
