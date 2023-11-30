@@ -264,7 +264,9 @@
                                                     Download
                                                 </button>
                                             @else
-                                                <a  onclick="handleDownloadClick({{ $game->id }}, 'null')" href="{{$game->download_links['MediaFire']}}" class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
+                                                <a onclick="handleDownloadClick({{ $game->id }}, 'null')"
+                                                    href="{{ $game->download_links['MediaFire'] }}"
+                                                    class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
                                                     <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
                                                     Download
                                                 </a>
@@ -441,28 +443,38 @@
         })
 
         function handleDownloadClick(gameId, link) {
-            console.log(gameId)
+            let isdownloading = false;
             // Make an AJAX request to increment downloads
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: '/increment-downloads',
-                method: 'POST',
-                data: {
-                    id: gameId
-                },
-                success: function(response) {
-                    if (link !== 'null') {
-                      window.open(link, '_blank');
+            if (isdownloading === false) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                },
-                error: function(error) {
-                    console.error('Error incrementing downloads:', error);
-                }
-            });
+                });
+                $.ajax({
+                    url: '/increment-downloads',
+                    method: 'POST',
+                    data: {
+                        id: gameId
+                    },
+                    beforeSend: function() {
+                        isdownloading = true;
+                    },
+                    success: function(response) {
+                        if (link !== 'null') {
+                            window.open(link, '_blank');
+                        }
+                        isdownloading = false;
+                    },
+                    error: function(error) {
+                        isdownloading = false;
+                        if (link !== 'null') {
+                            window.open(link, '_blank');
+                        }
+                        console.error('Error incrementing downloads:', error);
+                    }
+                });
+            }
         }
 
         function toggleText(event) {
