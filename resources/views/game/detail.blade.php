@@ -443,11 +443,12 @@
         })
 
         function handleDownloadClick(gameId, link) {
-            let isDownloading = true;
+            let isDownloading = false;
 
             // Make an AJAX request to increment downloads
             if (!isDownloading) {
                 isDownloading = true;
+                console.log(isDownloading)
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
