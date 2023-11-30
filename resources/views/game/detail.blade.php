@@ -254,13 +254,22 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <button
-                                                class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5"
-                                                type="button" data-bs-toggle="collapse" data-bs-target="#downloadlinks"
-                                                aria-expanded="false" aria-controls="downloadlinks">
-                                                <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
-                                                Download
-                                            </button>
+                                            @if (!isset($game->download_links['MediaFire']))
+                                                <button
+                                                    class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5"
+                                                    type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#downloadlinks" aria-expanded="false"
+                                                    aria-controls="downloadlinks">
+                                                    <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
+                                                    Download
+                                                </button>
+                                            @else
+                                                <a href="{{$game->download_links['MediaFire']}}" class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5"
+                                                    data-bs-toggle="collapse">
+                                                    <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
+                                                    Download
+                                                </a>
+                                            @endif
                                         </div>
                                         <div class="collapse" id="downloadlinks">
                                             <div class="card card-body rounded-0">
@@ -283,7 +292,8 @@
                                                 <p><strong>How to install:</strong>
                                                     {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
                                                 </p>
-                                                <iframe class="w-100" style="min-height: 20rem;" src="https://www.youtube.com/embed/4qNIC8dt3oY"
+                                                <iframe class="w-100" style="min-height: 20rem;"
+                                                    src="https://www.youtube.com/embed/4qNIC8dt3oY"
                                                     title="Frontline Commando D day for Android 12+.                                     #dday #games #gaming"
                                                     frameborder="0"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
