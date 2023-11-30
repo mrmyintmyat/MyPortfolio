@@ -289,7 +289,7 @@
                                     @if ($game->id === 9)
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
-                                                <p><strong>You Need To Use Vpn For Download the game!</strong></p>
+                                                <p><strong>You Need To Use Vpn To Download the game!</strong></p>
                                                 <p><strong>Zarchiver:</strong><a  class="text-decoration-none"
                                                     style="cursor: pointer;" href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver"> Download</a>
                                                 </p>
