@@ -264,8 +264,7 @@
                                                     Download
                                                 </button>
                                             @else
-                                                <a onclick="handleDownloadClick({{ $game->id }}, 'null')"
-                                                    href="{{ $game->download_links['MediaFire'] }}"
+                                                <a onclick="handleDownloadClick({{ $game->id }}, '{{$game->download_links['MediaFire']}}', 'mediafire')"
                                                     class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
                                                     <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
                                                     Download
@@ -277,7 +276,7 @@
                                                 @if ($game->download_links)
                                                     @foreach ($game->download_links as $name => $link)
                                                         <p><strong>{{ $name }}:</strong> <a
-                                                                onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}')"
+                                                                onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
                                                                 class="text-decoration-none"
                                                                 style="cursor: pointer;">{{ $link }}</a></p>
                                                     @endforeach
@@ -444,7 +443,7 @@
 
         let isDownloading = false;
 
-        function handleDownloadClick(gameId, link) {
+        function handleDownloadClick(gameId, link , isMediaFire) {
             // Make an AJAX request to increment downloads
             if (!isDownloading) {
                 isDownloading = true;
@@ -461,7 +460,9 @@
                         id: gameId
                     },
                     success: function(response) {
-                        if (link !== 'null') {
+                        if (isMediaFire === 'mediafire') {
+                            window.open(link);
+                        }else{
                             window.open(link, '_blank');
                         }
                         setTimeout(() => {
@@ -473,7 +474,9 @@
                             isDownloading = false;
                         }, 5000);
 
-                        if (link !== 'null') {
+                        if (isMediaFire === 'mediafire') {
+                            window.open(link);
+                        }else{
                             window.open(link, '_blank');
                         }
                         console.error('Error incrementing downloads:', error);
