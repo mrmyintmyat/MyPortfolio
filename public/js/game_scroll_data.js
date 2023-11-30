@@ -167,7 +167,7 @@ $(document).ready(function() {
                 if (route === "/search" && searchnogames === false) {
                     check_search = true;
                     loadMoreItems(route);
-                } else if(nomoreitems === false){
+                } else if(route === "/" && nomoreitems === false){
                     loadMoreItems(route);
                 }
             } else {
