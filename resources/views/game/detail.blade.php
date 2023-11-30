@@ -447,6 +447,7 @@
 
             // Make an AJAX request to increment downloads
             if (!isDownloading) {
+                isDownloading = true;
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -458,21 +459,18 @@
                     data: {
                         id: gameId
                     },
-                    beforeSend: function() {
-                        isDownloading = true;
-                    },
                     success: function(response) {
                         if (link !== 'null') {
                             window.open(link, '_blank');
                         }
-                        setTimeout(() => {
-                            isDownloading = false;
-                        }, 5000);
+                        // setTimeout(() => {
+                        //     isDownloading = false;
+                        // }, 5000);
                     },
                     error: function(error) {
-                        setTimeout(() => {
-                            isDownloading = false;
-                        }, 5000);
+                        // setTimeout(() => {
+                        //     isDownloading = false;
+                        // }, 5000);
 
                         if (link !== 'null') {
                             window.open(link, '_blank');
