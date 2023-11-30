@@ -443,9 +443,10 @@
         })
 
         function handleDownloadClick(gameId, link) {
-            let isdownloading = false;
+            let isDownloading = false;
+
             // Make an AJAX request to increment downloads
-            if (isdownloading === false) {
+            if (!isDownloading) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -458,27 +459,31 @@
                         id: gameId
                     },
                     beforeSend: function() {
-                        isdownloading = true;
+                        isDownloading = true;
                     },
                     success: function(response) {
                         if (link !== 'null') {
                             window.open(link, '_blank');
                         }
                         setTimeout(() => {
-                           isdownloading = false;
+                            isDownloading = false;
                         }, 5000);
                     },
                     error: function(error) {
                         setTimeout(() => {
-                           isdownloading = false;
+                            isDownloading = false;
                         }, 5000);
+
                         if (link !== 'null') {
                             window.open(link, '_blank');
                         }
                         console.error('Error incrementing downloads:', error);
                     }
                 });
+            }else{
+                alert("Downloading...")
             }
+
         }
 
         function toggleText(event) {
