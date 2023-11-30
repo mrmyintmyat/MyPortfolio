@@ -1,16 +1,8 @@
 @extends('layouts.game')
-@section('title')
-    {{ $game->name }}
-@endsection
-@section('logo')
-    {{ $game->logo }}
-@endsection
-@section('image')
-    @php
-        $images = $game->image;
-    @endphp
-    {{ $images[0] }}
-@endsection
+@section('title'){{ $game->name }}@endsection
+@section('logo'){{ $game->logo }}@endsection
+@section('image')@php $images = $game->image; @endphp {{ $images[0] }}@endsection
+@section('keywords'){{$game->name}},{{$game->category}}Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games @endsection
 @section('style')
     <style>
         body {

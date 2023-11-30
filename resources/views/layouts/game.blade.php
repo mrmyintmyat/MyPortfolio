@@ -8,8 +8,8 @@
 
     <meta name="description"
         content="Let's download @yield('title')">
-    {{-- <meta name="keywords"
-        content=""> --}}
+    <meta name="keywords"
+        content="@yield('keywords')">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://games.myintmyat.dev">
     <link rel="alternate" href="https://games.myintmyat.dev" hreflang="en">

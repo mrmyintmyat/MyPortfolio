@@ -1,10 +1,8 @@
 @extends('layouts.game')
-@section('title')
-    GAMES
-@endsection
-@section('logo')
-    /img/game_logo.jpg
-@endsection
+@section('title')GAMES @endsection
+@section('logo')/img/game_logo.jpg @endsection
+{{-- @section('image')@php $images = $game->image; @endphp {{ $images[0] }}@endsection --}}
+@section('keywords')Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games @endsection
 @section('style')
     <style>
         .image {
