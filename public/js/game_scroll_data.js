@@ -47,7 +47,6 @@ $(document).ready(function() {
                             );
                         $('.search-error-message').show();
                         $('.search-auto-load').hide();
-                        searchnogames = true;
                     }
 
                 },
@@ -129,6 +128,7 @@ $(document).ready(function() {
                     nomoreitems = true;
                     isLoading = false;
                     check_search = false;
+                    searchnogames = true;
                 }, 1500);
                 }
             },
