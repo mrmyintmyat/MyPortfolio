@@ -464,10 +464,14 @@
                         if (link !== 'null') {
                             window.open(link, '_blank');
                         }
-                        isdownloading = false;
+                        setTimeout(() => {
+                           isdownloading = false;
+                        }, 5000);
                     },
                     error: function(error) {
-                        isdownloading = false;
+                        setTimeout(() => {
+                           isdownloading = false;
+                        }, 5000);
                         if (link !== 'null') {
                             window.open(link, '_blank');
                         }
