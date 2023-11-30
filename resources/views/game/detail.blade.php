@@ -304,6 +304,7 @@
                                     @endif
                                     <div class="card card-body border-top border-0">
                                         <div class="card-text">
+                                            <h4>Game Review: {{$game->name}}</h4>
                                             <?php
                                             $about = strlen($game->about) > 400 ? substr($game->about, 0, 400) : $game->about;
                                             $about = nl2br(htmlspecialchars($about)); // Convert newline characters to <br> and escape HTML entities
