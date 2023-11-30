@@ -303,7 +303,7 @@
                                         </div>
                                     @endif
                                     <div class="card card-body border-top border-0">
-                                        <div class="card-text">
+                                        <div class="card-text fw-medium">
                                             <h4>Game Review: {{$game->name}}</h4>
                                             <?php
                                             $about = strlen($game->about) > 400 ? substr($game->about, 0, 400) : $game->about;
