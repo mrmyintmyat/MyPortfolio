@@ -401,7 +401,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('script')
-    <script src="/js/game_scroll_data.js"></script>
+    <script src="/js/game_scroll_data.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
