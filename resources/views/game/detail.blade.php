@@ -301,7 +301,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-body border-top border-0 p-0 py-2">
+                                    <div class="card card-body border-top border-0 p-0 p-2">
+                                        {{-- <p class="text-center m-0"><strong class="text-danger">You Need To Use Vpn To Download the game</strong></p> --}}
+                                        <p class="text-center"><strong class="text-danger">Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
                                         <div class="card-text text-center p-2 fw-bold "
                                             style="font-size: 1rem;background: #FE6F00;">
                                             <a style="line-height: 1.3rem;" href="https://fotliv.com/"
@@ -315,13 +317,16 @@
                                             <a href="https://fotliv.com/">
                                                 <img class="w-100 h-100" src="/img/fotliv_ads.png" alt="">
                                             </a>
+                                            <a href="https://fotliv.com/"
+                                                class="btn mt-2 bg-warning text-white shadow py-2 my-lg-2 col-lg-4 col-12 rounded-pill fw-bold fs-5">
+                                                <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
+                                                Download App
+                                            </a>
                                         </div>
                                     </div>
                                     @if ($game->id === 9)
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
-                                                <p><strong class="text-danger">You Need To Use Vpn To Download the
-                                                        game!</strong></p>
                                                 <p><strong>Zarchiver:</strong><a class="text-decoration-none"
                                                         style="cursor: pointer;"
                                                         href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver">
