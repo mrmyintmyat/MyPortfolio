@@ -96,11 +96,8 @@ class GameController extends Controller
         $download_again = $request->again;
         $key = 'downloaded_game_' . $gameId;
 
-        if ($download_again == true) {
-            $request->session()->forget($key);
-        }
         // Check if the game has already been downloaded in this session
-        if (!$request->session()->has($key)) {
+        // if (!$request->session()->has($key)) {
             $game = Game::where('id', $gameId)
                 ->where('post_status', '!=', '0')
                 ->firstOrFail();
@@ -115,11 +112,11 @@ class GameController extends Controller
             $game->save();
 
             // Mark the game as downloaded in the session
-            $request->session()->put($key, true);
+            // $request->session()->put($key, true);
 
             return response()->json(['success' => true]);
-        }
+        // }
 
-        return response()->json(['success' => false, 'message' => 'Game already downloaded']);
+        // return response()->json(['success' => false, 'message' => 'Game already downloaded']);
     }
 }
