@@ -198,7 +198,8 @@
                                             <img style="width: 4rem;" class="rounded-2" src="{{ $game->logo }}"
                                                 alt="">
                                             <div class="ms-2" style="line-height: 1.1rem">
-                                                <h5 class="card-title m-0 text-truncate col-8"
+                                                <h5 class="card-title m-0 text-truncate"
+                                                style="max-width: 200px;"
                                                     id="title">
                                                     {{ $game->name }}</h5>
                                                 <p class="m-0 text-muted">{{ $game->online_or_offline }}</p>
