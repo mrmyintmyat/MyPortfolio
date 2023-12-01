@@ -303,7 +303,7 @@
                                     </div>
                                     <div class="card card-body border-top border-0 p-0 p-2">
                                         {{-- <p class="text-center m-0"><strong class="text-danger">You Need To Use Vpn To Download the game</strong></p> --}}
-                                        <p class="text-center"><strong class="text-danger">Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
+                                        <p class="text-center"><strong class="text-danger">ဂိမ်းကို Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
                                         <div class="card-text text-center p-2 fw-bold "
                                             style="font-size: 1rem;background: #FE6F00;">
                                             <a style="line-height: 1.3rem;" href="https://fotliv.com/"
