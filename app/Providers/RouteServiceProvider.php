@@ -29,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            Route::domain('games.localhost')->group(base_path('routes/subdomain_web.php'));
+            Route::domain('games.localhost')->middleware(['web'])->group(base_path('routes/subdomain_web.php'));
             Route::middleware('api')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));

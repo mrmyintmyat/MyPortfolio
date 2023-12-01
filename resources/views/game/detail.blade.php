@@ -1,13 +1,22 @@
 @extends('layouts.game')
-@section('title'){{ $game->name }}@endsection
-@section('logo'){{ $game->logo }}@endsection
-@section('image')@php $images = $game->image; @endphp {{ $images[0] }}@endsection
-@section('keywords'){{$game->name}},{{$game->category}}Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games @endsection
+@section('title')
+    {{ $game->name }}
+@endsection
+@section('logo')
+    {{ $game->logo }}
+@endsection
+@section('image')
+    @php $images = $game->image; @endphp {{ $images[0] }}
+@endsection
+@section('keywords')
+    {{ $game->name }},{{ $game->category }}Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games
+@endsection
 @section('style')
     <style>
         body {
             overflow-y: auto;
             overflow-x: hidden;
+            padding: 0px;
         }
 
         .image {
@@ -90,7 +99,19 @@
             transition: opacity 0.5s ease-in-out;
         }
 
-        /* MITTENS */
+        @media(max-width: 450px){
+            .fotliv-ads-text{
+                font-size: 0.8rem;
+            }
+        }
+        .share_btn{
+                display: flex;
+            }
+        @media(max-width: 360px){
+            .share_btn{
+                display: none;
+            }
+        }
     </style>
 @endsection
 @section('btn')
@@ -157,7 +178,8 @@
 
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="imageModal{{ $count }}" tabindex="-1"
-                                                    aria-labelledby="imageModalLabel{{ $count }}" aria-hidden="true">
+                                                    aria-labelledby="imageModalLabel{{ $count }}"
+                                                    aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-body p-0">
@@ -176,7 +198,7 @@
                                             <img style="width: 4rem;" class="rounded-2" src="{{ $game->logo }}"
                                                 alt="">
                                             <div class="ms-2" style="line-height: 1.1rem">
-                                                <h5 class="card-title m-0 text-truncate" style="max-width: 200px; "
+                                                <h5 class="card-title m-0 text-truncate col-8"
                                                     id="title">
                                                     {{ $game->name }}</h5>
                                                 <p class="m-0 text-muted">{{ $game->online_or_offline }}</p>
@@ -186,7 +208,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="d-flex flex-column justify-content-center align-items-end dropdown">
+                                        <div class="share_btn flex-column justify-content-center align-items-end dropdown">
                                             <button class="btn bg-white shadow py-2 px-3 dropdown-toggle" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fa-solid fa-share fs-5"></i>
@@ -256,7 +278,7 @@
                                                     Download
                                                 </button>
                                             @else
-                                                <a onclick="handleDownloadClick({{ $game->id }}, '{{$game->download_links['MediaFire']}}', 'mediafire')"
+                                                <a onclick="handleDownloadClick({{ $game->id }}, '{{ $game->download_links['MediaFire'] }}', 'mediafire')"
                                                     class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
                                                     <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
                                                     Download
@@ -278,12 +300,31 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card card-body border-top border-0 p-0">
+                                        <div class="card-text text-center p-2 fw-bold "
+                                            style="font-size: 1rem;background: #FE6F00;">
+                                            <a style="line-height: 1.3rem;" href="https://fotliv.com/"
+                                                class="align-items-center justify-content-center fotliv-ads-text text-decoration-none text-white shake-right d-sm-flex d-none"><img style="width: 3rem" src="https://play-lh.googleusercontent.com/yz6mX4Bj-bQHvUpZKURcmfMYgppnkcY_J3WQ3i7YkhnZgRTPMUCvKG-TFLWggf7wNxU=w240-h480-rw" alt="">
+                                                <p class="ms-1 m-0">
+                                                    ဘောလုံးပွဲများကိုအခမဲ့တိုက်ရိုက်ကြည့်နိုင်ပါပြီဒေါင်းရန်နိပ့်ပါ
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <div class="card-text d-sm-none d-block">
+                                            <a href="https://fotliv.com/">
+                                                <img class="w-100 h-100" src="/img/fotliv_ads.png" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
                                     @if ($game->id === 9)
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
-                                                <p><strong class="text-danger">You Need To Use Vpn To Download the game!</strong></p>
-                                                <p><strong>Zarchiver:</strong><a  class="text-decoration-none"
-                                                    style="cursor: pointer;" href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver"> Download</a>
+                                                <p><strong class="text-danger">You Need To Use Vpn To Download the
+                                                        game!</strong></p>
+                                                <p><strong>Zarchiver:</strong><a class="text-decoration-none"
+                                                        style="cursor: pointer;"
+                                                        href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver">
+                                                        Download</a>
                                                 </p>
                                                 <p><strong>How to install:</strong>
                                                     {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
@@ -300,7 +341,7 @@
                                     @endif
                                     <div class="card card-body border-top border-0">
                                         <div class="card-text fw-medium">
-                                            <h4>Game Review: {{$game->name}}</h4>
+                                            <h4>Game Review: {{ $game->name }}</h4>
                                             <?php
                                             $about = strlen($game->about) > 400 ? substr($game->about, 0, 400) : $game->about;
                                             $about = nl2br(htmlspecialchars($about)); // Convert newline characters to <br> and escape HTML entities
@@ -440,7 +481,7 @@
 
         let isDownloading = false;
 
-        function handleDownloadClick(gameId, link , isMediaFire) {
+        function handleDownloadClick(gameId, link, isMediaFire, download_again = false) {
             // Make an AJAX request to increment downloads
             if (!isDownloading) {
                 isDownloading = true;
@@ -453,36 +494,50 @@
                     url: '/increment-downloads',
                     method: 'POST',
                     data: {
-                        id: gameId
+                        id: gameId,
+                        again: download_again
                     },
                     success: function(response) {
-                        if (isMediaFire === 'mediafire') {
-                            window.location.href = link;
-                        }else{
-                            window.open(link, '_blank');
-                        }
-                        setTimeout(() => {
+                        if (response.success) {
+                            // If success is true, proceed with the download
+                            if (isMediaFire === 'mediafire') {
+                                window.location.href = link;
+                            } else {
+                                window.open(link, '_blank');
+                            }
+
+                            setTimeout(() => {
+                                isDownloading = false;
+                            }, 5000);
+                        } else {
                             isDownloading = false;
-                        }, 5000);
+                            // If success is false, show the modal or take appropriate action
+                            if (confirm('Download Again?')) {
+                                handleDownloadClick(gameId, link, isMediaFire, download_again = true);
+                            }
+                        }
                     },
                     error: function(error) {
+                        // Handle AJAX request error
+                        // Show the modal or take appropriate action
+                        // Reset the flag after a delay
                         setTimeout(() => {
                             isDownloading = false;
                         }, 5000);
 
                         if (isMediaFire === 'mediafire') {
                             window.location.href = link;
-                        }else{
+                        } else {
                             window.open(link, '_blank');
                         }
                         console.error('Error incrementing downloads:', error);
                     }
                 });
-            }else{
-                alert("Downloading...")
+            } else {
+                alert('Downloading...');
             }
-
         }
+
 
         function toggleText(event) {
             const link = event.target;

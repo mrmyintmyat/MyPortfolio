@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Game;
 
+use session;
 use App\Models\Game;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
 
 class GameController extends Controller
 {
@@ -92,16 +92,34 @@ class GameController extends Controller
 
     public function increment_downloads(Request $request)
     {
-        $game = Game::where('id', $request->id)
-            ->where('post_status', '!=', '0')
-            ->firstOrFail();
+        $gameId = $request->id;
+        $download_again = $request->again;
+        $key = 'downloaded_game_' . $gameId;
 
-        $game->timestamps = false;
+        if ($download_again == true) {
+            $request->session()->forget($key);
+        }
+        // Check if the game has already been downloaded in this session
+        if (!$request->session()->has($key)) {
+            $game = Game::where('id', $gameId)
+                ->where('post_status', '!=', '0')
+                ->firstOrFail();
 
-        $game->increment('downloads', 1);
+            // Disable timestamps to prevent updated_at from changing
+            $game->timestamps = false;
 
-        $game->save();
+            // Increment downloads
+            $game->increment('downloads', 1);
 
-        return response()->json(['success' => true]);
+            // Save the game
+            $game->save();
+
+            // Mark the game as downloaded in the session
+            $request->session()->put($key, true);
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Game already downloaded']);
     }
 }
