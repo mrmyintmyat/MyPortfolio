@@ -76,6 +76,20 @@
                     </div>
 
                     <div class="row mb-3">
+                        <label for="downloads" class="form-label">downloads</label>
+                        <div class="">
+                            <input id="downloads" type="text"
+                                class="form-control @error('downloads') is-invalid @enderror rounded-0" name="downloads"
+                                value="{{ $game->downloads }}" required autocomplete="downloads">
+                            @error('downloads')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
                         <label for="online_or_offline" class="form-label">Online or Offline</label>
                         <div class="">
                             <select id="online_or_offline" name="online_or_offline"

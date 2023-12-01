@@ -153,6 +153,7 @@ class AdminController extends Controller
             'online_or_offline' => 'required|in:online,offline,Online/Offline',
             'logo' => 'required|string',
             'category' => 'required',
+            'downloads' => 'required',
             'download_links' => 'required|json',
         ]);
 
@@ -198,6 +199,7 @@ class AdminController extends Controller
                 'online_or_offline' => $request->online_or_offline,
                 'logo' => $logo,
                 'category' => $request->category,
+                'downloads' => $request->downloads,
                 'download_links' => json_decode($request->download_links, true),
                 'image' => $newImages,
                 'user_id' => Auth::user()->id,
