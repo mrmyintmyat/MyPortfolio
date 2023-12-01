@@ -300,7 +300,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-body border-top border-0 p-0">
+                                    <div class="card card-body border-top border-0 p-0 py-2">
                                         <div class="card-text text-center p-2 fw-bold "
                                             style="font-size: 1rem;background: #FE6F00;">
                                             <a style="line-height: 1.3rem;" href="https://fotliv.com/"
