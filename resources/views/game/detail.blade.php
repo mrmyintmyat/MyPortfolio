@@ -324,7 +324,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    @if ($game->id === 9)
+                                    @if (isset($game->download_links['MediaFire']))
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
                                                 <p><strong>Zarchiver:</strong><a class="text-decoration-none"
@@ -336,8 +336,7 @@
                                                     {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
                                                 </p>
                                                 <iframe class="w-100" style="min-height: 20rem;"
-                                                    src="https://www.youtube.com/embed/4qNIC8dt3oY"
-                                                    title="Frontline Commando D day for Android 12+.                                     #dday #games #gaming"
+                                                    src="{{$game->download_links['Youtube']}}"
                                                     frameborder="0"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                     allowfullscreen></iframe>
