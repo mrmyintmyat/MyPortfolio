@@ -332,17 +332,21 @@
                                     @if (isset($game->download_links['MediaFire']))
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
-                                                <p><strong>Zarchiver:</strong><a class="text-decoration-none"
-                                                        style="cursor: pointer;"
-                                                        href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver">
-                                                        Download</a>
-                                                </p>
-                                                @if (isset($game->download_links['Youtube']))
+                                                @foreach ($game->download_links as $name => $link)
+                                                    @if ($name !== 'MediaFire' && $name !== 'Howto')
+                                                        <p><strong>{{ $name }}:</strong> <a
+                                                                onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
+                                                                class="text-decoration-none"
+                                                                style="cursor: pointer;">{{ $link }}</a></p>
+                                                    @endif
+                                                @endforeach
+
+                                                @if (isset($game->download_links['Howto']))
                                                     <p><strong>How to install:</strong>
-                                                        {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
+                                                        {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Howto</a> --}}
                                                     </p>
                                                     <iframe class="w-100" style="min-height: 20rem;"
-                                                        src="{{ $game->download_links['Youtube'] }}" frameborder="0"
+                                                        src="{{ $game->download_links['Howto'] }}" frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                         allowfullscreen></iframe>
                                                     <p><strong>Password:</strong> myintmyat.dev</p>
