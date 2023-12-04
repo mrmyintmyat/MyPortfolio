@@ -99,16 +99,18 @@
             transition: opacity 0.5s ease-in-out;
         }
 
-        @media(max-width: 450px){
-            .fotliv-ads-text{
+        @media(max-width: 450px) {
+            .fotliv-ads-text {
                 font-size: 0.8rem;
             }
         }
-        .share_btn{
-                display: flex;
-            }
-        @media(max-width: 360px){
-            .share_btn{
+
+        .share_btn {
+            display: flex;
+        }
+
+        @media(max-width: 360px) {
+            .share_btn {
                 display: none;
             }
         }
@@ -198,8 +200,7 @@
                                             <img style="width: 4rem;" class="rounded-2" src="{{ $game->logo }}"
                                                 alt="">
                                             <div class="ms-2" style="line-height: 1.1rem">
-                                                <h5 class="card-title m-0 text-truncate"
-                                                style="max-width: 200px;"
+                                                <h5 class="card-title m-0 text-truncate" style="max-width: 200px;"
                                                     id="title">
                                                     {{ $game->name }}</h5>
                                                 <p class="m-0 text-muted">{{ $game->online_or_offline }}</p>
@@ -303,11 +304,15 @@
                                     </div>
                                     <div class="card card-body border-top border-0 p-0 p-2">
                                         {{-- <p class="text-center m-0"><strong class="text-danger">You Need To Use Vpn To Download the game</strong></p> --}}
-                                        <p class="text-center"><strong class="text-danger">ဂိမ်းကို Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
+                                        <p class="text-center"><strong class="text-danger">ဂိမ်းကို
+                                                Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
                                         <div class="card-text text-center p-2 fw-bold "
                                             style="font-size: 1rem;background: #FE6F00;">
                                             <a style="line-height: 1.3rem;" href="https://fotliv.com/"
-                                                class="align-items-center justify-content-center fotliv-ads-text text-decoration-none text-white shake-right d-sm-flex d-none"><img style="width: 3rem" src="https://play-lh.googleusercontent.com/yz6mX4Bj-bQHvUpZKURcmfMYgppnkcY_J3WQ3i7YkhnZgRTPMUCvKG-TFLWggf7wNxU=w240-h480-rw" alt="">
+                                                class="align-items-center justify-content-center fotliv-ads-text text-decoration-none text-white shake-right d-sm-flex d-none"><img
+                                                    style="width: 3rem"
+                                                    src="https://play-lh.googleusercontent.com/yz6mX4Bj-bQHvUpZKURcmfMYgppnkcY_J3WQ3i7YkhnZgRTPMUCvKG-TFLWggf7wNxU=w240-h480-rw"
+                                                    alt="">
                                                 <p class="ms-1 m-0">
                                                     ဘောလုံးပွဲများကိုအခမဲ့တိုက်ရိုက်ကြည့်နိုင်ပါပြီဒေါင်းရန်နိပ့်ပါ
                                                 </p>
@@ -332,15 +337,16 @@
                                                         href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver">
                                                         Download</a>
                                                 </p>
-                                                <p><strong>How to install:</strong>
-                                                    {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
-                                                </p>
-                                                <iframe class="w-100" style="min-height: 20rem;"
-                                                    src="{{$game->download_links['Youtube']}}"
-                                                    frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                    allowfullscreen></iframe>
-                                                <p><strong>Password:</strong> myintmyat.dev
+                                                @if (isset($game->download_links['Youtube']))
+                                                    <p><strong>How to install:</strong>
+                                                        {{-- <a href="/" class="text-decoration-none btn btn-danger" style="cursor: pointer;">Watch On Youtube</a> --}}
+                                                    </p>
+                                                    <iframe class="w-100" style="min-height: 20rem;"
+                                                        src="{{ $game->download_links['Youtube'] }}" frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                        allowfullscreen></iframe>
+                                                    <p><strong>Password:</strong> myintmyat.dev</p>
+                                                @endif
                                             </div>
                                         </div>
                                     @endif
