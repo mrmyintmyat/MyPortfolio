@@ -304,7 +304,7 @@
                                     </div>
                                     <div class="card card-body border-top border-0 p-0 p-2">
                                         {{-- <p class="text-center m-0"><strong class="text-danger">You Need To Use Vpn To Download the game</strong></p> --}}
-                                        <p class="text-center"><strong class="text-danger">ဂိမ်းကို
+                                        <p class="text-center m-0"><strong class="text-danger">ဂိမ်းကို
                                                 Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
                                         <div style="height: 8rem;">
                                             <a href="https://t.me/zynngames">
