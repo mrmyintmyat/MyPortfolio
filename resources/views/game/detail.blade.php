@@ -346,19 +346,19 @@
                                     <div class="card card-body border-top border-0">
                                         <div class="card-text">
                                             @if (isset($game->download_links['password']))
-                                                <p><strong>Password:</strong> {{ $game->download_links['password'] }}</p>
+                                                <p class="m-0"><strong>Password:</strong> {{ $game->download_links['password'] }}</p>
                                             @endif
                                             @if (isset($game->download_links['Youtube']))
-                                                <p><strong>How to install:</strong></p>
+                                                <p class="m-0"><strong>How to install:</strong></p>
                                                 <iframe class="w-100" style="min-height: 20rem;"
                                                     src="{{ $game->download_links['Youtube'] }}" frameborder="0"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                     allowfullscreen></iframe>
                                             @endif
                                             @if (isset($game->download_links['Howto']))
-                                                <p><strong>How to install:</strong>
+                                                <p class="m-0"><strong>How to install:</strong>
                                                     <a href="{{ $game->download_links['Howto'] }}"
-                                                        class="text-decoration-none btn btn-danger"
+                                                        class="text-decoration-none btn btn-success btn-sm"
                                                         style="cursor: pointer;">{{ $game->download_links['Howto'] }}</a>
                                                 </p>
                                             @endif
