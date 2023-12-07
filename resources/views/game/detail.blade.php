@@ -333,7 +333,7 @@
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
                                                 @foreach ($game->download_links as $name => $link)
-                                                    @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password')
+                                                    @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
                                                         <p><strong>{{ $name }}:</strong> <a
                                                                 onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
                                                                 class="text-decoration-none"
