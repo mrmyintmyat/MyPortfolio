@@ -333,31 +333,37 @@
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
                                                 @foreach ($game->download_links as $name => $link)
-                                                    @if ($name !== 'MediaFire')
+                                                    @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password')
                                                         <p><strong>{{ $name }}:</strong> <a
                                                                 onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
                                                                 class="text-decoration-none"
                                                                 style="cursor: pointer;">{{ $link }}</a></p>
                                                     @endif
                                                 @endforeach
-                                                @if (isset($game->download_links['password']))
-                                                <p><strong>Password:</strong> {{$game->download_links['password']}}</p>
-                                                @endif
-                                                @if (isset($game->download_links['Youtube']))
-                                                <p><strong>How to install:</strong></p>
-                                                    <iframe class="w-100" style="min-height: 20rem;"
-                                                        src="{{ $game->download_links['Youtube'] }}" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                        allowfullscreen></iframe>
-                                                @endif
-                                                @if (isset($game->download_links['Howto']))
-                                                    <p><strong>How to install:</strong>
-                                                        <a href="{{$game->download_links['Howto']}}" class="text-decoration-none btn btn-danger" style="cursor: pointer;">{{$game->download_links['Howto']}}</a>
-                                                    </p>
-                                                @endif
                                             </div>
                                         </div>
                                     @endif
+                                    <div class="card card-body border-top border-0">
+                                        <div class="card-text">
+                                            @if (isset($game->download_links['password']))
+                                                <p><strong>Password:</strong> {{ $game->download_links['password'] }}</p>
+                                            @endif
+                                            @if (isset($game->download_links['Youtube']))
+                                                <p><strong>How to install:</strong></p>
+                                                <iframe class="w-100" style="min-height: 20rem;"
+                                                    src="{{ $game->download_links['Youtube'] }}" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    allowfullscreen></iframe>
+                                            @endif
+                                            @if (isset($game->download_links['Howto']))
+                                                <p><strong>How to install:</strong>
+                                                    <a href="{{ $game->download_links['Howto'] }}"
+                                                        class="text-decoration-none btn btn-danger"
+                                                        style="cursor: pointer;">{{ $game->download_links['Howto'] }}</a>
+                                                </p>
+                                            @endif
+                                        </div>
+                                    </div>
                                     <div class="card card-body border-top border-0">
                                         <div class="card-text fw-medium">
                                             <h4>Game Review: {{ $game->name }}</h4>
