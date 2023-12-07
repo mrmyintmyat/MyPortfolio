@@ -306,6 +306,12 @@
                                         {{-- <p class="text-center m-0"><strong class="text-danger">You Need To Use Vpn To Download the game</strong></p> --}}
                                         <p class="text-center"><strong class="text-danger">ဂိမ်းကို
                                                 Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
+                                        <div style="height: 8rem;">
+                                            <a href="https://t.me/zynngames">
+                                                <img class="w-100 h-100" src="/img/join_telegram.gif" alt="Animated GIF">
+                                            </a>
+                                        </div>
+
                                         <div class="card-text text-center p-2 fw-bold "
                                             style="font-size: 1rem;background: #FE6F00;">
                                             <a style="line-height: 1.3rem;" href="https://fotliv.com/"
@@ -346,7 +352,8 @@
                                     <div class="card card-body border-top border-0">
                                         <div class="card-text">
                                             @if (isset($game->download_links['password']))
-                                                <p class="m-0"><strong>Password:</strong> {{ $game->download_links['password'] }}</p>
+                                                <p class="m-0"><strong>Password:</strong>
+                                                    {{ $game->download_links['password'] }}</p>
                                             @endif
                                             @if (isset($game->download_links['Youtube']))
                                                 <p class="m-0"><strong>How to install:</strong></p>
