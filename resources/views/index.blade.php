@@ -504,7 +504,7 @@
                 // Send a POST request
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('send_message') }}",
+                    url: "/send_message",
                     data: formData,
                     success: function(response) {
                         toast_show(response.Done);
