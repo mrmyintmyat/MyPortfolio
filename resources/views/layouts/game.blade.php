@@ -126,7 +126,7 @@
         });
     </script>
     @yield('script')
-
+{{-- //gg --}}
 </body>
 
 </html>
