@@ -118,8 +118,10 @@
     <script>
         $(document).ready(function() {
             setTimeout(() => {
-                $('.loader_container').fadeOut(1500);
-                $('#main_container').fadeIn(1500);
+                $('.loader_container').fadeOut();
+                setTimeout(() => {
+                    $('#main_container').fadeIn();
+                }, 500);
             }, 2000);
         });
     </script>
