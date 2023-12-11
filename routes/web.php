@@ -42,7 +42,7 @@ Auth::routes(['register' => false]);
 // Route::resource('/shop', ShopController::class);
 // Route::post('/buy', [ShopController::class, 'buy']);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/search', [ShopController::class, 'search']);
+// Route::post('/search', [ShopController::class, 'search']);
 // Route::get('/search', [ShopController::class, 'search_scroll']);
 
 //admin panel

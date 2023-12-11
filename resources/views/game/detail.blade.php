@@ -291,10 +291,12 @@
                                             <div class="card card-body rounded-0">
                                                 @if ($game->download_links)
                                                     @foreach ($game->download_links as $name => $link)
-                                                        <p><strong>{{ $name }}:</strong> <a
-                                                                onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
-                                                                class="text-decoration-none"
-                                                                style="cursor: pointer;">{{ $link }}</a></p>
+                                                        @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
+                                                            <p><strong>{{ $name }}:</strong> <a
+                                                                    onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
+                                                                    class="text-decoration-none"
+                                                                    style="cursor: pointer;">{{ $link }}</a></p>
+                                                        @endif
                                                     @endforeach
                                                 @else
                                                     <p>No download links available.</p>
@@ -304,10 +306,10 @@
                                     </div>
                                     <div class="card card-body border-top border-0 p-0 p-2">
                                         {{-- <p class="text-center m-0"><strong class="text-danger">You Need To Use Vpn To Download the game</strong></p> --}}
-                                        <p class="text-center m-0"><strong class="text-danger">ဂိမ်းကို
+                                        <p class="text-center m-0 mb-lg-2"><strong class="text-danger">ဂိမ်းကို
                                                 Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
-                                        <div style="height: 8rem;">
-                                            <a href="https://t.me/zynngames">
+                                        <div class="d-flex d-lg-none justify-content-center" style="height: 8rem;">
+                                            <a class="col-lg-8 col-12" href="https://t.me/zynngames">
                                                 <img class="w-100 h-100" src="/img/join_telegram.gif" alt="Animated GIF">
                                             </a>
                                         </div>
@@ -445,6 +447,11 @@
                             @else
                                 <h4 class="text-center py-3">Not yet...</h4>
                             @endif
+                            <div class="d-lg-flex d-none justify-content-center" style="height: 8rem;">
+                                <a class="col-12" href="https://t.me/zynngames">
+                                    <img class="w-100 h-100" src="/img/join_telegram.gif" alt="Animated GIF">
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

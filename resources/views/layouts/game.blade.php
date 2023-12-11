@@ -6,25 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
-    <meta name="description"
-        content="Let's download @yield('title')">
-    <meta name="keywords"
-        content="@yield('keywords')">
+    <meta name="description" content="Let's download @yield('title')">
+    <meta name="keywords" content="@yield('keywords')">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://games.myintmyat.dev">
     <link rel="alternate" href="https://games.myintmyat.dev" hreflang="en">
     <link rel="icon" type="png" href="@yield('logo')">
     <!-- Open Graph (OG) Tags for Social Media Sharing -->
     <meta property="og:title" content="@yield('title')">
-    <meta property="og:description"
-        content="Let's download @yield('title')">
+    <meta property="og:description" content="Let's download @yield('title')">
     <meta property="og:image" content="@yield('image')">
     <meta property="og:url" content="https://games.myintmyat.dev">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f0be33b496.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/game.css">
+    <link rel="stylesheet" href="/css/loader.css">
     <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script>
     {{-- <script>
         window.fbAsyncInit = function() {
@@ -44,7 +43,7 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
       </script> --}}
-      @yield('style')
+    @yield('style')
 
 </head>
 <style>
@@ -56,25 +55,73 @@
     .input-group-addon i {
         color: #888;
     }
+
+    .reversed-text {
+        display: inline-block;
+        transform: scale(-1);
+    }
+
+    .text-right {
+        display: inline-block;
+        transform: scaleX(-1);
+    }
 </style>
+
 <body>
     <?php
-        // use App\Models\Notice;
+    // use App\Models\Notice;
     ?>
     @yield('alert')
-    <div class="container-fluid row m-0 p-0">
+    <div class="container-fluid row m-0 p-0" id="main_container" style="display: none;">
         <main class="py-lg-4 pt-0 main px-lg-2 px-0" style="margin-top: 5rem;">
             @yield('btn')
             @yield('main')
         </main>
 
     </div>
+    <div class="loader_container" style="display: grid;">
+        <div class="scene">
+            <div class="cube-wrapper">
+                <div class="cube">
+                    <div class="cube-faces">
+                        <div class="cube-face shadow"></div>
+                        <div class="cube-face bottom"></div>
+                        <div class="cube-face top text-white text-center d-flex align-items-center fw-bold">
+                            <span class="reversed-text">ZYNN GAMES</span>
+                        </div>
+                        <div class="cube-face left text-white text-center d-flex align-items-center fw-bold">
+                            <span class="reversed-text">ZYNN GAMES</span>
+                        </div>
+                        <div class="cube-face right text-white text-center d-flex align-items-center fw-bold">
+                            <span class="text-right">ZYNN GAMES</span>
+                        </div>
+                        <div class="cube-face back text-white text-center d-flex align-items-center fw-bold">
+                            <span class="reversed-text">ZYNN GAMES</span>
+                        </div>
+                        <div class="cube-face front text-white text-center d-flex align-items-center fw-bold">
+                            <span class="reversed-text">ZYNN GAMES</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         AOS.init();
+    </script>
+    <script>
+        $(document).ready(function() {
+            setTimeout(() => {
+                $('.loader_container').fadeOut(1500);
+                $('#main_container').fadeIn(1500);
+            }, 2000);
+        });
     </script>
     @yield('script')
 

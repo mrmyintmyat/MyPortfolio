@@ -80,11 +80,13 @@
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach ($popular_games as $count => $game)
-                                <div class="col carousel-item @if ($count === 0) active @endif" data-bs-interval="8000">
+                                <div class="col carousel-item @if ($count === 0) active @endif"
+                                    data-bs-interval="8000">
                                     <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
                                         id="card"
                                         class="h-100 d-block w-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
-                                        <div style="min-height: 6rem;" class="card home-card h-100 border border-1 d-flex justify-content-center">
+                                        <div style="min-height: 6rem;"
+                                            class="card home-card h-100 border border-1 d-flex justify-content-center">
                                             <div class="">
                                                 <div onclick="" class="card-body py-3 d-flex justify-content-between"
                                                     id="item_title">

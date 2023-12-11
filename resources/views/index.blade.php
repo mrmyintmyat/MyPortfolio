@@ -63,6 +63,9 @@
                         <li class="nav-item">
                             <a class="nav-link px-0 px-lg-3" href="#scrollspyServices">SERVICES</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-0 px-lg-3" href="https://games.myintmyat.dev">GAMES</a>
+                        </li>
                         {{-- <li class="nav-item">
                         <a class="nav-link px-0 px-lg-3" href="/shop">SHOP</a>
                     </li> --}}
