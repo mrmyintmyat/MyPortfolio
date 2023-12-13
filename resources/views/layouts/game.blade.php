@@ -24,7 +24,7 @@
     <script src="https://kit.fontawesome.com/f0be33b496.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/game.css">
     <link rel="stylesheet" href="/css/loader.css">
-    <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script>
+    {{-- <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script> --}}
     {{-- <script>
         window.fbAsyncInit = function() {
           FB.init({
