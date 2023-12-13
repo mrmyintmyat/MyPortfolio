@@ -25,3 +25,4 @@ NUM_RETAIN=7
 
 # Remove older backup files
 find "$BACKUP_DIR" -type f -name "backup_*.sql" -mtime +$NUM_RETAIN -exec rm {} \;
+#dd
