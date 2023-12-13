@@ -171,6 +171,22 @@ body{
    }
 }
 
+.pagination_show{
+    display: none;
+}
+
+@media (min-height: 1271px) and (min-width: 992px) {
+    .pagination_show {
+        display: block;
+    }
+}
+
+@media (min-width: 2000px){
+    .pagination_show {
+        display: block;
+    }
+}
+
 @media (max-width: 992px) {
     #navbar-sm{
         box-shadow: 5px 5px 5px 8px rgba(181, 181, 181, 0.2);
@@ -183,7 +199,7 @@ body{
     }
 
     .scroll_page, .search_scroll_page{
-        height: 80vh;
+        height: 90vh;
     }
 
     .items_container_mb{

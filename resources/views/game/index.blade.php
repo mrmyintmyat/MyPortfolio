@@ -1,8 +1,14 @@
 @extends('layouts.game')
-@section('title')GAMES @endsection
-@section('logo')/img/game_logo.jpg @endsection
+@section('title')
+    GAMES
+@endsection
+@section('logo')
+    /img/game_logo.jpg
+@endsection
 {{-- @section('image')@php $images = $game->image; @endphp {{ $images[0] }}@endsection --}}
-@section('keywords')Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games @endsection
+@section('keywords')
+    Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games
+@endsection
 @section('style')
     <style>
         .image {
@@ -209,6 +215,9 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="pagination_show">
+                    {{ $games->links('layouts.bootstrap-5') }}
+                </div>
                 <div class="auto-load text-center m-3" style="display: none;">
                     <div class="spinner-border text-info auto-load" role="status">
                         <span class="visually-hidden mb-2">Loading...</span>
@@ -232,8 +241,6 @@
 
                 </span>
             </ul>
-
-
         </div>
     </section>
 @endsection

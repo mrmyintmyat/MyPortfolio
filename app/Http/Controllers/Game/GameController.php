@@ -42,7 +42,7 @@ class GameController extends Controller
 
         $popular_games = Game::orderBy('downloads', 'desc')
             ->where('post_status', '!=', '0')
-            ->where('downloads', '>', 20);
+            ->where('downloads', '>', 20)->paginate(5);
 
         return view('game.index', compact('games', 'popular_games'));
     }
