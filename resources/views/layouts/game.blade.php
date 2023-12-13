@@ -22,8 +22,8 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f0be33b496.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/game.css">
-    <link rel="stylesheet" href="/css/loader.css">
+    <link rel="stylesheet" href="/css/game.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="/css/loader.css?v=<?php echo time(); ?>">
     <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script>
     {{-- <script>
         window.fbAsyncInit = function() {

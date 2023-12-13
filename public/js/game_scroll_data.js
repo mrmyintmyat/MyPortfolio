@@ -5,7 +5,10 @@ $(document).ready(function() {
     let searchnogames = false
     let nomoregames = false;
 
-    var nextPage = 2;
+    var currentPage = new URLSearchParams(window.location.search).get('page');
+
+    // Set the initial value of nextPage based on the current page number
+    var nextPage = currentPage ? parseInt(currentPage) + 1 : 2;
     var search_nextPage = 2;
     var isLoading = false;
     $('#searchForm').submit(function(e) {
