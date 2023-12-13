@@ -209,7 +209,7 @@
     </div>
 
 
-    {{-- <footer>
+    <footer>
         <!-- Messenger Chat Plugin Code -->
         <div id="fb-root"></div>
 
@@ -241,7 +241,7 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
-    </footer> --}}
+    </footer>
 @endsection
 @section('script')
     <script src="/js/scroll_data.js"></script>

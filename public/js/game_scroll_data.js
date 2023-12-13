@@ -1,8 +1,13 @@
 $(document).ready(function() {
-    //search
+    //games/search
     let check_search = false;
     let input_val;
     let searchnogames = false
+    let nomoregames = false;
+
+    var nextPage = 2;
+    var search_nextPage = 2;
+    var isLoading = false;
     $('#searchForm').submit(function(e) {
         e.preventDefault();
     })
@@ -15,7 +20,7 @@ $(document).ready(function() {
         if (inputLength != 0) {
             $.ajax({
                 type: 'POST',
-                url: '/search',
+                url: '/games/search',
                 data: {
                     _token: csrfToken,
                     query: query
@@ -59,15 +64,13 @@ $(document).ready(function() {
             $('.search-error-message').hide();
             $('.scroll_page').show();
             $('.game_detail_hide').show();
+            // if (nomoregames === true) {
+            //     $('.auto-load').show();
+            // }
+            search_nextPage = 2;
         }
 
     });
-    //scroll get item
-    // var route = "/";
-    var nextPage = 2;
-    var search_nextPage = 2;
-    var isLoading = false; // Track whether data is being loaded
-    let nomoreitems = false;
     // Function to load more games
     function loadMoreItems(route) {
         if (isLoading) {
@@ -76,14 +79,15 @@ $(document).ready(function() {
 
         isLoading = true;
         // $('#loadingIndicator').show();
-
+        var category = window.location.pathname.split('/').pop();
         $.ajax({
             type: 'GET',
             url: route,
             data: {
                 page: nextPage,
                 search_nextPage: search_nextPage,
-                query: input_val
+                query: input_val,
+                category: category || null,
             },
             beforeSend: function() {
                 $('.auto-load').show();
@@ -103,7 +107,7 @@ $(document).ready(function() {
                     nextPage++;
                     isLoading = false;
                   }, 1500);
-                } else if(check_search && response.html.length > 0){
+                } else if(check_search && response && response.html && response.html.length > 0){
                   setTimeout(() => {
                         $('.auto-load').hide();
                         $('.search-auto-load').hide();
@@ -125,10 +129,13 @@ $(document).ready(function() {
                     $('.search-error-message').show();
                     $('.auto-load').hide();
                 $('.search-auto-load').hide();
-                    nomoreitems = true;
+                if (route === '/') {
+                    nomoregames = true;
+                }else if(route === '/games/search'){
+                    searchnogames = true;
+                }
                     isLoading = false;
                     check_search = false;
-                    searchnogames = true;
                 }, 1500);
                 }
             },
@@ -149,7 +156,7 @@ $(document).ready(function() {
 
     $(".search_scroll_page").scroll(
         function() {
-            on_scroll(this, "/search");
+            on_scroll(this, "/games/search");
         });
 
      function on_scroll(element, route) {
@@ -164,10 +171,10 @@ $(document).ready(function() {
         // Internet connection available, proceed with loading more games
         if (scrollTop + clientHeight + 49 >= scrollHeight) {
             if (navigator.onLine) {
-                if (route === "/search" && searchnogames === false) {
+                if (route === "/games/search" && searchnogames === false) {
                     check_search = true;
                     loadMoreItems(route);
-                } else if(route === "/" && nomoreitems === false){
+                } else if(route === "/" && nomoregames === false){
                     loadMoreItems(route);
                 }
             } else {

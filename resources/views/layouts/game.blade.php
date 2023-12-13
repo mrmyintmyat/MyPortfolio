@@ -73,7 +73,7 @@
     ?>
     @yield('alert')
     <div class="container-fluid row m-0 p-0" id="main_container" style="display: none;">
-        <main class="py-lg-4 pt-0 main px-lg-2 px-0" style="margin-top: 5rem;">
+        <main class="py-lg-4 pt-0 main px-lg-2 px-0" style="margin-top: 4rem;">
             @yield('btn')
             @yield('main')
         </main>

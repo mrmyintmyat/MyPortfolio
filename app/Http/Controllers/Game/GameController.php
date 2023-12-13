@@ -12,28 +12,64 @@ use Illuminate\Support\Facades\Cache;
 
 class GameController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $category = null)
+    {
+        if (!$category) {
+            $games = $this->getAllGames();
+        } else{
+            $games = $this->getCategoryGames($category);
+        }
+
+        if ($request->ajax()) {
+            $page = $request->input('page');
+            $category = $request->input('category');
+            $gamesQuery = Game::latest()
+                ->where('post_status', '!=', '0');
+
+            if ($category) {
+                $gamesQuery->where(function ($query) use ($category) {
+                    $query->where('category', 'like', "%$category%")->orWhere('category', 'like', "%$category%");
+                });
+            }
+
+            // Log the SQL query being executed
+            // \Log::info('SQL Query:', ['query' => $gamesQuery->toSql(), 'bindings' => $gamesQuery->getBindings()]);
+
+            $games = $gamesQuery->paginate(10, ['*'], 'page', $page);
+
+            return view('results.search-results-games', ['games' => $games])->render();
+        }
+
+        $popular_games = Game::orderBy('downloads', 'desc')
+            ->where('post_status', '!=', '0')
+            ->where('downloads', '>', 20);
+
+        return view('game.index', compact('games', 'popular_games'));
+    }
+
+    public function getAllGames()
     {
         $games = Game::latest()
             ->where('post_status', '!=', '0')
             ->paginate(10);
 
-        $popular_games = Game::orderBy('downloads', 'desc')
-        ->where('post_status', '!=', '0')
-        ->where('downloads', '>', 20)
-        ->paginate(5);
+        return $games;
 
-        if ($request->ajax()) {
-            $page = $request->input('page');
-            $games = Game::latest()
-                ->where('post_status', '!=', '0')
-                ->paginate(10, ['*'], 'page', $page);
+    }
 
-            return view('results.search-results-games', ['games' => $games])->render();
+    public function getCategoryGames($category)
+    {
+        $gamesQuery = Game::latest()->where('post_status', '!=', '0');
+
+        if ($category) {
+            $gamesQuery->where(function ($query) use ($category) {
+                $query->where('category', 'like', "%$category%")->orWhere('category', 'like', "%$category%");
+            });
         }
 
-        // $request->session()->put('sender_id', 'yo');
-        return view('game.index', compact('games', 'popular_games'));
+        $games = $gamesQuery->paginate(10);
+
+        return $games;
     }
 
     public function detail($id, $name)
@@ -54,15 +90,15 @@ class GameController extends Controller
     {
         $query = $request->input('query');
 
-        $page = $request->input('search_nextPage');
-        if ($page) {
-            $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
-                ->where('post_status', '!=', '0')
-                ->latest()
-                ->paginate(10, ['*'], 'page', $page);
-            $html = view('results.search-results-games', ['games' => $games])->render();
-            return response()->json(['html' => $html]);
-        }
+        // $page = $request->input('search_nextPage');
+        // if ($page) {
+        //     $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
+        //         ->where('post_status', '!=', '0')
+        //         ->latest()
+        //         ->paginate(10, ['*'], 'page', $page);
+        //     $html = view('results.search-results-games', ['games' => $games])->render();
+        //     return response()->json(['html' => $html]);
+        // }
 
         $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
             ->where('post_status', '!=', '0')
@@ -89,5 +125,4 @@ class GameController extends Controller
 
         return redirect()->back();
     }
-
 }

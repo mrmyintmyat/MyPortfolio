@@ -32,7 +32,7 @@ class FacebookWebhookController extends Controller
     {
         $input = $request->all();
             $messages = [
-                'I_want_to_buy' => 'ကျွန်တော်တို့ဘက်က ပို့ထားတာကိုတွေ့တာနဲ့ အမြန်ဆုံးပြန်ဆက်သွယ်ပေးပါ့မယ်ခင်ဗျာ တစ်ခြားမေးစရာရှိရင်လည်းမေးထားလို့ရပါတယ်ဗျ(We will contact you as soon as possible once we see it sent. If you have other questions, you can ask me!)
+                'I_want_to_buy' => 'ပို့ထားတာကိုတွေ့တာနဲ့ ကျွန်တော်တို့ဘက်က အမြန်ဆုံးပြန်ဆက်သွယ်ပေးပါ့မယ်ခင်ဗျာ တစ်ခြားမေးစရာရှိရင်လည်းမေးထားလို့ရပါတယ်ဗျ(We will contact you as soon as possible once we see it sent. If you have other questions, you can ask me!)
                 ',
                 'I_dont_want_to_buy' => 'အိုခေနားစား တစ်ခြားမေးစရာရှိရင်လည်းမေးထားလို့ရပါတယ်ဗျ(Thank you for contacting us. If you have other questions, you can ask me!)',
             ];
