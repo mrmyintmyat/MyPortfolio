@@ -183,7 +183,7 @@ body{
     }
 
     .scroll_page, .search_scroll_page{
-        /* height: 80vh; */
+        height: 90vh;
     }
 
     .items_container_mb{

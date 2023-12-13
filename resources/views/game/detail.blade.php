@@ -409,7 +409,7 @@
                         <div>
                             @if (!$noGames)
                                 @foreach ($games as $game)
-                                    <div class="col">
+                                    <div class="col mb-2">
                                         <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
                                             id="card"
                                             class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
