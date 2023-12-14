@@ -83,8 +83,12 @@
             <ul class="list-unstyled scroll_page">
                 <div class="m-2">
                     <ul class="list-unstyled d-flex flex-row">
-                        <li><a class="btn shadow-sm rounded-pill me-2" href="/">HOME</a></li>
-                        <li><a class="btn shadow-sm rounded-pill" href="/old">OLD GAMES</a></li>
+                        <li><a style="
+    box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
+                            " class="btn rounded-pill fw-semibold me-2" href="/">HOME</a></li>
+                        <li><a style="
+    box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
+                        " class="btn rounded-pill fw-semibold" href="/old">OLD GAMES</a></li>
                     </ul>
                 </div>
                 <div class="d-flex flex-row row mb-3  px-2 g-sm-2 g-3">
