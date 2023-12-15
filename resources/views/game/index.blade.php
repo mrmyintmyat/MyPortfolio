@@ -36,6 +36,39 @@
                 transform: rotate(360deg);
             }
         }
+
+        .fixed-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+            /* Set a higher z-index */
+        }
+
+        .fixed-bottom-bar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .fixed-bottom-bar li {
+            text-align: center;
+        }
+
+        .fixed-bottom-bar a {
+            width: 100%;
+            text-decoration: none;
+            color: #000000;
+            font-size: 80%;
+        }
+
+        @media (max-width: 404px) {
+            .fixed-bottom-bar a {
+                font-size: 0.7rem;
+            }
+        }
     </style>
 @endsection
 @section('btn')
@@ -81,16 +114,49 @@
     <section class="px-lg-5">
         <div class="">
             <ul class="list-unstyled scroll_page">
-                <div class="m-2">
+                <div class="m-2 d-none d-lg-block">
                     <ul class="list-unstyled d-flex flex-row">
                         <li><a style="
     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
-                            " class="btn rounded-pill fw-semibold me-2" href="/">HOME</a></li>
+                            "
+                                class="btn rounded-pill fw-semibold me-2" href="/">HOME</a></li>
                         <li><a style="
     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
-                        " class="btn rounded-pill fw-semibold" href="/old">OLD GAMES</a></li>
+                        "
+                                class="btn rounded-pill fw-semibold" href="/old">OLD GAMES</a></li>
                     </ul>
-                </div> 
+                </div>
+                <div class="fixed-bottom-bar d-lg-none d-block">
+                    <ul class="list-unstyled row row-cols-3 shadow-sm bg-light">
+                        <li class="d-flex justify-content-center">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column" href="/">
+                                <i class="fas fa-home"></i>
+                                <div class="d-flex justify-content-center">
+                                    <span>ALL</span>
+                                    <span>GAMES</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="d-flex justify-content-center">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column disabled border-0" href="/new">
+                                <i class="fas fa-star"></i>
+                                <div class="d-flex justify-content-center">
+                                    <span>NEW</span>
+                                    <span>GAMES</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="d-flex justify-content-center">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column" href="/old">
+                                <i class="fas fa-archive"></i>
+                                <div class="d-flex justify-content-center">
+                                    <span>OLD</span>
+                                    <span>GAMES</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="d-flex flex-row row mb-3  px-2 g-sm-2 g-3">
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -154,8 +220,8 @@
                                                                 <div class="col-6 position-relative text-center d-flex justify-content-center align-items-center"
                                                                     style="padding: 1px; ">
                                                                     {{-- <div class="loader"></div> --}}
-                                                                    <img class="h-100 w-100 image" src="{{ $image }}"
-                                                                        alt="ERR"
+                                                                    <img class="h-100 w-100 image"
+                                                                        src="{{ $image }}" alt="ERR"
                                                                         style="border-radius: {{ $count === 0 ? '0.3rem 0rem 0px 0px;' : ($count === 1 ? '0rem 0.3rem 0px 0px;' : '0px 0px 0px 0px;') }} "
                                                                         loading="auto|eager|lazy">
                                                                     @if ($count === 3)
@@ -173,15 +239,16 @@
                                                                 position-relative"
                                                                         style=" padding: 1px;
                                                                 @if (count($images) === 1) max-height: 15rem; @endif">
-                                                                        <img class="w-100 h-100" src="{{ $image }}"
-                                                                            alt=""
+                                                                        <img class="w-100 h-100"
+                                                                            src="{{ $image }}" alt=""
                                                                             style="object-fit: cover; border-radius: 0.3rem 0.3rem 0rem 0rem;">
                                                                     </div>
                                                                 @else
                                                                     <div class="col h-50 position-relative"
                                                                         style="padding: 1px;">
-                                                                        <img class="w-100 h-100" src="{{ $image }}"
-                                                                            alt="" style="object-fit: cover; ">
+                                                                        <img class="w-100 h-100"
+                                                                            src="{{ $image }}" alt=""
+                                                                            style="object-fit: cover; ">
                                                                     </div>
                                                                 @endif
                                                             @endif
