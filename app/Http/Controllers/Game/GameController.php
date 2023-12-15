@@ -6,6 +6,7 @@ use session;
 use App\Models\Game;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
@@ -61,9 +62,11 @@ class GameController extends Controller
     {
         $gamesQuery = Game::latest()->where('post_status', '!=', '0');
 
-        if ($category) {
+        if ($category === 'new') {
+            $gamesQuery->where('category', 'not like', '%old%');
+        } elseif ($category) {
             $gamesQuery->where(function ($query) use ($category) {
-                $query->where('category', 'like', "%$category%")->orWhere('category', 'like', "%$category%");
+                $query->where('category', 'like', "%$category%");
             });
         }
 

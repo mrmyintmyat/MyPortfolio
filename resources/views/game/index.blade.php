@@ -138,7 +138,7 @@
                             </a>
                         </li>
                         <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column disabled border-0" href="/new">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0" href="/new">
                                 <i class="fas fa-star"></i>
                                 <div class="d-flex justify-content-center">
                                     <span>NEW</span>
