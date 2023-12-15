@@ -61,7 +61,6 @@
             width: 100%;
             text-decoration: none;
             color: #000000;
-            font-size: 80%;
         }
     </style>
 @endsection
