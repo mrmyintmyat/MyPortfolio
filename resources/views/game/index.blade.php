@@ -114,7 +114,7 @@
     <section class="px-lg-5">
         <div class="">
             <ul class="list-unstyled scroll_page">
-                <div class="m-2 d-none d-lg-block">
+                <div class="m-2 d-none d-sm-block">
                     <ul class="list-unstyled d-flex flex-row">
                         <li><a style="
     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
@@ -126,8 +126,8 @@
                                 class="btn rounded-pill fw-semibold" href="/old">OLD GAMES</a></li>
                     </ul>
                 </div>
-                <div class="fixed-bottom-bar d-lg-none d-block">
-                    <ul class="list-unstyled row row-cols-3 shadow-sm bg-light">
+                <div class="fixed-bottom-bar d-sm-none d-block">
+                    <ul class="list-unstyled row row-cols-3 shadow-lg bg-light py-2">
                         <li class="d-flex justify-content-center">
                             <a class="btn rounded-pill fw-semibold d-flex flex-column" href="/">
                                 <i class="fas fa-home"></i>
