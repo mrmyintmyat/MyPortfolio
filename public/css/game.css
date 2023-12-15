@@ -187,12 +187,6 @@ body{
     }
 }
 
-@media(max-width: 575px){
-    .scroll_page, .search_scroll_page{
-        height: 80vh;
-    }
-}
-
 @media (max-width: 992px) {
     #navbar-sm{
         box-shadow: 5px 5px 5px 8px rgba(181, 181, 181, 0.2);
@@ -221,6 +215,11 @@ body{
     }
 }
 
+@media(max-width: 575px){
+    .scroll_page, .search_scroll_page{
+        height: 80vh;
+    }
+}
 
 .see-more-btn {
     cursor: pointer;
