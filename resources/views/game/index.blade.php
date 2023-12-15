@@ -63,12 +63,6 @@
             color: #000000;
             font-size: 80%;
         }
-
-        @media (max-width: 404px) {
-            .fixed-bottom-bar a {
-                font-size: 0.8rem;
-            }
-        }
     </style>
 @endsection
 @section('btn')
