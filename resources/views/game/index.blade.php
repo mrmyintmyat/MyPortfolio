@@ -182,13 +182,15 @@
                                                             <h5 class="card-title m-0 text-truncate"
                                                                 style="max-width: 200px; " id="title">
                                                                 {{ $game->name }}</h5>
-                                                            <p class="m-0 text-muted">
-                                                                @if (strpos($game->category, 'mod') !== false)
+                                                            @if (stripos($game->category, 'mod') !== false)
+                                                                <p class="m-0 text-danger fw-semibold">
                                                                     Mod
-                                                                @else
+                                                                </p>
+                                                            @else
+                                                                <p class="m-0 text-success fw-semibold">
                                                                     Free
-                                                                @endif
-                                                            </p>
+                                                                </p>
+                                                            @endif
                                                         </div>
                                                     </div>
 
@@ -279,13 +281,13 @@
                                                         id="title">
                                                         {{ $game->name }}</h5>
                                                     @if (stripos($game->category, 'mod') !== false)
-                                                        <p class="m-0 text-danger">
+                                                        <p class="m-0 text-danger fw-semibold">
                                                             Mod
                                                         </p>
                                                     @else
-                                                    <p class="m-0 text-success">
-                                                        Free
-                                                    </p>
+                                                        <p class="m-0 text-success fw-semibold">
+                                                            Free
+                                                        </p>
                                                     @endif
                                                 </div>
                                             </div>
