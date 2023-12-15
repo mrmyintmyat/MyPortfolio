@@ -62,7 +62,7 @@ class GameController extends Controller
     {
         $gamesQuery = Game::latest()->where('post_status', '!=', '0');
 
-        if ($category === 'new') {
+        if ($category === 'new' || $category === 'New') {
             $gamesQuery->where('category', 'not like', '%old%');
         } elseif ($category) {
             $gamesQuery->where(function ($query) use ($category) {

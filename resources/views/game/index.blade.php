@@ -119,17 +119,22 @@
                         <li><a style="
     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
                             "
-                                class="btn rounded-pill fw-semibold me-2" href="/">HOME</a></li>
+                                class="btn rounded-pill fw-semibold me-2 @if (!request()->is('/') || request()->is('another-route')) text-muted @endif" href="/">HOME</a></li>
+                        <li><a style="
+                                    box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
+                                                        "
+                                class="btn rounded-pill fw-semibold @if (!request()->is('new') || request()->is('another-route')) text-muted @endif" href="/new">NEW GAMES</a></li>
                         <li><a style="
     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
                         "
-                                class="btn rounded-pill fw-semibold" href="/old">OLD GAMES</a></li>
+                                class="btn rounded-pill fw-semibold @if (!request()->is('old') || request()->is('another-route')) text-muted @endif" href="/old">OLD GAMES</a></li>
                     </ul>
                 </div>
                 <div class="fixed-bottom-bar d-sm-none d-block">
                     <ul class="list-unstyled row row-cols-3 shadow-lg bg-light py-2">
                         <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if(!request()->is('/') || request()->is('another-route')) text-muted @endif" href="/">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('/') || request()->is('another-route')) text-muted @endif"
+                                href="/">
                                 <i class="fas fa-home"></i>
                                 <div class="d-flex justify-content-center">
                                     <span>ALL</span>
@@ -138,7 +143,8 @@
                             </a>
                         </li>
                         <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if(!request()->is('new')) text-muted @endif" href="/new">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('new')) text-muted @endif"
+                                href="/new">
                                 <i class="fas fa-star"></i>
                                 <div class="d-flex justify-content-center">
                                     <span>NEW</span>
@@ -147,7 +153,8 @@
                             </a>
                         </li>
                         <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if(!request()->is('/old')) text-muted @endif" href="/old">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('old')) text-muted @endif"
+                                href="/old">
                                 <i class="fas fa-archive"></i>
                                 <div class="d-flex justify-content-center">
                                     <span>OLD</span>
