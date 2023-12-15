@@ -90,7 +90,7 @@
     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
                         " class="btn rounded-pill fw-semibold" href="/old">OLD GAMES</a></li>
                     </ul>
-                </div>
+                </div> 
                 <div class="d-flex flex-row row mb-3  px-2 g-sm-2 g-3">
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
