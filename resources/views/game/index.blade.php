@@ -113,15 +113,18 @@
                         <li><a style="
     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
                             "
-                                class="btn rounded-pill fw-semibold me-2 @if (!request()->is('/') || request()->is('another-route')) text-muted @endif" href="/">HOME</a></li>
+                                class="btn rounded-pill fw-semibold me-2 @if (!request()->is('/') || request()->is('another-route')) text-muted @endif"
+                                href="/">HOME</a></li>
                         <li><a style="
                                     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
                                                         "
-                                class="btn rounded-pill fw-semibold @if (!request()->is('new') || request()->is('another-route')) text-muted @endif" href="/new">NEW GAMES</a></li>
+                                class="btn rounded-pill fw-semibold @if (!request()->is('new') || request()->is('another-route')) text-muted @endif"
+                                href="/new">NEW GAMES</a></li>
                         <li><a style="
     box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
                         "
-                                class="btn rounded-pill fw-semibold @if (!request()->is('old') || request()->is('another-route')) text-muted @endif" href="/old">OLD GAMES</a></li>
+                                class="btn rounded-pill fw-semibold @if (!request()->is('old') || request()->is('another-route')) text-muted @endif"
+                                href="/old">OLD GAMES</a></li>
                     </ul>
                 </div>
                 <div class="fixed-bottom-bar d-sm-none d-block">
@@ -158,7 +161,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="d-flex flex-row row mb-3  px-2 g-sm-2 g-3">
+                <div class="d-flex flex-row row mb-2 px-2 g-sm-2 g-3">
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach ($popular_games as $count => $game)
@@ -179,7 +182,13 @@
                                                             <h5 class="card-title m-0 text-truncate"
                                                                 style="max-width: 200px; " id="title">
                                                                 {{ $game->name }}</h5>
-                                                            <p class="m-0 text-muted">{{ $game->online_or_offline }}</p>
+                                                            <p class="m-0 text-muted">
+                                                                @if (strpos($game->category, 'mod') !== false)
+                                                                    Mod
+                                                                @else
+                                                                    Free
+                                                                @endif
+                                                            </p>
                                                         </div>
                                                     </div>
 
@@ -269,7 +278,15 @@
                                                     <h5 class="card-title m-0 text-truncate" style="max-width: 200px; "
                                                         id="title">
                                                         {{ $game->name }}</h5>
-                                                    <p class="m-0 text-muted">{{ $game->online_or_offline }}</p>
+                                                    @if (stripos($game->category, 'mod') !== false)
+                                                        <p class="m-0 text-danger">
+                                                            Mod
+                                                        </p>
+                                                    @else
+                                                    <p class="m-0 text-success">
+                                                        Free
+                                                    </p>
+                                                    @endif
                                                 </div>
                                             </div>
 
