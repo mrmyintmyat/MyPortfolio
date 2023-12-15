@@ -7,7 +7,7 @@
 @endsection
 {{-- @section('image')@php $images = $game->image; @endphp {{ $images[0] }}@endsection --}}
 @section('keywords')
-    Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games
+    Games,myintmyat,myintmyat.dev,games.myintmyat.dev,zynn,free games,old games
 @endsection
 @section('style')
     <style>
@@ -129,7 +129,7 @@
                 <div class="fixed-bottom-bar d-sm-none d-block">
                     <ul class="list-unstyled row row-cols-3 shadow-lg bg-light py-2">
                         <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column" href="/">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if(!request()->is('/') || request()->is('another-route')) text-muted @endif" href="/">
                                 <i class="fas fa-home"></i>
                                 <div class="d-flex justify-content-center">
                                     <span>ALL</span>
@@ -138,7 +138,7 @@
                             </a>
                         </li>
                         <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0" href="/new">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if(!request()->is('new')) text-muted @endif" href="/new">
                                 <i class="fas fa-star"></i>
                                 <div class="d-flex justify-content-center">
                                     <span>NEW</span>
@@ -147,7 +147,7 @@
                             </a>
                         </li>
                         <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column" href="/old">
+                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if(!request()->is('/old')) text-muted @endif" href="/old">
                                 <i class="fas fa-archive"></i>
                                 <div class="d-flex justify-content-center">
                                     <span>OLD</span>
