@@ -1,16 +1,16 @@
 @php
-function formatDownloads($downloads)
-{
-    if ($downloads < 1000) {
-        return $downloads;
-    } elseif ($downloads < 1000000) {
-        $formatted = number_format($downloads / 1000, 1);
-        return rtrim($formatted, '.0') . 'k+';
-    } else {
-        $formatted = number_format($downloads / 1000000, 1);
-        return rtrim($formatted, '.0') . 'M +';
+    function formatDownloads($downloads)
+    {
+        if ($downloads < 1000) {
+            return $downloads;
+        } elseif ($downloads < 1000000) {
+            $formatted = number_format($downloads / 1000, 1);
+            return rtrim($formatted, '.0') . 'k+';
+        } else {
+            $formatted = number_format($downloads / 1000000, 1);
+            return rtrim($formatted, '.0') . 'M +';
+        }
     }
-}
 @endphp
 @foreach ($games as $game)
     <div class="col">
@@ -31,8 +31,7 @@ function formatDownloads($downloads)
                                             <div class="col-6 position-relative text-center d-flex justify-content-center align-items-center"
                                                 style="padding: 1px; ">
                                                 {{-- <div class="loader"></div> --}}
-                                                <img class="h-100 w-100 image" src="{{$image}}"
-                                                    alt="ERR"
+                                                <img class="h-100 w-100 image" src="{{ $image }}" alt="ERR"
                                                     style="border-radius: {{ $count === 0 ? '0.3rem 0rem 0px 0px;' : ($count === 1 ? '0rem 0.3rem 0px 0px;' : '0px 0px 0px 0px;') }} "
                                                     loading="auto|eager|lazy">
                                                 @if ($count === 3)
@@ -50,17 +49,13 @@ function formatDownloads($downloads)
                                             position-relative"
                                                     style=" padding: 1px;
                                             @if (count($images) === 1) max-height: 15rem; @endif">
-                                                    <img class="w-100 h-100"
-                                                        src="{{$image}}"
-                                                        alt=""
+                                                    <img class="w-100 h-100" src="{{ $image }}" alt=""
                                                         style="object-fit: cover; border-radius: 0.3rem 0.3rem 0rem 0rem;">
                                                 </div>
                                             @else
-                                                <div class="col h-50 position-relative"
-                                                    style="padding: 1px;">
-                                                    <img class="w-100 h-100"
-                                                        src="{{$image}}"
-                                                        alt="" style="object-fit: cover; ">
+                                                <div class="col h-50 position-relative" style="padding: 1px;">
+                                                    <img class="w-100 h-100" src="{{ $image }}" alt=""
+                                                        style="object-fit: cover; ">
                                                 </div>
                                             @endif
                                         @endif
@@ -75,10 +70,17 @@ function formatDownloads($downloads)
                         <div class=" d-flex" style="width: 3.5rem;">
                             <img class="w-100 h-100 rounded-2" src="{{ $game->logo }}" alt="">
                             <div class="ms-2 ">
-                                <h5 class="card-title m-0 text-truncate" style="max-width: 200px; "
-                            id="title">
-                            {{ $game->name }}</h5>
-                                <p class="m-0 text-muted">{{ $game->online_or_offline }}</p>
+                                <h5 class="card-title m-0 text-truncate" style="max-width: 200px; " id="title">
+                                    {{ $game->name }}</h5>
+                                @if (stripos($game->category, 'mod') !== false)
+                                    <p class="m-0 text-danger fw-semibold">
+                                        Mod
+                                    </p>
+                                @else
+                                    <p class="m-0 text-success fw-semibold">
+                                        Free
+                                    </p>
+                                @endif
                             </div>
                         </div>
 
