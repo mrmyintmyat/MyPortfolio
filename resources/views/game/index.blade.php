@@ -1,6 +1,6 @@
 @extends('layouts.game')
 @section('title')
-    GAMES
+    ZYNN GAMES
 @endsection
 @section('logo')
     /img/game_logo.jpg
@@ -80,32 +80,33 @@
             }
         }
     @endphp
-    <nav id="navbar"
-        class="navbar shadow-sm bg-white navbar-expand-lg fixed-top d-flex justify-content-lg-center px-2 px-lg-0"
-        data-aos="fade-down" data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true">
-        <a class="navbar-brand title_icon col-lg-2 text-center m-0" href="{{ route('games_index') }}">
-            ZYNN
-        </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-        <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
-            <section class="px-2 col-lg-6 pe-lg-5">
-                <article class="">
-                    <form id="searchForm" method="post">
-                        @csrf
-                        <input name="query" id="search" type="search" class="form-control px-4 border-1 shadow-sm"
-                            placeholder="Search">
-                        <meta name="csrf-token" content="{{ csrf_token() }}">
-                    </form>
-                </article>
-            </section>
+    <nav id="navbar" class="navbar shadow-sm bg-white navbar-expand-lg fixed-top d-flex px-2" data-aos="fade-down"
+        data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true">
+        <div class="container p-0">
+            <a href="{{ route('games_index') }}" class="navbar-brand title_icon col-lg-2 m-0" href="#">
+                ZYNN
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
+                <section class="px-2 col-lg-6">
+                    <article class="">
+                        <form id="searchForm" method="post">
+                            @csrf
+                            <input name="query" id="search" type="search" class="form-control px-4 border-1 shadow-sm"
+                                placeholder="Search">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+                        </form>
+                    </article>
+                </section>
+            </div>
         </div>
     </nav>
 @endsection
 @section('main')
-    <section class="px-lg-5">
+    <section class="container-lg">
         <div class="">
             <ul class="list-unstyled scroll_page">
                 <div class="m-2 d-none d-sm-block">
@@ -161,7 +162,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="d-flex flex-row row mb-2 px-2 g-sm-2 g-3">
+                <div class="d-flex flex-row row mb-2 g-sm-2 g-3">
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach ($popular_games as $count => $game)
@@ -210,9 +211,23 @@
                         </div>
                     </div>
                 </div>
-                <div id="item_container"
-                    class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 row-cols-desktop-7 px-2 g-sm-2 g-3">
-                    @foreach ($games as $game)
+                <div id="item_container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-3 g-sm-2 g-3">
+                    @php
+                        $interval = 5000;
+                        $game_count = 0;
+                    @endphp
+                    @foreach ($games as $game_count_0 => $game)
+                        @if ($game_count === 3)
+                            @php
+                                $interval = 5000;
+                                $game_count = 0;
+                            @endphp
+                        @else
+                            @php
+                                $interval = $interval + 5000;
+                                $game_count++;
+                            @endphp
+                        @endif
                         <div class="col">
                             <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
                                 id="card"
@@ -221,53 +236,36 @@
                                     <div class="">
                                         <div class="parent">
                                             <div class="card-img-top mb-1 d-flex justify-content-center">
-                                                <div class="row w-100" id="photos_container_games">
-                                                    {{-- card_img --}}
-                                                    @php
-                                                        $images = array_slice($game->image, 0, 4);
-                                                    @endphp
-                                                    @foreach ($images as $count => $image)
-                                                        @if ($count != 4)
-                                                            @if (count($images) > 3)
-                                                                <div class="col-6 position-relative text-center d-flex justify-content-center align-items-center"
-                                                                    style="padding: 1px; ">
-                                                                    {{-- <div class="loader"></div> --}}
-                                                                    <img class="h-100 w-100 image"
-                                                                        src="{{ $image }}" alt="ERR"
-                                                                        style="border-radius: {{ $count === 0 ? '0.3rem 0rem 0px 0px;' : ($count === 1 ? '0rem 0.3rem 0px 0px;' : '0px 0px 0px 0px;') }} "
-                                                                        loading="auto|eager|lazy">
-                                                                    @if ($count === 3)
-                                                                        <div
-                                                                            class="position-absolute h-100 w-100 top-50 start-50 translate-middle text-white fw-semibold d-flex justify-content-center align-items-center bg-opacity-50 bg-black">
-                                                                            <span>+{{ count($game->image) - 3 }}</span>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                            @else
-                                                                @if ($count === 0)
-                                                                    <div class="col-12
-                                                                @if (count($images) === 1) @else
-                                                                 h-50 @endif
-                                                                position-relative"
-                                                                        style=" padding: 1px;
-                                                                @if (count($images) === 1) max-height: 15rem; @endif">
-                                                                        <img class="w-100 h-100"
-                                                                            src="{{ $image }}" alt=""
-                                                                            style="object-fit: cover; border-radius: 0.3rem 0.3rem 0rem 0rem;">
-                                                                    </div>
-                                                                @else
-                                                                    <div class="col h-50 position-relative"
-                                                                        style="padding: 1px;">
-                                                                        <img class="w-100 h-100"
-                                                                            src="{{ $image }}" alt=""
-                                                                            style="object-fit: cover; ">
-                                                                    </div>
-                                                                @endif
-                                                            @endif
-                                                        @else
-                                                            break;
-                                                        @endif
-                                                    @endforeach
+                                                <div id="carousel{{$game_count_0}}" class="photos_container_games row w-100 carousel slide p-0" data-bs-ride="carousel">
+                                                    <div class="carousel-inner p-0">
+                                                        @php
+                                                            $images = array_slice($game->image, 0, 2);
+                                                            $totalImages = count($images);
+                                                        @endphp
+
+                                                        @foreach ($images as $count => $image)
+                                                            <div class="carousel-item h-100 rounded-top {{ $count === 0 ? 'active' : '' }}"
+                                                                data-bs-interval="{{ $interval }}">
+                                                                <img src="{{ $image }}"
+                                                                    class="d-block w-100 h-100 rounded-top"
+                                                                    alt="Image {{ $count + 1 }}">
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    @if (count($images) > 1)
+                                                        <button class="carousel-control-prev" type="button"
+                                                            data-bs-target="#carousel{{$game_count_0}}" data-bs-slide="prev">
+                                                            <span class="carousel-control-prev-icon"
+                                                                aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Previous</span>
+                                                        </button>
+                                                        <button class="carousel-control-next" type="button"
+                                                            data-bs-target="#carousel{{$game_count_0}}" data-bs-slide="next">
+                                                            <span class="carousel-control-next-icon"
+                                                                aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Next</span>
+                                                        </button>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -306,9 +304,9 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="pagination_show">
+                {{-- <div class="pagination_show">
                     {{ $games->links('layouts.bootstrap-5') }}
-                </div>
+                </div> --}}
                 <div class="auto-load text-center m-3" style="display: none;">
                     <div class="spinner-border text-info auto-load" role="status">
                         <span class="visually-hidden mb-2">Loading...</span>
@@ -320,7 +318,7 @@
             </ul>
             <ul class="list-unstyled search_scroll_page" style="display: none">
                 <div id="item_container_search"
-                    class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 row-cols-desktop-7 px-2 g-sm-2 g-3">
+                    class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-3 g-sm-2 g-3">
 
                 </div>
                 <div class="search-auto-load text-center m-3" style="display: none;">
