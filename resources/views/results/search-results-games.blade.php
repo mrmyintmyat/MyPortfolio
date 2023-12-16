@@ -16,7 +16,7 @@
     $interval = 5000;
     $game_count = 0;
 @endphp
-@foreach ($games as $game)
+@foreach ($games as $game_count_0 => $game)
     @if ($game_count === 3)
         @php
             $interval = 5000;
@@ -35,8 +35,7 @@
                 <div class="">
                     <div class="parent">
                         <div class="card-img-top mb-1 d-flex justify-content-center">
-                            <div id="carouselExample" class="row w-100 carousel slide p-0" id="photos_container_games"
-                                data-bs-ride="carousel">
+                            <div id="carousel{{$game_count_0}}" class="photos_container_games row w-100 carousel slide p-0" data-bs-ride="carousel">
                                 <div class="carousel-inner p-0">
                                     @php
                                         $images = array_slice($game->image, 0, 2);
@@ -44,22 +43,25 @@
                                     @endphp
 
                                     @foreach ($images as $count => $image)
-                                        <div class="carousel-item rounded-top {{ $count === 0 ? 'active' : '' }}"
+                                        <div class="carousel-item h-100 rounded-top {{ $count === 0 ? 'active' : '' }}"
                                             data-bs-interval="{{ $interval }}">
-                                            <img src="{{ $image }}" class="d-block w-100 rounded-top"
+                                            <img src="{{ $image }}"
+                                                class="d-block w-100 h-100 rounded-top"
                                                 alt="Image {{ $count + 1 }}">
                                         </div>
                                     @endforeach
                                 </div>
                                 @if (count($images) > 1)
                                     <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExample" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        data-bs-target="#carousel{{$game_count_0}}" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon"
+                                            aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
                                     <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExample" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        data-bs-target="#carousel{{$game_count_0}}" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon"
+                                            aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
                                 @endif
