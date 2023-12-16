@@ -15,8 +15,12 @@
 @php
     $interval = 5000;
     $game_count = 0;
+    $startCount = 10;
 @endphp
 @foreach ($games as $game_count_0 => $game)
+@php
+$game_count_10 = $startCount + $game_count_0;
+@endphp
     @if ($game_count === 3)
         @php
             $interval = 5000;
@@ -35,7 +39,7 @@
                 <div class="">
                     <div class="parent">
                         <div class="card-img-top mb-1 d-flex justify-content-center">
-                            <div id="carousel{{$game_count_0}}" class="photos_container_games row w-100 carousel slide p-0" data-bs-ride="carousel">
+                            <div id="carousel{{$game_count_10}}" class="photos_container_games row w-100 carousel slide p-0" data-bs-ride="carousel">
                                 <div class="carousel-inner p-0">
                                     @php
                                         $images = array_slice($game->image, 0, 2);
@@ -53,13 +57,13 @@
                                 </div>
                                 @if (count($images) > 1)
                                     <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carousel{{$game_count_0}}" data-bs-slide="prev">
+                                        data-bs-target="#carousel{{$game_count_10}}" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon"
                                             aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
                                     <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carousel{{$game_count_0}}" data-bs-slide="next">
+                                        data-bs-target="#carousel{{$game_count_10}}" data-bs-slide="next">
                                         <span class="carousel-control-next-icon"
                                             aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
