@@ -139,7 +139,7 @@ body{
         width: 100%;
         background-color: rgba(255, 255, 255, 0.542);
     }
-    
+
     .card_img{
         height: 160px;
       }
@@ -154,8 +154,8 @@ body{
 }
 
 .photos_container_games{
-    max-height: 12rem;
-    min-height: 12rem;
+    max-height: 13.5rem;
+    min-height: 13.5rem;
 }
 
 @media (min-width: 992px) {
