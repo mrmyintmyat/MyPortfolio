@@ -171,24 +171,24 @@
                                     <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
                                         id="card"
                                         class="h-100 d-block w-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
-                                        <div style="min-height: 6rem;"
+                                        <div style="min-height: 5rem;"
                                             class="card home-card h-100 border border-1 d-flex justify-content-center">
                                             <div class="">
-                                                <div onclick="" class="card-body py-3 d-flex justify-content-between"
+                                                <div onclick="" class="card-body py-2 d-flex justify-content-between"
                                                     id="item_title">
                                                     <div class=" d-flex" style="width: 3.5rem;">
-                                                        <img class="w-100 h-100 rounded-2" src="{{ $game->logo }}"
+                                                        <img class="rounded-2 game_logo" src="{{ $game->logo }}"
                                                             alt="">
                                                         <div class="ms-2 ">
                                                             <h5 class="card-title m-0 text-truncate"
                                                                 style="max-width: 200px; " id="title">
                                                                 {{ $game->name }}</h5>
                                                             @if (stripos($game->category, 'mod') !== false)
-                                                                <p class="m-0 text-danger fw-semibold">
+                                                                <p class="m-0 text-danger fw-semibold left_info_fz">
                                                                     Mod
                                                                 </p>
                                                             @else
-                                                                <p class="m-0 text-success fw-semibold">
+                                                                <p class="m-0 text-success fw-semibold left_info_fz">
                                                                     Free
                                                                 </p>
                                                             @endif
@@ -196,11 +196,11 @@
                                                     </div>
 
                                                     <div class="d-flex flex-column justify-content-center align-items-end">
-                                                        <p class="m-0 text-muted">
+                                                        <p class="m-0 text-muted right_info_fz">
                                                             {{ formatDownloads($game->downloads) }}
                                                             <i class="fa-solid fa-circle-arrow-down"></i>
                                                         </p>
-                                                        <p class="m-0 text-muted">{{ $game->size }}</p>
+                                                        <p class="m-0 text-muted right_info_fz">{{ $game->size }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,11 +232,11 @@
                             <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
                                 id="card"
                                 class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
-                                <div class="card home-card h-100 border border-1">
+                                <div class="card home-card h-100 border-0">
                                     <div class="">
                                         <div class="parent">
                                             <div class="card-img-top mb-1 d-flex justify-content-center">
-                                                <div id="carousel{{$game_count_0}}" class="photos_container_games row w-100 carousel slide p-0" data-bs-ride="carousel">
+                                                <div id="carousel{{$game_count_0}}" class="photos_container_games row w-100 carousel slide p-0 rounded-3" data-bs-ride="carousel">
                                                     <div class="carousel-inner p-0">
                                                         @php
                                                             $images = array_slice($game->image, 0, 2);
@@ -244,10 +244,10 @@
                                                         @endphp
 
                                                         @foreach ($images as $count => $image)
-                                                            <div class="carousel-item h-100 rounded-top {{ $count === 0 ? 'active' : '' }}"
+                                                            <div class="carousel-item h-100 rounded-3 {{ $count === 0 ? 'active' : '' }}"
                                                                 data-bs-interval="{{ $interval }}">
                                                                 <img src="{{ $image }}"
-                                                                    class="d-block w-100 h-100 rounded-top"
+                                                                    class="d-block w-100 h-100 rounded-3"
                                                                     alt="Image {{ $count + 1 }}">
                                                             </div>
                                                         @endforeach
@@ -269,21 +269,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div onclick="" class="card-body py-3 d-flex justify-content-between"
+                                        <div onclick="" class="card-body py-2 py-lg-3 d-flex justify-content-between px-1"
                                             id="item_title">
                                             <div class=" d-flex" style="width: 3.5rem;">
-                                                <img class="w-100 h-100 rounded-2" src="{{ $game->logo }}"
+                                                <img class="rounded-2 game_logo" src="{{ $game->logo }}"
                                                     alt="">
                                                 <div class="ms-2 ">
                                                     <h5 class="card-title m-0 text-truncate" style="max-width: 200px; "
                                                         id="title">
                                                         {{ $game->name }}</h5>
                                                     @if (stripos($game->category, 'mod') !== false)
-                                                        <p class="m-0 text-danger fw-semibold">
+                                                        <p class="m-0 text-danger fw-semibold left_info_fz">
                                                             Mod
                                                         </p>
                                                     @else
-                                                        <p class="m-0 text-success fw-semibold">
+                                                        <p class="m-0 text-success fw-semibold left_info_fz">
                                                             Free
                                                         </p>
                                                     @endif
@@ -291,11 +291,11 @@
                                             </div>
 
                                             <div class="d-flex flex-column justify-content-center align-items-end">
-                                                <p class="m-0 text-muted">
+                                                <p class="m-0 text-muted right_info_fz">
                                                     {{ formatDownloads($game->downloads) }}
                                                     <i class="fa-solid fa-circle-arrow-down"></i>
                                                 </p>
-                                                <p class="m-0 text-muted">{{ $game->size }}</p>
+                                                <p class="m-0 text-muted right_info_fz">{{ $game->size }}</p>
                                             </div>
                                         </div>
                                     </div>
