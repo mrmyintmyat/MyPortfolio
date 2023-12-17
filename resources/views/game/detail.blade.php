@@ -203,8 +203,8 @@
                                                 <h5 class="card-title m-0 text-truncate" style="max-width: 200px;"
                                                     id="title">
                                                     {{ $game->name }}</h5>
-                                                <p class="m-0 text-muted">{{ $game->online_or_offline }}</p>
-                                                <p style="font-size: 0.8rem;" class="m-0 text-muted">{{ $game->size }}
+                                                <p class="m-0 text-muted left_info_fz">{{ $game->online_or_offline }}</p>
+                                                <p style="font-size: 0.8rem;" class="m-0 text-muted left_info_fz">{{ $game->size }}
                                                 </p>
 
                                             </div>
@@ -251,7 +251,7 @@
                                         <div
                                             class="d-flex flex-column flex-lg-row justify-content-center align-items-center px-2">
                                             <div class=" w-100 py-3">
-                                                <ul class="list-unstyled row row-cols-3 ">
+                                                <ul class="list-unstyled row row-cols-3 game_info_detail_container">
                                                     <li class="text-center fw-medium">
                                                         {{ formatDownloads($game->downloads) }} <br> Downloads
                                                     </li>

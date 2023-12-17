@@ -142,6 +142,11 @@ h5{
     .title_icon{
       font-size: 1.3rem;
     }
+
+    .game_info_detail_container li{
+      font-size: 0.9rem;
+    }
+
     h5{
         font-size: 1rem;
     }
