@@ -11,7 +11,7 @@ if [ ! -d "$BACKUP_DIR" ]; then
     mkdir -p "$BACKUP_DIR"
 fi
 
-# Backup filename
+# Backup filename 
 BACKUP_FILENAME="backup_$(date +%Y%m%d%H%M%S).sql"
 
 # mysqldump command for all databases

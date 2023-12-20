@@ -171,7 +171,7 @@
                                             $images = $game->image;
                                         @endphp
                                         <div class="scroll-image-container rounded-1">
-                                            @foreach ($images as $count => $image)
+                                            @foreach (array_slice($game->image, 0, 2) as $count => $image)
                                                 <button type="button" class="btn btn-link image-button"
                                                     data-bs-toggle="modal" data-bs-target="#imageModal{{ $count }}">
                                                     <img class="image w-100 rounded-3" src="{{ $image }}"
@@ -197,14 +197,15 @@
                                     <div onclick="" class="card-body py-3 d-flex justify-content-between"
                                         id="item_title">
                                         <div class="d-flex">
-                                            <img style="width: 4rem;" class="rounded-2" src="{{ $game->logo }}"
+                                            <img class="rounded-2 game_logo_detail" src="{{ $game->logo }}"
                                                 alt="">
                                             <div class="ms-2" style="line-height: 1.1rem">
                                                 <h5 class="card-title m-0 text-truncate" style="max-width: 200px;"
                                                     id="title">
                                                     {{ $game->name }}</h5>
                                                 <p class="m-0 text-muted left_info_fz">{{ $game->online_or_offline }}</p>
-                                                <p style="font-size: 0.8rem;" class="m-0 text-muted left_info_fz">{{ $game->size }}
+                                                <p style="font-size: 0.8rem;" class="m-0 text-muted left_info_fz">
+                                                    {{ $game->size }}
                                                 </p>
 
                                             </div>
@@ -270,44 +271,15 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            @if (!isset($game->download_links['MediaFire']))
-                                                <button
-                                                    class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5"
-                                                    type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#downloadlinks" aria-expanded="false"
-                                                    aria-controls="downloadlinks">
-                                                    <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
-                                                    Download
-                                                </button>
-                                            @else
-                                                <a onclick="handleDownloadClick({{ $game->id }}, '{{ $game->download_links['MediaFire'] }}', 'mediafire')"
-                                                    class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
-                                                    <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
-                                                    Download
-                                                </a>
-                                            @endif
-                                        </div>
-                                        <div class="collapse" id="downloadlinks">
-                                            <div class="card card-body rounded-0">
-                                                @if ($game->download_links)
-                                                    @foreach ($game->download_links as $name => $link)
-                                                        @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
-                                                            <p><strong>{{ $name }}:</strong> <a
-                                                                    onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
-                                                                    class="text-decoration-none"
-                                                                    style="cursor: pointer;">{{ $link }}</a></p>
-                                                        @endif
-                                                    @endforeach
-                                                @else
-                                                    <p>No download links available.</p>
-                                                @endif
-                                            </div>
+                                            <a onclick="scrollToDownloadNow()"
+                                                class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
+                                                <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
+                                                Download
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="card card-body border-top border-0 p-0 p-2">
                                         {{-- <p class="text-center m-0"><strong class="text-danger">You Need To Use Vpn To Download the game</strong></p> --}}
-                                        <p class="text-center m-0 mb-lg-2"><strong class="text-danger">ဂိမ်းကို
-                                                Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></p>
                                         <div class="d-flex d-lg-none justify-content-center" style="height: 8rem;">
                                             <a class="col-lg-8 col-12" href="https://t.me/zynngames">
                                                 <img class="w-100 h-100" src="/img/join_telegram.gif" alt="Animated GIF">
@@ -338,20 +310,22 @@
                                         </div>
                                     </div>
                                     @if (isset($game->download_links['MediaFire']))
-                                            <div class="card card-body border-top border-0 p-0 px-2">
-                                                <div class="card-text">
-                                                    @foreach ($game->download_links as $name => $link)
-                                                        @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
-                                                            <p class="mb-1"><strong>{{ $name }}:</strong> <a
-                                                                    onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
-                                                                    class="text-decoration-none"
-                                                                    style="cursor: pointer;">{{ $link }}</a></p>
-                                                        @endif
-                                                    @endforeach
-                                                </div>
+                                        <div class="card card-body border-top border-0 p-0 px-2">
+                                            <div class="card-text">
+                                                @foreach ($game->download_links as $name => $link)
+                                                    @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
+                                                        <p class="mb-1"><strong>{{ $name }}:</strong> <a
+                                                                onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
+                                                                class="text-decoration-none"
+                                                                style="cursor: pointer;">{{ $link }}</a></p>
+                                                    @endif
+                                                @endforeach
                                             </div>
+                                        </div>
                                     @endif
-                                    @if (isset($game->download_links['password']) || isset($game->download_links['Youtube']) || isset($game->download_links['Howto']))
+                                    @if (isset($game->download_links['password']) ||
+                                            isset($game->download_links['Youtube']) ||
+                                            isset($game->download_links['Howto']))
                                         <div class="card card-body border-top border-0">
                                             <div class="card-text">
                                                 @if (isset($game->download_links['password']))
@@ -376,30 +350,85 @@
                                         </div>
                                     @endif
 
-                                    <div class="card card-body border-top border-0">
-                                        <div class="card-text fw-medium">
-                                            <h4>Game Review: {{ $game->name }}</h4>
+                                    <div class="card card-body border-top border-0 px-2">
+                                        <div class="card-text" style="font-family: Rubik; font-size: 0.9rem;">
+                                            <h3 class="RubikDoodleFt text-center">{{ $game->name }}</h3>
+
+                                            {{-- Split the 'about' text into paragraphs --}}
                                             <?php
-                                            $about = strlen($game->about) > 400 ? substr($game->about, 0, 400) : $game->about;
-                                            $about = nl2br(htmlspecialchars($about)); // Convert newline characters to <br> and escape HTML entities
-                                            $about = str_replace('<br>', '</p><p>', $about); // Replace <br> with </p><p> for paragraphs
-                                            echo '<p>' . $about . '</p>';
+                                            $paragraphs = preg_split('/\n\s*\n/', $game->about);
+                                            $totalParagraphs = count($paragraphs);
+                                            $totalImages = count($game->image);
                                             ?>
-                                            @if (strlen($game->about) > 400)
-                                                <span class="collapse" id="more_about">
-                                                    <?php
-                                                    $about2 = strlen($game->about) > 400 ? substr($game->about, 400, 10000) : $game->about;
-                                                    $about2 = nl2br(htmlspecialchars($about2)); // Convert newline characters to <br> and escape HTML entities
-                                                    $about2 = str_replace('<br>', '</p><p>', $about2); // Replace <br> with </p><p> for paragraphs
-                                                    echo '<p>' . $about2 . '</p>';
-                                                    ?>
-                                                </span>
-                                                <a id="see_more" onclick="toggleText(event)"
-                                                    class="text-dark text-decoration-none text-muted"
-                                                    data-bs-toggle="collapse" href="#more_about" role="button"
-                                                    aria-expanded="false" aria-controls="more_about">... See more</a>
+
+                                            {{-- Display paragraphs with associated images --}}
+                                            @for ($count = 0; $count < $totalParagraphs; $count += 2)
+                                                {{-- Display first paragraph --}}
+                                                <p>{!! nl2br(htmlspecialchars($paragraphs[$count])) !!}</p>
+
+                                                {{-- Display image with modal --}}
+                                                @if (isset($images[$count / 2]))
+                                                    <button type="button" class="btn btn-link about-image-btn  mb-2 p-0"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#imageModal{{ $count / 2 }}">
+                                                        <img class="image w-100 rounded-3"
+                                                            src="{{ $images[$count / 2] }}" alt="ERR"
+                                                            loading="auto|eager|lazy">
+                                                    </button>
+                                                @endif
+
+                                                {{-- Display second paragraph --}}
+                                                @if ($count + 1 < $totalParagraphs)
+                                                    <p>{!! nl2br(htmlspecialchars($paragraphs[$count + 1])) !!}</p>
+                                                @endif
+                                            @endfor
+                                            @if ($totalParagraphs < $totalImages)
+                                                @for ($i = $totalParagraphs; $i < $totalImages; $i++)
+                                                    <button type="button" class="btn btn-link  about-image-btn mb-2 p-0"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#imageModal{{ $i }}">
+                                                        <img class="image w-100 rounded-3" src="{{ $images[$i] }}"
+                                                            alt="ERR" loading="auto|eager|lazy">
+                                                    </button>
+                                                @endfor
                                             @endif
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center px-2" id="download-now">
+                                    @if (!isset($game->download_links['MediaFire']))
+                                        <button
+                                            class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#downloadlinks"
+                                            aria-expanded="false" aria-controls="downloadlinks">
+                                            Download Now
+                                        </button>
+                                    @else
+                                        <a onclick="handleDownloadClick({{ $game->id }}, '{{ $game->download_links['MediaFire'] }}', 'mediafire')"
+                                            class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
+                                            Download Now
+                                        </a>
+                                    @endif
+
+                                </div>
+                                @if (isset($game->download_links['MediaFire']))
+                                    <div class="text-center mb-3"><strong class="text-danger">ဂိမ်းကို
+                                            Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></div>
+                                @endif
+                                <div class="collapse" id="downloadlinks">
+                                    <div class="card card-body rounded-0">
+                                        @if ($game->download_links)
+                                            @foreach ($game->download_links as $name => $link)
+                                                @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
+                                                    <p><strong>{{ $name }}:</strong> <a
+                                                            onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
+                                                            class="text-decoration-none"
+                                                            style="cursor: pointer;">{{ $link }}</a></p>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <p>No download links available.</p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -422,24 +451,32 @@
                                                         class="card-body py-3 d-flex justify-content-between"
                                                         id="item_title">
                                                         <div class=" d-flex" style="width: 3.5rem;">
-                                                            <img class="w-100 h-100 rounded-2" src="{{ $game->logo }}"
-                                                                alt="">
+                                                            <img class="w-100 h-100 rounded-2 game_logo"
+                                                                src="{{ $game->logo }}" alt="">
                                                             <div class="ms-2 ">
                                                                 <h5 class="card-title m-0 text-truncate"
                                                                     style="max-width: 200px; " id="title">
                                                                     {{ $game->name }}</h5>
-                                                                <p class="m-0 text-muted">{{ $game->online_or_offline }}
-                                                                </p>
+                                                                @if (stripos($game->category, 'mod') !== false)
+                                                                    <p class="m-0 text-danger fw-semibold left_info_fz">
+                                                                        Mod
+                                                                    </p>
+                                                                @else
+                                                                    <p class="m-0 text-success fw-semibold left_info_fz">
+                                                                        Free
+                                                                    </p>
+                                                                @endif
                                                             </div>
                                                         </div>
 
                                                         <div
                                                             class="d-flex flex-column justify-content-center align-items-end">
-                                                            <p class="m-0 text-muted">
+                                                            <p class="m-0 text-muted right_info_fz">
                                                                 {{ formatDownloads($game->downloads) }}
                                                                 <i class="fa-solid fa-circle-arrow-down"></i>
                                                             </p>
-                                                            <p class="m-0 text-muted">{{ $game->size }}</p>
+                                                            <p class="m-0 text-muted right_info_fz">{{ $game->size }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -604,8 +641,35 @@
             if (aspectRatio === 9 / 16) {
                 // Apply the custom style
                 button.style.width = '10rem';
-                image.classList.remove('w-100');
+                // image.classList.remove('w-100');
             }
         });
+
+        window.addEventListener('load', function() {
+            var imageButtons = document.querySelectorAll('.about-image-btn');
+
+            // Loop through each button
+            imageButtons.forEach(function(button) {
+                // Get the image inside the button
+                var image = button.querySelector('.image');
+                console.log("width " + image.naturalWidth)
+                console.log("height " + image.naturalHeight)
+                if (image.naturalWidth < image.naturalHeight || image.naturalWidth === 0) {
+                    // Apply the custom style
+                    button.style.width = '10rem';
+                    // image.classList.remove('w-100');
+                }
+            });
+        });
+
+        function scrollToDownloadNow() {
+            const element = document.getElementById("download-now");
+            if (element) {
+                element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+        }
     </script>
 @endsection

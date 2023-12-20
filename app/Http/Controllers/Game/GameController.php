@@ -50,8 +50,8 @@ class GameController extends Controller
 
     public function getAllGames()
     {
-        $games = Game::latest()
-            ->where('post_status', '!=', '0')
+        $games = Game::where('post_status', '!=', '0')
+            ->inRandomOrder()
             ->paginate(10);
 
         return $games;
@@ -60,14 +60,12 @@ class GameController extends Controller
 
     public function getCategoryGames($category)
     {
-        $gamesQuery = Game::latest()->where('post_status', '!=', '0');
+        $gamesQuery = Game::where('post_status', '!=', '0');
 
         if ($category === 'new' || $category === 'New') {
-            $gamesQuery->where('category', 'not like', '%old%');
+            $gamesQuery->latest()->where('category', 'not like', '%old%');
         } elseif ($category) {
-            $gamesQuery->where(function ($query) use ($category) {
-                $query->where('category', 'like', "%$category%");
-            });
+            $gamesQuery->where('category', 'like', "%$category%")->inRandomOrder();
         }
 
         $games = $gamesQuery->paginate(10);
@@ -107,7 +105,7 @@ class GameController extends Controller
             ->where('post_status', '!=', '0')
             ->latest()
             ->paginate(10);
-
+        $startCount = 10;
         $html = view('results.search-results-games', ['games' => $games])->render();
         return response()->json(['html' => $html]);
     }
