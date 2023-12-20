@@ -278,78 +278,6 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="card card-body border-top border-0 p-0 p-2">
-                                        {{-- <p class="text-center m-0"><strong class="text-danger">You Need To Use Vpn To Download the game</strong></p> --}}
-                                        <div class="d-flex d-lg-none justify-content-center" style="height: 8rem;">
-                                            <a class="col-lg-8 col-12" href="https://t.me/zynngames">
-                                                <img class="w-100 h-100" src="/img/join_telegram.gif" alt="Animated GIF">
-                                            </a>
-                                        </div>
-
-                                        <div class="card-text text-center p-2 fw-bold "
-                                            style="font-size: 1rem;background: #FE6F00;">
-                                            <a style="line-height: 1.3rem;" href="https://fotliv.com/"
-                                                class="align-items-center justify-content-center fotliv-ads-text text-decoration-none text-white shake-right d-sm-flex d-none"><img
-                                                    style="width: 3rem"
-                                                    src="https://play-lh.googleusercontent.com/yz6mX4Bj-bQHvUpZKURcmfMYgppnkcY_J3WQ3i7YkhnZgRTPMUCvKG-TFLWggf7wNxU=w240-h480-rw"
-                                                    alt="">
-                                                <p class="ms-1 m-0">
-                                                    ဘောလုံးပွဲများကိုအခမဲ့တိုက်ရိုက်ကြည့်နိုင်ပါပြီဒေါင်းရန်နိပ့်ပါ
-                                                </p>
-                                            </a>
-                                        </div>
-                                        <div class="card-text d-sm-none d-block">
-                                            <a href="https://fotliv.com/">
-                                                <img class="w-100 h-100" src="/img/fotliv_ads.png" alt="">
-                                            </a>
-                                            <a href="https://fotliv.com/"
-                                                class="btn mt-2 bg-warning text-white shadow py-2 my-lg-2 col-lg-4 col-12 rounded-pill fw-bold fs-5">
-                                                <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
-                                                Download App
-                                            </a>
-                                        </div>
-                                    </div>
-                                    @if (isset($game->download_links['MediaFire']))
-                                        <div class="card card-body border-top border-0 p-0 px-2">
-                                            <div class="card-text">
-                                                @foreach ($game->download_links as $name => $link)
-                                                    @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
-                                                        <p class="mb-1"><strong>{{ $name }}:</strong> <a
-                                                                onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
-                                                                class="text-decoration-none"
-                                                                style="cursor: pointer;">{{ $link }}</a></p>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if (isset($game->download_links['password']) ||
-                                            isset($game->download_links['Youtube']) ||
-                                            isset($game->download_links['Howto']))
-                                        <div class="card card-body border-top border-0">
-                                            <div class="card-text">
-                                                @if (isset($game->download_links['password']))
-                                                    <p class="m-0"><strong>Password:</strong>
-                                                        {{ $game->download_links['password'] }}</p>
-                                                @endif
-                                                @if (isset($game->download_links['Youtube']))
-                                                    <p class="m-0"><strong>How to install:</strong></p>
-                                                    <iframe class="w-100" style="min-height: 20rem;"
-                                                        src="{{ $game->download_links['Youtube'] }}" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                        allowfullscreen></iframe>
-                                                @endif
-                                                @if (isset($game->download_links['Howto']))
-                                                    <p class="m-0"><strong>How to install:</strong>
-                                                        <a href="{{ $game->download_links['Howto'] }}"
-                                                            class="text-decoration-none btn btn-success btn-sm"
-                                                            style="cursor: pointer;">{{ $game->download_links['Howto'] }}</a>
-                                                    </p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    @endif
-
                                     <div class="card card-body border-top border-0 px-2">
                                         <div class="card-text" style="font-family: Rubik; font-size: 0.9rem;">
                                             <h3 class="RubikDoodleFt text-center">{{ $game->name }}</h3>
@@ -395,7 +323,56 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-center px-2" id="download-now">
+                                <div class="card card-body border-top border-0 p-0 p-2 d-flex justify-content-center">
+                                    <div class="card-text text-center p-2 fw-bold "
+                                        style="font-size: 1rem;background: #FE6F00;">
+                                        <a style="line-height: 1.3rem;" href="https://fotliv.com/"
+                                            class="align-items-center justify-content-center fotliv-ads-text text-decoration-none text-white shake-right d-sm-flex d-none"><img
+                                                style="width: 3rem"
+                                                src="https://play-lh.googleusercontent.com/yz6mX4Bj-bQHvUpZKURcmfMYgppnkcY_J3WQ3i7YkhnZgRTPMUCvKG-TFLWggf7wNxU=w240-h480-rw"
+                                                alt="">
+                                            <p class="ms-1 m-0">
+                                                ဘောလုံးပွဲများကိုအခမဲ့တိုက်ရိုက်ကြည့်နိုင်ပါပြီဒေါင်းရန်နိပ့်ပါ
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <a href="https://fotliv.com/"
+                                        class="btn mt-2 bg-warning text-white shadow py-2 my-lg-2 col-lg-4 col-12 rounded-pill fw-bold fs-5 d-sm-flex d-none">
+                                        <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
+                                        Download App
+                                    </a>
+                                    <div class="card-text d-sm-none d-block">
+                                        <a href="https://fotliv.com/">
+                                            <img class="w-100 h-100" src="/img/fotliv_ads.png" alt="">
+                                        </a>
+                                        <a href="https://fotliv.com/"
+                                            class="btn mt-2 bg-warning text-white shadow py-2 my-lg-2 col-lg-4 col-12 rounded-pill fw-bold fs-5">
+                                            <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
+                                            Download App
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center" style="height: 8rem;">
+                                    <a class="col-lg-8 col-12" href="https://t.me/zynngames">
+                                        <img class="w-100 h-100" src="/img/join_telegram.gif" alt="Animated GIF">
+                                    </a>
+                                </div>
+                                @if (isset($game->download_links['MediaFire']))
+                                    <div class="card card-body border-top border-0 p-0 px-2">
+                                        <div class="card-text">
+                                            @foreach ($game->download_links as $name => $link)
+                                                @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
+                                                    <p class="mb-1"><strong>{{ $name }}:</strong> <a
+                                                            onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
+                                                            class="text-decoration-none"
+                                                            style="cursor: pointer;">{{ $link }}</a></p>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="d-flex justify-content-center px-2 mb-3" id="download-now">
                                     @if (!isset($game->download_links['MediaFire']))
                                         <button
                                             class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5"
@@ -431,6 +408,31 @@
                                         @endif
                                     </div>
                                 </div>
+                                @if (isset($game->download_links['password']) ||
+                                        isset($game->download_links['Youtube']) ||
+                                        isset($game->download_links['Howto']))
+                                    <div class="card card-body border-top border-0">
+                                        <div class="card-text">
+                                            @if (isset($game->download_links['password']))
+                                                <p class="text-center"><strong>Password:</strong>
+                                                    {{ $game->download_links['password'] }}</p>
+                                            @endif
+                                            @if (isset($game->download_links['Youtube']))
+                                                <iframe class="w-100" style="min-height: 20rem;"
+                                                    src="{{ $game->download_links['Youtube'] }}" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    allowfullscreen></iframe>
+                                            @endif
+                                            @if (isset($game->download_links['Howto']))
+                                                <p class="m-0"><strong>How to install:</strong>
+                                                    <a href="{{ $game->download_links['Howto'] }}"
+                                                        class="text-decoration-none btn btn-success btn-sm"
+                                                        style="cursor: pointer;">{{ $game->download_links['Howto'] }}</a>
+                                                </p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -179,10 +179,15 @@
                                                     <div class=" d-flex" style="width: 3.5rem;">
                                                         <img class="rounded-2 game_logo" src="{{ $game->logo }}"
                                                             alt="">
-                                                        <div class="ms-2 ">
+                                                        <div class="ms-2" style="line-height: 1rem;">
                                                             <h5 class="card-title m-0 text-truncate"
                                                                 style="max-width: 200px; " id="title">
                                                                 {{ $game->name }}</h5>
+                                                            @if (isset($game->download_links['version']) || isset($game->download_links['Version']))
+                                                                <p class="m-0 text-success fw-semibold left_info_fz">
+                                                                    {{ $game->download_links['Version'] }}
+                                                                </p>
+                                                            @endif
                                                             @if (stripos($game->category, 'mod') !== false)
                                                                 <p class="m-0 text-danger fw-semibold left_info_fz">
                                                                     Mod
@@ -236,7 +241,9 @@
                                     <div class="">
                                         <div class="parent">
                                             <div class="card-img-top mb-1 d-flex justify-content-center">
-                                                <div id="carousel{{$game_count_0}}" class="photos_container_games row w-100 carousel slide p-0 rounded-3" data-bs-ride="carousel">
+                                                <div id="carousel{{ $game_count_0 }}"
+                                                    class="photos_container_games row w-100 carousel slide p-0 rounded-3"
+                                                    data-bs-ride="carousel">
                                                     <div class="carousel-inner p-0">
                                                         @php
                                                             $images = array_slice($game->image, 0, 2);
@@ -254,13 +261,15 @@
                                                     </div>
                                                     @if (count($images) > 1)
                                                         <button class="carousel-control-prev" type="button"
-                                                            data-bs-target="#carousel{{$game_count_0}}" data-bs-slide="prev">
+                                                            data-bs-target="#carousel{{ $game_count_0 }}"
+                                                            data-bs-slide="prev">
                                                             <span class="carousel-control-prev-icon"
                                                                 aria-hidden="true"></span>
                                                             <span class="visually-hidden">Previous</span>
                                                         </button>
                                                         <button class="carousel-control-next" type="button"
-                                                            data-bs-target="#carousel{{$game_count_0}}" data-bs-slide="next">
+                                                            data-bs-target="#carousel{{ $game_count_0 }}"
+                                                            data-bs-slide="next">
                                                             <span class="carousel-control-next-icon"
                                                                 aria-hidden="true"></span>
                                                             <span class="visually-hidden">Next</span>
@@ -269,15 +278,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div onclick="" class="card-body py-2 py-lg-3 d-flex justify-content-between px-1"
+                                        <div onclick=""
+                                            class="card-body py-2 py-lg-3 d-flex justify-content-between px-1"
                                             id="item_title">
                                             <div class=" d-flex" style="width: 3.5rem;">
                                                 <img class="rounded-2 game_logo" src="{{ $game->logo }}"
                                                     alt="">
-                                                <div class="ms-2 ">
+                                                <div class="ms-2" style="line-height: 1rem;">
                                                     <h5 class="card-title m-0 text-truncate" style="max-width: 200px; "
                                                         id="title">
                                                         {{ $game->name }}</h5>
+                                                    @if (isset($game->download_links['version']) || isset($game->download_links['Version']))
+                                                        <p class="m-0 text-success fw-semibold left_info_fz">
+                                                            {{ $game->download_links['Version'] }}
+                                                        </p>
+                                                    @endif
                                                     @if (stripos($game->category, 'mod') !== false)
                                                         <p class="m-0 text-danger fw-semibold left_info_fz">
                                                             Mod
