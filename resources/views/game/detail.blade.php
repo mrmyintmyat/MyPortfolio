@@ -357,21 +357,6 @@
                                         <img class="w-100 h-100" src="/img/join_telegram.gif" alt="Animated GIF">
                                     </a>
                                 </div>
-                                @if (isset($game->download_links['MediaFire']))
-                                    <div class="card card-body border-top border-0 p-0 px-2">
-                                        <div class="card-text">
-                                            @foreach ($game->download_links as $name => $link)
-                                                @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
-                                                    <p class="mb-1"><strong>{{ $name }}:</strong> <a
-                                                            onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
-                                                            class="text-decoration-none"
-                                                            style="cursor: pointer;">{{ $link }}</a></p>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-
                                 <div class="d-flex justify-content-center px-2 mb-3" id="download-now">
                                     @if (!isset($game->download_links['MediaFire']))
                                         <button
@@ -408,6 +393,20 @@
                                         @endif
                                     </div>
                                 </div>
+                                @if (isset($game->download_links['MediaFire']))
+                                    <div class="card card-body border-top border-0 p-0 px-2">
+                                        <div class="card-text">
+                                            @foreach ($game->download_links as $name => $link)
+                                                @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
+                                                    <p class="mb-1"><strong>{{ $name }}:</strong> <a
+                                                            onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
+                                                            class="text-decoration-none"
+                                                            style="cursor: pointer;">{{ $link }}</a></p>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
                                 @if (isset($game->download_links['password']) ||
                                         isset($game->download_links['Youtube']) ||
                                         isset($game->download_links['Howto']))
