@@ -74,7 +74,7 @@
                         id="item_title">
                         <div class=" d-flex" style="width: 3.5rem;">
                             <img class="rounded-2 game_logo" src="{{ $game->logo }}" alt="">
-                            <div class="ms-2" style="line-height: 1rem;>
+                            <div class="ms-2" style="line-height: 1rem;">
                                 <h5 class="card-title m-0 text-truncate" style="max-width: 200px; " id="title">
                                     {{ $game->name }}</h5>
                                 @if (isset($game->download_links['v']))
