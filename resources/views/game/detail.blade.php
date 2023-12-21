@@ -207,6 +207,8 @@
                                                     <p class="m-0 text-secondary fw-semibold left_info_fz">
                                                         {{ $game->download_links['v'] }}
                                                     </p>
+                                                @else
+                                                <p class="m-0 text-muted left_info_fz">{{ $game->size }}</p>
                                                 @endif
                                                 <p class="m-0 text-muted left_info_fz">{{ $game->online_or_offline }}</p>
 
