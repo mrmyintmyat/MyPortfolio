@@ -77,9 +77,9 @@
                             <div class="ms-2 ">
                                 <h5 class="card-title m-0 text-truncate" style="max-width: 200px; " id="title">
                                     {{ $game->name }}</h5>
-                                @if (isset($game->download_links['version']) || isset($game->download_links['Version']))
-                                    <p class="m-0 text-success fw-semibold left_info_fz">
-                                        {{ $game->download_links['Version'] }}
+                                @if (isset($game->download_links['v']))
+                                    <p class="m-0 text-secondary fw-semibold left_info_fz">
+                                        {{ $game->download_links['v'] }}
                                     </p>
                                 @endif
                                 @if (stripos($game->category, 'mod') !== false)

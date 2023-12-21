@@ -203,10 +203,12 @@
                                                 <h5 class="card-title m-0 text-truncate" style="max-width: 200px;"
                                                     id="title">
                                                     {{ $game->name }}</h5>
+                                                @if (isset($game->download_links['v']))
+                                                    <p class="m-0 text-secondary fw-semibold left_info_fz">
+                                                        {{ $game->download_links['v'] }}
+                                                    </p>
+                                                @endif
                                                 <p class="m-0 text-muted left_info_fz">{{ $game->online_or_offline }}</p>
-                                                <p style="font-size: 0.8rem;" class="m-0 text-muted left_info_fz">
-                                                    {{ $game->size }}
-                                                </p>
 
                                             </div>
                                         </div>
@@ -455,6 +457,11 @@
                                                                 <h5 class="card-title m-0 text-truncate"
                                                                     style="max-width: 200px; " id="title">
                                                                     {{ $game->name }}</h5>
+                                                                @if (isset($game->download_links['v']))
+                                                                    <p class="m-0 text-secondary fw-semibold left_info_fz">
+                                                                        {{ $game->download_links['v'] }}
+                                                                    </p>
+                                                                @endif
                                                                 @if (stripos($game->category, 'mod') !== false)
                                                                     <p class="m-0 text-danger fw-semibold left_info_fz">
                                                                         Mod
