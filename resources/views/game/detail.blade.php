@@ -393,7 +393,7 @@
                                     <div class="card card-body rounded-0">
                                         @if ($game->download_links)
                                             @foreach ($game->download_links as $name => $link)
-                                                @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
+                                                @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto' && $name !== 'v')
                                                     <p><strong>{{ $name }}:</strong> <a
                                                             onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', false)"
                                                             class="text-decoration-none"
@@ -409,7 +409,7 @@
                                     <div class="card card-body border-top border-0 p-0 px-2">
                                         <div class="card-text">
                                             @foreach ($game->download_links as $name => $link)
-                                                @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
+                                                @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto' && $name !== 'v')
                                                     <p class="mb-1"><strong>{{ $name }}:</strong> <a
                                                             onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', false)"
                                                             class="text-decoration-none"
