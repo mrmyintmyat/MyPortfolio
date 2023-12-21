@@ -1,13 +1,10 @@
 @extends('layouts.game')
-@section('title')
-    ZYNN GAMES
+@section('title')GAMES
 @endsection
-@section('logo')
-    /img/game_logo.jpg
+@section('logo')/img/game_logo.png
 @endsection
 {{-- @section('image')@php $images = $game->image; @endphp {{ $images[0] }}@endsection --}}
-@section('keywords')
-    Games,myintmyat,myintmyat.dev,games.myintmyat.dev,zynn,free games,old games
+@section('keywords')Games,myintmyat,myintmyat.dev,games.myintmyat.dev,zynn,free games,old games
 @endsection
 @section('style')
     <style>
