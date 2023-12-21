@@ -36,7 +36,7 @@ class GameController extends Controller
             // Log the SQL query being executed
             // \Log::info('SQL Query:', ['query' => $gamesQuery->toSql(), 'bindings' => $gamesQuery->getBindings()]);
 
-            $games = $gamesQuery->paginate(10, ['*'], 'page', $page);
+            $games = $gamesQuery->paginate(10, ['*'], 'page', $page)->shuffle();
 
             return view('results.search-results-games', ['games' => $games])->render();
         }
@@ -50,9 +50,8 @@ class GameController extends Controller
 
     public function getAllGames()
     {
-        $games = Game::where('post_status', '!=', '0')
-            ->inRandomOrder()
-            ->paginate(10);
+        $games = Game::latest()->where('post_status', '!=', '0')
+            ->paginate(10)->shuffle();
 
         return $games;
 
@@ -60,15 +59,15 @@ class GameController extends Controller
 
     public function getCategoryGames($category)
     {
-        $gamesQuery = Game::where('post_status', '!=', '0');
+        $gamesQuery = Game::latest()->where('post_status', '!=', '0');
 
         if ($category === 'new' || $category === 'New') {
-            $gamesQuery->latest()->where('category', 'not like', '%old%');
+            $gamesQuery->where('category', 'not like', '%old%');
+            $games = $gamesQuery->paginate(10);
         } elseif ($category) {
             $gamesQuery->where('category', 'like', "%$category%")->inRandomOrder();
+            $games = $gamesQuery->paginate(10)->shuffle();
         }
-
-        $games = $gamesQuery->paginate(10);
 
         return $games;
     }

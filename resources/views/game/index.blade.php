@@ -244,17 +244,17 @@
                                                 <div id="carousel{{ $game_count_0 }}"
                                                     class="photos_container_games row w-100 carousel slide p-0 rounded-3"
                                                     data-bs-ride="carousel">
-                                                    <div class="carousel-inner p-0">
+                                                    <div class="carousel-inner p-0 rounded-3">
                                                         @php
                                                             $images = array_slice($game->image, 0, 2);
                                                             $totalImages = count($images);
                                                         @endphp
 
                                                         @foreach ($images as $count => $image)
-                                                            <div class="carousel-item h-100 rounded-3 {{ $count === 0 ? 'active' : '' }}"
+                                                            <div class="carousel-item h-100 {{ $count === 0 ? 'active' : '' }}"
                                                                 data-bs-interval="{{ $interval }}">
                                                                 <img src="{{ $image }}"
-                                                                    class="d-block w-100 h-100 rounded-3"
+                                                                    class="d-block w-100 h-100"
                                                                     alt="Image {{ $count + 1 }}">
                                                             </div>
                                                         @endforeach

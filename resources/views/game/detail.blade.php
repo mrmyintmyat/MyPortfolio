@@ -114,6 +114,16 @@
                 display: none;
             }
         }
+
+        #downloadBtn {
+            transition: all 1s ease-in;
+        }
+
+        .circle-btn {
+            border-radius: 50%;
+            width: 150px;
+            /* Set your desired width */
+        }
     </style>
 @endsection
 @section('btn')
@@ -208,7 +218,7 @@
                                                         {{ $game->download_links['v'] }}
                                                     </p>
                                                 @else
-                                                <p class="m-0 text-muted left_info_fz">{{ $game->size }}</p>
+                                                    <p class="m-0 text-muted left_info_fz">{{ $game->size }}</p>
                                                 @endif
                                                 <p class="m-0 text-muted left_info_fz">{{ $game->online_or_offline }}</p>
 
@@ -367,8 +377,9 @@
                                             Download Now
                                         </button>
                                     @else
-                                        <a onclick="handleDownloadClick({{ $game->id }}, '{{ $game->download_links['MediaFire'] }}', 'mediafire')"
-                                            class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5">
+                                        <a onclick="handleDownloadClick({{ $game->id }}, '{{ $game->download_links['MediaFire'] }}', true)"
+                                            class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5"
+                                            id="downloadBtn">
                                             Download Now
                                         </a>
                                     @endif
@@ -384,7 +395,7 @@
                                             @foreach ($game->download_links as $name => $link)
                                                 @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
                                                     <p><strong>{{ $name }}:</strong> <a
-                                                            onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
+                                                            onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', false)"
                                                             class="text-decoration-none"
                                                             style="cursor: pointer;">{{ $link }}</a></p>
                                                 @endif
@@ -400,7 +411,7 @@
                                             @foreach ($game->download_links as $name => $link)
                                                 @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto')
                                                     <p class="mb-1"><strong>{{ $name }}:</strong> <a
-                                                            onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', 'not')"
+                                                            onclick="handleDownloadClick({{ $game->id }}, '{{ $link }}', false)"
                                                             class="text-decoration-none"
                                                             style="cursor: pointer;">{{ $link }}</a></p>
                                                 @endif
@@ -570,7 +581,14 @@
         function handleDownloadClick(gameId, link, isMediaFire, download_again = false) {
             // Make an AJAX request to increment downloads
             if (!isDownloading) {
-                isDownloading = true;
+                if (isMediaFire) {
+                    // Change the button style to a circle
+                    document.getElementById('downloadBtn').classList.add('circle-btn');
+
+                    // Start the countdown animation
+                    startCountdown();
+                }
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -581,16 +599,19 @@
                     method: 'POST',
                     data: {
                         id: gameId,
-                        again: download_again
+                        again: download_again,
+                        link: link,
+                        isMediaFire: isMediaFire
                     },
                     success: function(response) {
                         if (response.success) {
                             // If success is true, proceed with the download
-                            if (isMediaFire === 'mediafire') {
-                                window.location.href = link;
+                            if (isMediaFire) {
+                                window.location.href = response.direct_link;
                             } else {
                                 window.open(link, '_blank');
                             }
+                            isDownloading = true;
 
                             setTimeout(() => {
                                 isDownloading = false;
@@ -611,7 +632,7 @@
                             isDownloading = false;
                         }, 5000);
 
-                        if (isMediaFire === 'mediafire') {
+                        if (isMediaFire) {
                             window.location.href = link;
                         } else {
                             window.open(link, '_blank');
@@ -624,6 +645,27 @@
             }
         }
 
+        function startCountdown() {
+            let count = 5;
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            // Disable the button at the beginning of the countdown
+            downloadBtn.disabled = true;
+
+            // Update the button text every second
+            const countdownInterval = setInterval(function() {
+                downloadBtn.innerText = `${count}`;
+                count--;
+
+                // Enable the button when the countdown reaches 0
+                if (count < 0) {
+                    clearInterval(countdownInterval);
+                    downloadBtn.innerText = 'Download Again';
+                    downloadBtn.classList.remove('circle-btn');
+                    downloadBtn.disabled = false;
+                }
+            }, 1000);
+        }
 
         function toggleText(event) {
             const link = event.target;
@@ -659,8 +701,6 @@
             imageButtons.forEach(function(button) {
                 // Get the image inside the button
                 var image = button.querySelector('.image');
-                console.log("width " + image.naturalWidth)
-                console.log("height " + image.naturalHeight)
                 if (image.naturalWidth < image.naturalHeight || image.naturalWidth === 0) {
                     // Apply the custom style
                     button.style.width = '10rem';
