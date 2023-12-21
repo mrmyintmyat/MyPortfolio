@@ -336,17 +336,14 @@
                                             </p>
                                         </a>
                                     </div>
-                                    <a href="https://fotliv.com/"
-                                        class="btn mt-2 bg-warning text-white shadow py-2 my-lg-2 col-lg-4 col-12 rounded-pill fw-bold fs-5 d-sm-flex d-none">
-                                        <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
-                                        Download App
-                                    </a>
                                     <div class="card-text d-sm-none d-block">
                                         <a href="https://fotliv.com/">
                                             <img class="w-100 h-100" src="/img/fotliv_ads.png" alt="">
                                         </a>
+                                    </div>
+                                    <div class="w-100 d-flex justify-content-center">
                                         <a href="https://fotliv.com/"
-                                            class="btn mt-2 bg-warning text-white shadow py-2 my-lg-2 col-lg-4 col-12 rounded-pill fw-bold fs-5">
+                                            class="btn mt-2 bg-warning text-white shadow py-2 my-lg-2 col-lg-6 col-12 rounded-pill fw-bold fs-5">
                                             <i class="fa-solid fa-circle-arrow-down text-white fs-5"></i>
                                             Download App
                                         </a>
@@ -360,14 +357,14 @@
                                 <div class="d-flex justify-content-center px-2 mb-3" id="download-now">
                                     @if (!isset($game->download_links['MediaFire']))
                                         <button
-                                            class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5"
+                                            class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5"
                                             type="button" data-bs-toggle="collapse" data-bs-target="#downloadlinks"
                                             aria-expanded="false" aria-controls="downloadlinks">
                                             Download Now
                                         </button>
                                     @else
                                         <a onclick="handleDownloadClick({{ $game->id }}, '{{ $game->download_links['MediaFire'] }}', 'mediafire')"
-                                            class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-4 col-12 rounded-pill fw-bold fs-5">
+                                            class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5">
                                             Download Now
                                         </a>
                                     @endif
