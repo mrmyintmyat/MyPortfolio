@@ -73,6 +73,7 @@
         div.scroll-image-container button img {
             max-height: 35vh;
             min-height: 28vh;
+            width: 100%;
         }
 
         @media (min-width: 992px) {
@@ -113,6 +114,10 @@
         @media(max-width: 360px) {
             .share_btn {
                 display: none;
+            }
+
+            div.scroll-image-container button img {
+                width: auto;
             }
         }
 
@@ -185,7 +190,7 @@
                                             @foreach (array_slice($game->image, 0, 2) as $count => $image)
                                                 <button type="button" class="btn btn-link image-button"
                                                     data-bs-toggle="modal" data-bs-target="#imageModal{{ $count }}">
-                                                    <img class="image w-100 rounded-3" src="{{ $image }}"
+                                                    <img class="image rounded-3" src="{{ $image }}"
                                                         alt="ERR" loading="auto|eager|lazy">
                                                 </button>
 
