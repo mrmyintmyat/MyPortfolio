@@ -188,7 +188,7 @@
                                                         alt="ERR" loading="auto|eager|lazy">
                                                 </button>
 
-                                                <!-- Modal -->
+                                                <!-- Modal hi -->
                                                 <div class="modal fade" id="imageModal{{ $count }}" tabindex="-1"
                                                     aria-labelledby="imageModalLabel{{ $count }}"
                                                     aria-hidden="true">
