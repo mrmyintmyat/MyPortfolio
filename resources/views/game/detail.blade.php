@@ -72,6 +72,7 @@
 
         div.scroll-image-container button img {
             max-height: 35vh;
+            min-height: 28vh;
         }
 
         @media (min-width: 992px) {
