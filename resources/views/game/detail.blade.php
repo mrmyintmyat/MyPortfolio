@@ -1,15 +1,18 @@
 @extends('layouts.game')
 @section('title')
-    {{ $game->name }}
+{{ $game->name }}
 @endsection
 @section('logo')
-    {{ $game->logo }}
+{{ $game->logo }}
+@endsection
+@section('web_url')
+{{ request()->url() }}
 @endsection
 @section('image')
     @php $images = $game->image; @endphp {{ $images[0] }}
 @endsection
 @section('keywords')
-    {{ $game->name }},{{ $game->category }}Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games
+{{ $game->name }},{{ $game->category }},Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games
 @endsection
 @section('style')
     <style>

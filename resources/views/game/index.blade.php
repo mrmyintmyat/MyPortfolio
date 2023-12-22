@@ -3,6 +3,9 @@
 @endsection
 @section('logo')/img/game_logo.png
 @endsection
+@section('web_url')
+{{ request()->url() }}
+@endsection
 {{-- @section('image')@php $images = $game->image; @endphp {{ $images[0] }}@endsection --}}
 @section('keywords')Games,myintmyat,myintmyat.dev,games.myintmyat.dev,zynn,free games,old games
 @endsection
