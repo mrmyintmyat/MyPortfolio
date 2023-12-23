@@ -359,7 +359,7 @@
                                                             @endforeach
                                                         </tbody>
                                                     </table>
-                                            <h3 class="RubikDoodleFt text-center my-3">{{ $game->name }}</h3>
+                                                    <h3 class="RubikDoodleFt text-center my-3">{{ $game->name }}</h3>
                                                 @else
                                                     <p class="px-2">{!! nl2br(htmlspecialchars($paragraphs[$count])) !!}</p>
                                                 @endif
@@ -385,12 +385,15 @@
                                             @endfor
                                             @if ($totalParagraphs < $totalImages)
                                                 @for ($i = $totalParagraphs; $i < $totalImages; $i++)
-                                                    <button type="button" class="btn btn-link  about-image-btn mb-2 p-0"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#imageModal{{ $i }}">
-                                                        <img class="image w-100 rounded-3" src="{{ $images[$i] }}"
-                                                            alt="ERR" loading="auto|eager|lazy">
-                                                    </button>
+                                                    <div class="w-100 d-flex justify-content-center">
+                                                        <button type="button"
+                                                            class="btn btn-link  about-image-btn mb-2 p-0"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#imageModal{{ $i }}">
+                                                            <img class="image w-100 rounded-3" src="{{ $images[$i] }}"
+                                                                alt="ERR" loading="auto|eager|lazy">
+                                                        </button>
+                                                    </div>
                                                 @endfor
                                             @endif
                                         </div>
