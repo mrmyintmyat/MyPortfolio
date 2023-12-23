@@ -77,14 +77,12 @@ class GameController extends Controller
         $game = Game::where('id', $id)
             ->where('post_status', '!=', '0')
             ->firstOrFail();
-        $games = Game::orderBy('downloads', 'desc')
-            ->where('id', '!=', $id)
+        $most_downloaded_games = Game::where('id', '!=', $id)
             ->where('post_status', '!=', '0')
             ->where('downloads', '>', 20)
             ->inRandomOrder()
             ->paginate(5);
-        $noGames = $games->isEmpty();
-        return view('game.detail', compact('game', 'games', 'noGames'));
+        return view('game.detail', compact('game', 'most_downloaded_games'));
     }
 
     public function games_search(Request $request)

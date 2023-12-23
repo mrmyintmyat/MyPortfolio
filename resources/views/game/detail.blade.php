@@ -413,7 +413,7 @@
                                     </div>
                                 </div>
                                 @if (isset($game->download_links['MediaFire']))
-                                    <div class="card card-body border-top border-0 p-0 px-2">
+                                    <div class="card card-body border-top border-0 px-2">
                                         <div class="card-text">
                                             @foreach ($game->download_links as $name => $link)
                                                 @if ($name !== 'MediaFire' && $name !== 'Youtube' && $name !== 'password' && $name !== 'Howto' && $name !== 'v')
@@ -459,8 +459,8 @@
                             <h3>Most downloaded games</h3>
                         </div>
                         <div>
-                            @if (!$noGames)
-                                @foreach ($games as $game)
+                            @if (!empty($most_downloaded_games))
+                                @foreach ($most_downloaded_games as $game)
                                     <div class="col mb-2">
                                         <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
                                             id="card"
