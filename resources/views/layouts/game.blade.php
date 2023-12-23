@@ -25,7 +25,7 @@
     <script src="https://kit.fontawesome.com/f0be33b496.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/game.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="/css/loader.css?v=<?php echo time(); ?>">
-    <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script>
+    {{-- <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script> --}}
     {{-- <script>
         window.fbAsyncInit = function() {
           FB.init({
@@ -127,6 +127,9 @@
         });
 
         var logoUrl = `@yield('logo')`;
+
+        // Remove spaces from the logoUrl
+        logoUrl = logoUrl.replace(/\s/g, '');
 
         // Determine the image type based on the file extension
         var imageType = logoUrl.endsWith('.png') ? 'image/png' :

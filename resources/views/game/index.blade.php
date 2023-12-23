@@ -1,8 +1,7 @@
 @extends('layouts.game')
 @section('title')GAMES
 @endsection
-@section('logo')/img/game_logo.png
-@endsection
+@section('logo')/img/game_logo.png @endsection
 @section('web_url')
 {{ request()->url() }}
 @endsection
