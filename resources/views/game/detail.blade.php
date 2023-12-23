@@ -301,10 +301,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="card card-body border-top border-0 px-0">
+                                    <div class="card card-body border-top border-0 py-0 px-0">
                                         <div class="card-text" style="font-family: Rubik; font-size: 0.9rem;">
-                                            <h3 class="RubikDoodleFt text-center">{{ $game->name }}</h3>
-
                                             {{-- Split the 'about' text into paragraphs --}}
                                             <?php
                                             $paragraphs = preg_split('/\n\s*\n/', $game->about);
@@ -361,6 +359,7 @@
                                                             @endforeach
                                                         </tbody>
                                                     </table>
+                                            <h3 class="RubikDoodleFt text-center my-3">{{ $game->name }}</h3>
                                                 @else
                                                     <p class="px-2">{!! nl2br(htmlspecialchars($paragraphs[$count])) !!}</p>
                                                 @endif
