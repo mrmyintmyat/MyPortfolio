@@ -10,7 +10,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://myintmyat.dev">
     <link rel="alternate" href="https://myintmyat.dev" hreflang="en">
-    <link rel="icon" type="png" href="https://myintmyat.dev/img/mma.jpg">
+    <link rel="icon" type="image/jpeg" href="https://myintmyat.dev/img/mma.jpg">
 
     <!-- Open Graph (OG) Tags for Social Media Sharing -->
     <meta property="og:title" content="ZYNN">
