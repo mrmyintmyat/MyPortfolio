@@ -1,16 +1,18 @@
 @extends('layouts.game')
 @section('title')
-{{ $game->name }}
+    {{ $game->name }}
 @endsection
-@section('logo'){{ $game->logo }}@endsection
+@section('logo')
+    {{ $game->logo }}
+@endsection
 @section('web_url')
-{{ request()->url() }}
+    {{ request()->url() }}
 @endsection
 @section('image')
     @php $images = $game->image; @endphp {{ $images[0] }}
 @endsection
 @section('keywords')
-{{ $game->name }},{{ $game->category }},Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games
+    {{ $game->name }},{{ $game->category }},Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games
 @endsection
 @section('style')
     <style>
@@ -191,8 +193,8 @@
                                             @foreach (array_slice($game->image, 0, 2) as $count => $image)
                                                 <button type="button" class="btn btn-link image-button"
                                                     data-bs-toggle="modal" data-bs-target="#imageModal{{ $count }}">
-                                                    <img class="image rounded-3" src="{{ $image }}"
-                                                        alt="ERR" loading="auto|eager|lazy">
+                                                    <img class="image rounded-3" src="{{ $image }}" alt="ERR"
+                                                        loading="auto|eager|lazy">
                                                 </button>
 
                                                 <!-- Modal hi -->
@@ -299,7 +301,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="card card-body border-top border-0 px-2">
+                                    <div class="card card-body border-top border-0 px-0">
                                         <div class="card-text" style="font-family: Rubik; font-size: 0.9rem;">
                                             <h3 class="RubikDoodleFt text-center">{{ $game->name }}</h3>
 
@@ -308,27 +310,78 @@
                                             $paragraphs = preg_split('/\n\s*\n/', $game->about);
                                             $totalParagraphs = count($paragraphs);
                                             $totalImages = count($game->image);
+
+                                            function parseDetails($text)
+                                            {
+                                                $details = [];
+
+                                                // Explode the text into lines
+                                                $lines = explode("\n", $text);
+
+                                                // Loop through each line
+                                                foreach ($lines as $line) {
+                                                    // Trim the line and split into label and value
+                                                    $parts = array_map('trim', explode(':', $line, 2));
+
+                                                    // Check if both label and value are present
+                                                    if (count($parts) === 2) {
+                                                        [$label, $value] = $parts;
+                                                        $details[$label] = $value;
+                                                    }
+                                                }
+
+                                                return $details;
+                                            }
                                             ?>
 
                                             {{-- Display paragraphs with associated images --}}
                                             @for ($count = 0; $count < $totalParagraphs; $count += 2)
                                                 {{-- Display first paragraph --}}
-                                                <p>{!! nl2br(htmlspecialchars($paragraphs[$count])) !!}</p>
+                                                <?php
+                                                $detailsText = nl2br(htmlspecialchars($paragraphs[$count]));
+                                                $details = parseDetails($detailsText);
+                                                ?>
+                                                @if ($count === 0 && !empty($details))
+                                                    <table class="table table-bordered">
+                                                        <tbody>
+                                                            @foreach ($details as $label => $value)
+                                                                <tr>
+                                                                    @if ($label === 'mod' || $label === 'Mod')
+                                                                        <td class="text-center text-danger">
+                                                                            {!! $label !!}</td>
+                                                                        <td class="text-center">{!! $value !!}
+                                                                        </td>
+                                                                    @else
+                                                                        <td class="text-center">{!! $label !!}
+                                                                        </td>
+                                                                        <td class="text-center">{!! $value !!}
+                                                                        </td>
+                                                                    @endif
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                @else
+                                                    <p class="px-2">{!! nl2br(htmlspecialchars($paragraphs[$count])) !!}</p>
+                                                @endif
 
                                                 {{-- Display image with modal --}}
                                                 @if (isset($images[$count / 2]))
-                                                    <button type="button" class="btn btn-link about-image-btn  mb-2 p-0"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#imageModal{{ $count / 2 }}">
-                                                        <img class="image w-100 rounded-3"
-                                                            src="{{ $images[$count / 2] }}" alt="ERR"
-                                                            loading="auto|eager|lazy">
-                                                    </button>
+                                                    <div class="w-100 d-flex justify-content-center">
+                                                        <button type="button"
+                                                            class="btn btn-link about-image-btn  mb-2 p-0"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#imageModal{{ $count / 2 }}">
+                                                            <img class="image w-100 rounded-3"
+                                                                src="{{ $images[$count / 2] }}" alt="ERR"
+                                                                loading="auto|eager|lazy">
+                                                        </button>
+                                                    </div>
                                                 @endif
 
                                                 {{-- Display second paragraph --}}
                                                 @if ($count + 1 < $totalParagraphs)
-                                                    <p>{!! nl2br(htmlspecialchars($paragraphs[$count + 1])) !!}</p>
+                                                    <p class="px-2">{!! nl2br(htmlspecialchars($paragraphs[$count + 1])) !!}</p>
                                                 @endif
                                             @endfor
                                             @if ($totalParagraphs < $totalImages)
