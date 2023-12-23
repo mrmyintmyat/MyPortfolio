@@ -2,9 +2,7 @@
 @section('title')
 {{ $game->name }}
 @endsection
-@section('logo')
-{{ $game->logo }}
-@endsection
+@section('logo'){{ $game->logo }}@endsection
 @section('web_url')
 {{ request()->url() }}
 @endsection
@@ -475,7 +473,7 @@
                                                         <div class=" d-flex" style="width: 3.5rem;">
                                                             <img class="w-100 h-100 rounded-2 game_logo"
                                                                 src="{{ $game->logo }}" alt="">
-                                                            <div class="ms-2 ">
+                                                            <div class="ms-2" style="line-height: 1.1rem">
                                                                 <h5 class="card-title m-0 text-truncate"
                                                                     style="max-width: 200px; " id="title">
                                                                     {{ $game->name }}</h5>

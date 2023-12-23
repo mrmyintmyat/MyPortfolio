@@ -11,10 +11,11 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="@yield('web_url')">
     <link rel="alternate" href="@yield('web_url')" hreflang="en">
-    <link rel="icon" type="png" href="@yield('logo')">
+    <link rel="icon" type="image/png" href="" id="favicon">
     <!-- Open Graph (OG) Tags for Social Media Sharing -->
     <meta property="og:title" content="@yield('title')">
-    <meta property="og:description" content="A detailed review of @yield('title'), covering graphics, gameplay, and more.">
+    <meta property="og:description"
+        content="A detailed review of @yield('title'), covering graphics, gameplay, and more.">
     <meta property="og:image" content="@yield('image')">
     <meta property="og:url" content="@yield('web_url')">
 
@@ -124,9 +125,23 @@
                 }, 500);
             }, 2000);
         });
+
+        var logoUrl = `@yield('logo')`;
+
+        // Determine the image type based on the file extension
+        var imageType = logoUrl.endsWith('.png') ? 'image/png' :
+            logoUrl.endsWith('.jpg') ? 'image/jpeg' :
+            logoUrl.endsWith('.webp') ? 'image/webp' : '';
+
+        // Set the favicon dynamically
+        var favicon = document.getElementById('favicon');
+        if (imageType && favicon) {
+            favicon.href = logoUrl;
+            favicon.type = imageType;
+        }
     </script>
     @yield('script')
-{{-- //gg --}}
+    {{-- //gg --}}
 </body>
 
 </html>

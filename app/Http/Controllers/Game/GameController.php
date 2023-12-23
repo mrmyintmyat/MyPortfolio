@@ -81,6 +81,7 @@ class GameController extends Controller
             ->where('id', '!=', $id)
             ->where('post_status', '!=', '0')
             ->where('downloads', '>', 20)
+            ->inRandomOrder()
             ->paginate(5);
         $noGames = $games->isEmpty();
         return view('game.detail', compact('game', 'games', 'noGames'));
