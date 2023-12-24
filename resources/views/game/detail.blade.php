@@ -347,7 +347,7 @@
                                                                     @if ($label === 'mod' || $label === 'Mod')
                                                                         <td class="text-center text-danger">
                                                                             {!! $label !!}</td>
-                                                                        <td class="text-center">{!! $value !!}
+                                                                        <td class="text-center text-danger">{!! $value !!}
                                                                         </td>
                                                                     @else
                                                                         <td class="text-center">{!! $label !!}
@@ -366,7 +366,7 @@
 
                                                 {{-- Display image with modal --}}
                                                 @if (isset($images[$count / 2]))
-                                                    <div class="w-100 d-flex justify-content-center">
+                                                    <div class="w-100 d-flex justify-content-center px-2">
                                                         <button type="button"
                                                             class="btn btn-link about-image-btn  mb-2 p-0"
                                                             data-bs-toggle="modal"
@@ -385,7 +385,7 @@
                                             @endfor
                                             @if ($totalParagraphs < $totalImages)
                                                 @for ($i = $totalParagraphs; $i < $totalImages; $i++)
-                                                    <div class="w-100 d-flex justify-content-center">
+                                                    <div class="w-100 d-flex justify-content-center px-2">
                                                         <button type="button"
                                                             class="btn btn-link  about-image-btn mb-2 p-0"
                                                             data-bs-toggle="modal"
