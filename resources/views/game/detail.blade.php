@@ -308,7 +308,7 @@
                                             $paragraphs = preg_split('/\n\s*\n/', $game->about);
                                             $totalParagraphs = count($paragraphs);
                                             $totalImages = count($game->image);
-
+                                            $still_have_images = 0;
                                             function parseDetails($text)
                                             {
                                                 $details = [];
@@ -347,7 +347,8 @@
                                                                     @if ($label === 'mod' || $label === 'Mod')
                                                                         <td class="text-center text-danger">
                                                                             {!! $label !!}</td>
-                                                                        <td class="text-center text-danger">{!! $value !!}
+                                                                        <td class="text-center text-danger">
+                                                                            {!! $value !!}
                                                                         </td>
                                                                     @else
                                                                         <td class="text-center">{!! $label !!}
@@ -368,7 +369,7 @@
                                                 @if (isset($images[$count / 2]))
                                                     <div class="w-100 d-flex justify-content-center px-2">
                                                         <button type="button"
-                                                            class="btn btn-link about-image-btn  mb-2 p-0"
+                                                            class="btn btn-link about-image-btn mb-2 p-0"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#imageModal{{ $count / 2 }}">
                                                             <img class="image w-100 rounded-3"
@@ -376,6 +377,9 @@
                                                                 loading="auto|eager|lazy">
                                                         </button>
                                                     </div>
+                                                    @php
+                                                        $still_have_images++;
+                                                    @endphp
                                                 @endif
 
                                                 {{-- Display second paragraph --}}
@@ -383,11 +387,11 @@
                                                     <p class="px-2">{!! nl2br(htmlspecialchars($paragraphs[$count + 1])) !!}</p>
                                                 @endif
                                             @endfor
-                                            @if ($totalParagraphs < $totalImages)
-                                                @for ($i = $totalParagraphs; $i < $totalImages; $i++)
+                                            @if ($still_have_images < $totalImages)
+                                                @for ($i = $still_have_images; $i < $totalImages; $i++)
                                                     <div class="w-100 d-flex justify-content-center px-2">
                                                         <button type="button"
-                                                            class="btn btn-link  about-image-btn mb-2 p-0"
+                                                            class="btn btn-link about-image-btn mb-2 p-0"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#imageModal{{ $i }}">
                                                             <img class="image w-100 rounded-3" src="{{ $images[$i] }}"
