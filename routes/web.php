@@ -49,6 +49,7 @@ Auth::routes(['register' => false]);
 Route::group(['middleware' => ['auth', 'checkstatus']], function () {
     // Route::get('/admin/users', [AdminController::class, 'showUsersPage'])->name('admin.users');
     Route::get('/admin/panel/games/create', [AdminController::class, 'post_game']);
+    Route::get('/admin/panel/messages', [AdminController::class, 'mesages_for_me']);
     Route::post('/admin/panel/games/store', [AdminController::class, 'store_game']);
     Route::get('/admin/panel/games', [AdminController::class, 'games']);
     Route::get('/admin/panel/games/{id}', [AdminController::class, 'edit_game_page']);

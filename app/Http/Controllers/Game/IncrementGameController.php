@@ -38,7 +38,6 @@ class IncrementGameController extends Controller
 
         if ($isMediaFire == true) {
             $direct_link = $this->scrap_mediafire($link);
-            Log::info("OK");
             return response()->json(['success' => true, 'direct_link' => $direct_link]);
         }
 
@@ -50,7 +49,11 @@ class IncrementGameController extends Controller
 
     public function scrap_mediafire($link)
     {
-        $htmlContent = file_get_contents($link);
+        try {
+            $htmlContent = file_get_contents($link);
+        } catch (\Throwable $th) {
+            return 'Error fetching HTML content.';
+        }
 
         if ($htmlContent !== false) {
             // Define a regular expression pattern to match a link with class "popsok"

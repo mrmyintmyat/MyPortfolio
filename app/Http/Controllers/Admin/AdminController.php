@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Game;
 use App\Models\Post;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -230,5 +231,10 @@ class AdminController extends Controller
         $game->delete();
 
         return response()->json(['message' => 'Game deleted successfully']);
+    }
+
+    public function mesages_for_me(){
+        $messages = Message::all();
+        return view('admin.messages', compact('messages'));
     }
 }
