@@ -19,11 +19,11 @@ return new class extends Migration
             $table->integer('post_status')->default(0);
             $table->string('online_or_offline');
             $table->string('category');
-            $table->longText('downloads');
+            $table->longText('downloads')->default([0, 0, 0, 0, 0, 0, 0, 0]);
             $table->longText('download_links')->json();
             $table->longText("image")->json();
-            $table->string('logo');
-            $table->string('user_id');
+            $table->text('logo');
+            $table->text('user_id');
             $table->timestamps();
         });
     }

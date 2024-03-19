@@ -38,7 +38,7 @@
 .cube-face {
     position: absolute;
     inset: 0;
-    background: #000000;
+    background: #1c1f1d;
     border: solid 1px #000000;
 }
 
@@ -49,30 +49,35 @@
 
 .cube-face.top {
     transform: translateZ(80px);
-    background-color: #000000;
+     background: linear-gradient(to bottom, #0f0f0ff9,
+    #0a0a0a, #060806);
 }
 
 .cube-face.front {
     transform-origin: 0 50%;
-    background-color: #000000;
+     background: linear-gradient(to bottom, #0f0f0ff9,
+    #0a0a0a, #060806);
     transform: rotateY(-90deg);
 }
 
 .cube-face.back {
     transform-origin: 0 50%;
-    background-color: #000000;
+     background: linear-gradient(to bottom, #0f0f0ff9,
+    #0a0a0a, #060806);
     transform: rotateY(-90deg) translateZ(-80px);
 }
 
 .cube-face.right {
     transform-origin: 50% 0;
-    background-color: #000000;
+     background: linear-gradient(to bottom, #0f0f0ff9,
+    #0a0a0a, #060806);
     transform: rotateX(-90deg) translateY(-80px);
 }
 
 .cube-face.left {
     transform-origin: 50% 0;
-    background-color: #000000;
+     background: linear-gradient(to bottom, #0f0f0ff9,
+    #0a0a0a, #060806);
     transform: rotateX(-90deg) translateY(-80px) translateZ(80px);
 }
 

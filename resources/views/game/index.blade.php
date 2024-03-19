@@ -1,71 +1,26 @@
 @extends('layouts.game')
-@section('title')GAMES
+@section('title')
+    ZYNN GAMES
 @endsection
-@section('logo')/img/game_logo.png @endsection
+@section('logo')
+    /img/game_logo.png
+@endsection
 @section('web_url')
-{{ request()->url() }}
+    {{ request()->url() }}
 @endsection
 {{-- @section('image')@php $images = $game->image; @endphp {{ $images[0] }}@endsection --}}
-@section('keywords')Games,myintmyat,myintmyat.dev,games.myintmyat.dev,zynn,free games,old games
+@section('keywords')
+    {{-- Games,myintmyat,myintmyat.dev,games.myintmyat.dev,zynn,free games,old games --}}
 @endsection
 @section('style')
     <style>
-        .image {
-            /* display: none; */
-        }
 
-        .loader {
-            position: absolute;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #3498db;
-            /* Change the color to match your design */
-            border-radius: 50%;
-            /* min-height: 10rem; */
-            width: 40px;
-            height: 40px;
-            animation: spin 1.5s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .fixed-bottom-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 1000;
-            /* Set a higher z-index */
-        }
-
-        .fixed-bottom-bar ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .fixed-bottom-bar li {
-            text-align: center;
-        }
-
-        .fixed-bottom-bar a {
-            width: 100%;
-            text-decoration: none;
-            color: #000000;
-            font-size: 80%;
-        }
     </style>
 @endsection
 @section('btn')
     @php
+        use App\Models\User;
+
         function formatDownloads($downloads)
         {
             if ($downloads < 1000) {
@@ -78,96 +33,112 @@
                 return rtrim($formatted, '.0') . 'M +';
             }
         }
+
+        function checkImage($image)
+        {
+            return \Illuminate\Support\Str::startsWith($image, '/storage/')
+                ? asset($image)
+                : asset('/storage/' . $image);
+        }
+
+        $currentUrl = url()->current();
+        $queryString = request()->getQueryString(); // Get the current query string
+        $separator = $queryString ? '&' : '?';
+        // Check if the current route has the 'id' parameter
+        $hasIdParameter = strpos($currentUrl, 'id=') !== false;
+
     @endphp
-    <nav id="navbar" class="navbar shadow-sm bg-white navbar-expand-lg fixed-top d-flex px-2" data-aos="fade-down"
+    {{-- <nav id="navbar" class="navbar shadow-sm bg-white navbar-expand-sm fixed-top d-flex px-2" data-aos="fade-down"
         data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true">
         <div class="container p-0">
             <a href="{{ route('games_index') }}" class="navbar-brand title_icon col-lg-2 m-0" href="#">
-                ZYNN
+                ZYNN<span class="text-dark fs-6">v1</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-            <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
-                <section class="px-2 col-lg-6">
-                    <article class="">
-                        <form id="searchForm" method="post">
-                            @csrf
-                            <input name="query" id="search" type="search" class="form-control px-4 border-1 shadow-sm"
-                                placeholder="Search">
-                            <meta name="csrf-token" content="{{ csrf_token() }}">
-                        </form>
-                    </article>
-                </section>
+            <div class="px-2 col-sm-10 col-12 d-flex justify-content-between align-items-center">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <section class="w-100 d-flex justify-content-center">
+                        <article class="col-sm-6 col-12">
+                            <form id="searchForm" method="post">
+                                @csrf
+                                <input name="query" id="search" type="search"
+                                    class="form-control px-4 border-1 shadow-sm" placeholder="Search">
+                                <meta name="csrf-token" content="{{ csrf_token() }}">
+                            </form>
+                        </article>
+                    </section>
+                </div>
+                <div class="d-sm-block d-none">
+                    <a class="btn rounded-pill fw-semibold d-flex flex-column border-0" href="/notices">
+                        @if (Auth::check())
+                            @php
+                                $user = Auth::user();
+                                $notices_check = $user->notices()->where('is_checked', 0)->latest()->get();
+                            @endphp
+                            @if ($notices_check->count() > 0)
+                                <i class="fa-solid fa-bell fa-shake position-relative fs-5" id="nav_icon"
+                                    style="color: rgba(71, 71, 71, 1)">
+                                    <span style="font-size: 8px"
+                                        class="position-absolute px-2 py-1 top-0 start-75 translate-middle badge rounded-pill bg-danger">
+                                        {{ $notices_check->count() }}
+                                        <span class="visually-hidden">.</span>
+                                    </span>
+                                </i>
+                            @else
+                            <i class="fa-solid fa-bell fs-5" id="nav_icon" style="color: rgba(71, 71, 71, 1)"></i>
+                            @endif
+                        @else
+                            <i class="fa-solid fa-bell fs-5" id="nav_icon" style="color: rgba(71, 71, 71, 1)"></i>
+                        @endif
+                    </a>
+                </div>
             </div>
         </div>
-    </nav>
+    </nav> --}}
+    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+
+
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                          document.getElementById('logout-form').submit();"
+                                            class="text-decoration-none dropdown-item">
+                                            Logout
+                                        </a> --}}
 @endsection
 @section('main')
-    <section class="container-lg">
+    <section class="container-lg mt-2">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <section class="w-100 d-flex justify-content-center">
+                <article class="col-sm-6 col-12">
+                    <form id="searchForm" method="post">
+                        @csrf
+                        <input name="query" id="search" type="search" class="form-control px-4 border-1 shadow-sm"
+                            placeholder="Search">
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
+                    </form>
+                </article>
+            </section>
+        </div>
         <div class="">
             <ul class="list-unstyled scroll_page">
-                <div class="m-2 d-none d-sm-block">
-                    <ul class="list-unstyled d-flex flex-row">
-                        <li><a style="
-    box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
-                            "
-                                class="btn rounded-pill fw-semibold me-2 @if (!request()->is('/') || request()->is('another-route')) text-muted @endif"
-                                href="/">HOME</a></li>
-                        <li><a style="
-                                    box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
-                                                        "
-                                class="btn rounded-pill fw-semibold @if (!request()->is('new') || request()->is('another-route')) text-muted @endif"
-                                href="/new">NEW GAMES</a></li>
-                        <li><a style="
-    box-shadow: 0 10px 50px -2px rgba(0,0,0,.14);
-                        "
-                                class="btn rounded-pill fw-semibold @if (!request()->is('old') || request()->is('another-route')) text-muted @endif"
-                                href="/old">OLD GAMES</a></li>
-                    </ul>
-                </div>
-                <div class="fixed-bottom-bar d-sm-none d-block">
-                    <ul class="list-unstyled row row-cols-3 shadow-lg bg-light py-2">
-                        <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('/') || request()->is('another-route')) text-muted @endif"
-                                href="/">
-                                <i class="fas fa-home"></i>
-                                <div class="d-flex justify-content-center">
-                                    <span>ALL</span>
-                                    <span>GAMES</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('new')) text-muted @endif"
-                                href="/new">
-                                <i class="fas fa-star"></i>
-                                <div class="d-flex justify-content-center">
-                                    <span>NEW</span>
-                                    <span>GAMES</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="d-flex justify-content-center">
-                            <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('old')) text-muted @endif"
-                                href="/old">
-                                <i class="fas fa-archive"></i>
-                                <div class="d-flex justify-content-center">
-                                    <span>OLD</span>
-                                    <span>GAMES</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="d-flex flex-row row mb-2 g-sm-2 g-3">
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
+                            {{-- <h4 class="mb-3">Top downloads</h4> --}}
                             @foreach ($popular_games as $count => $game)
+                                @php
+                                    $user = $game->user;
+                                    $gameroute = $user_name ? Str::slug($user->name) : '';
+                                @endphp
                                 <div class="col carousel-item @if ($count === 0) active @endif"
                                     data-bs-interval="8000">
-                                    <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
+                                    <a href="{{ $gameroute }}/{{ $game->id }}/{{ Str::slug($game->name) }}"
                                         id="card"
                                         class="h-100 d-block w-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
                                         <div style="min-height: 5rem;"
@@ -176,13 +147,13 @@
                                                 <div onclick="" class="card-body py-2 d-flex justify-content-between"
                                                     id="item_title">
                                                     <div class=" d-flex" style="width: 3.5rem;">
-                                                        <img class="rounded-2 game_logo" src="{{ $game->logo }}"
-                                                            alt="">
+                                                        <img class="rounded-2 game_logo" src="{{ checkImage($game->logo) }}"
+                                                            alt="Error">
                                                         <div class="ms-2" style="line-height: 1rem;">
                                                             <h5 class="card-title m-0 text-truncate"
                                                                 style="max-width: 200px; " id="title">
                                                                 {{ $game->name }}</h5>
-                                                                @if (isset($game->download_links['v']))
+                                                            @if (isset($game->download_links['v']))
                                                                 <p class="m-0 text-secondary fw-semibold left_info_fz">
                                                                     {{ $game->download_links['v'] }}
                                                                 </p>
@@ -201,7 +172,7 @@
 
                                                     <div class="d-flex flex-column justify-content-center align-items-end">
                                                         <p class="m-0 text-muted right_info_fz">
-                                                            {{ formatDownloads($game->downloads) }}
+                                                            {{ formatDownloads($game->downloads[0]) }}
                                                             <i class="fa-solid fa-circle-arrow-down"></i>
                                                         </p>
                                                         <p class="m-0 text-muted right_info_fz">{{ $game->size }}</p>
@@ -215,12 +186,17 @@
                         </div>
                     </div>
                 </div>
+                {{-- <h4 class="mb-3">News</h4> --}}
                 <div id="item_container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-3 g-sm-2 g-3">
                     @php
                         $interval = 5000;
                         $game_count = 0;
                     @endphp
                     @foreach ($games as $game_count_0 => $game)
+                        @php
+                            $user = $game->user;
+                            $gameroute = $user_name ? Str::slug($user->name) : '';
+                        @endphp
                         @if ($game_count === 3)
                             @php
                                 $interval = 5000;
@@ -233,8 +209,7 @@
                             @endphp
                         @endif
                         <div class="col">
-                            <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}"
-                                id="card"
+                            <a href="{{ $gameroute }}/{{ $game->id }}/{{ Str::slug($game->name) }}" id="card"
                                 class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
                                 <div class="card home-card h-100 border-0">
                                     <div class="">
@@ -252,7 +227,7 @@
                                                         @foreach ($images as $count => $image)
                                                             <div class="carousel-item h-100 {{ $count === 0 ? 'active' : '' }}"
                                                                 data-bs-interval="{{ $interval }}">
-                                                                <img src="{{ $image }}"
+                                                                <img src="{{ checkImage($image) }}"
                                                                     class="d-block w-100 h-100"
                                                                     alt="Image {{ $count + 1 }}">
                                                             </div>
@@ -281,7 +256,7 @@
                                             class="card-body py-2 py-lg-3 d-flex justify-content-between px-1"
                                             id="item_title">
                                             <div class=" d-flex" style="width: 3.5rem;">
-                                                <img class="rounded-2 game_logo" src="{{ $game->logo }}"
+                                                <img class="rounded-2 game_logo" src="{{ checkImage($game->logo) }}"
                                                     alt="">
                                                 <div class="ms-2" style="line-height: 1rem;">
                                                     <h5 class="card-title m-0 text-truncate" style="max-width: 200px; "
@@ -306,7 +281,7 @@
 
                                             <div class="d-flex flex-column justify-content-center align-items-end">
                                                 <p class="m-0 text-muted right_info_fz">
-                                                    {{ formatDownloads($game->downloads) }}
+                                                    {{ formatDownloads($game->downloads[0]) }}
                                                     <i class="fa-solid fa-circle-arrow-down"></i>
                                                 </p>
                                                 <p class="m-0 text-muted right_info_fz">{{ $game->size }}</p>

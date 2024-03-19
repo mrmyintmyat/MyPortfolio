@@ -78,7 +78,15 @@
                 <div class="w-100">
                     <div
                         class="list-group rounded-0 hover_menu_tag ps-3 d-flex align-content-around flex-row flex-md-column">
-                        <a href="/admin/panel/games" id="focus_tag"
+                        <a href="/admin/zynn" id="focus_tag"
+                            class="list-group-item list-group-item-action text-center p-2 border-0 d-flex justify-content-center justify-content-md-start align-items-center text-white text-lg-start bg-menu"
+                            aria-current="true">
+                            <div class="d-flex flex-column flex-md-row align-items-center">
+                                <i class="fas fa-home"></i>
+                                <span class="ms-2 d-md-block d-none">HOME</span>
+                            </div>
+                        </a>
+                        <a href="{{ route('admin.games') }}" id="focus_tag"
                             class="list-group-item list-group-item-action text-center p-2 border-0 d-flex justify-content-center justify-content-md-start align-items-center text-white text-lg-start bg-menu"
                             aria-current="true">
                             <div class="d-flex flex-column flex-md-row align-items-center">
@@ -86,15 +94,7 @@
                                 <span class="ms-2 d-md-block d-none">Games</span>
                             </div>
                         </a>
-                        {{-- <a href="/admin/panel" id="focus_tag"
-                            class="list-group-item list-group-item-action text-center p-2 border-0 d-flex justify-content-center justify-content-md-start align-items-center text-white text-lg-start bg-menu"
-                            aria-current="true">
-                            <div class="d-flex flex-column flex-md-row align-items-center">
-                                <i class="fas fa-home"></i>
-                                <span class="ms-2 d-md-block d-none">HOME</span>
-                            </div>
-                        </a> --}}
-                        <a href="/admin/panel/games/create" id="focus_tag"
+                        <a href="{{ route('games.create') }}" id="focus_tag"
                             class="list-group-item list-group-item-action text-center p-2 border-0 d-flex justify-content-center justify-content-md-start align-items-center text-white text-lg-start bg-menu"
                             aria-current="true">
                             <div class="d-flex flex-column flex-md-row align-items-center">
@@ -102,7 +102,7 @@
                                 <span class="ms-2 d-md-block d-none">Post game</span>
                             </div>
                         </a>
-                        <a href="/admin/panel/messages" id="focus_tag"
+                        <a href="/admin/zynn/messages" id="focus_tag"
                             class="list-group-item list-group-item-action text-center p-2 border-0 d-flex justify-content-center justify-content-md-start align-items-center text-white text-lg-start bg-menu"
                             aria-current="true">
                             <div class="d-flex flex-column flex-md-row align-items-center">
@@ -110,7 +110,7 @@
                                 <span class="ms-2 d-md-block d-none">Messages for me</span>
                             </div>
                         </a>
-                        <a href="/admin/panel/create" id="focus_tag"
+                        <a href="/admin/zynn/create" id="focus_tag"
                             class="list-group-item list-group-item-action text-center p-2 border-0 d-flex justify-content-center justify-content-md-start align-items-center text-white text-lg-start bg-menu"
                             aria-current="true">
                             <div class="d-flex flex-column flex-md-row align-items-center">
@@ -130,7 +130,7 @@
                 </div>
             </aside>
             <main class="col-md-10 overflow-scroll main_page p-0">
-                <nav class="navbar navbar-expand shadow-sm border-bottom p-0">
+                {{-- <nav class="navbar navbar-expand shadow-sm border-bottom p-0">
                     <div class="container-fluid">
                         <div class="flex-grow"></div>
                         <ul class="navbar-nav">
@@ -157,8 +157,8 @@
                             </li>
                         </ul>
                     </div>
-                </nav>
-                <section class="scroll_page px-4 h-100" style="overflow-x: hidden;">
+                </nav> --}}
+                <section class="scroll_page px-lg-4 h-100" style="overflow-x: hidden;">
                     @yield('page')
                 </section>
             </main>

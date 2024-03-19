@@ -4,6 +4,16 @@ body{
    overflow-y: hidden;
 }
 
+.main{
+    margin-top: 4.5rem;
+}
+
+@media(max-width: 575px){
+    .main{
+        margin-top: 3.4rem;
+    }
+}
+
 .game_logo{
     width: 3.5rem;
     height: 3.5rem;
@@ -319,4 +329,73 @@ h5{
     0% { color: gold; }
     50% { color: rgb(255, 255, 255); } /* Change to your desired color */
     100% { color: gold; }
+}
+
+
+.bg-green{
+    background: linear-gradient(to bottom, #199e0d,
+    #137b10, #167c0e);
+    color: #fff;
+}
+
+.text-green{
+    color: #15ff009d;
+  }
+
+  .btn-dark{
+    /* color: #16bb07; */
+
+  }
+
+  .image {
+    /* display: none; */
+}
+
+.loader {
+    position: absolute;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #3498db;
+    /* Change the color to match your design */
+    border-radius: 50%;
+    /* min-height: 10rem; */
+    width: 40px;
+    height: 40px;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.fixed-bottom-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    /* Set a higher z-index */
+}
+
+.fixed-bottom-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.fixed-bottom-bar li {
+    text-align: center;
+}
+
+.fixed-bottom-bar a {
+    width: 100%;
+    text-decoration: none;
+    color: #000000;
+    font-size: 80%;
 }

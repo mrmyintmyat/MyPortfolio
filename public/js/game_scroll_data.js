@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    //games/search
+    //games/search/1/2
     let check_search = false;
     let input_val;
     let searchnogames = false
@@ -23,7 +23,7 @@ $(document).ready(function() {
         if (inputLength != 0) {
             $.ajax({
                 type: 'POST',
-                url: '/games/search',
+                url: '/games/search/1/2',
                 data: {
                     _token: csrfToken,
                     query: query
@@ -82,7 +82,10 @@ $(document).ready(function() {
 
         isLoading = true;
         // $('#loadingIndicator').show();
-        var category = window.location.pathname.split('/').pop();
+        const params = new URLSearchParams(window.location.search);
+        const category = params.get('category');
+        const user_id = params.get('id');
+
         $.ajax({
             type: 'GET',
             url: route,
@@ -91,6 +94,7 @@ $(document).ready(function() {
                 search_nextPage: search_nextPage,
                 query: input_val,
                 category: category || null,
+                user_id: user_id || null,
             },
             beforeSend: function() {
                 $('.auto-load').show();
@@ -134,7 +138,7 @@ $(document).ready(function() {
                 $('.search-auto-load').hide();
                 if (route === '/') {
                     nomoregames = true;
-                }else if(route === '/games/search'){
+                }else if(route === '/games/search/1/2'){
                     searchnogames = true;
                 }
                     isLoading = false;
@@ -159,7 +163,7 @@ $(document).ready(function() {
 
     $(".search_scroll_page").scroll(
         function() {
-            on_scroll(this, "/games/search");
+            on_scroll(this, "/games/search/1/2");
         });
 
      function on_scroll(element, route) {
@@ -174,7 +178,7 @@ $(document).ready(function() {
         // Internet connection available, proceed with loading more games
         if (scrollTop + clientHeight + 49 >= scrollHeight) {
             if (navigator.onLine) {
-                if (route === "/games/search" && searchnogames === false) {
+                if (route === "/games/search/1/2" && searchnogames === false) {
                     check_search = true;
                     loadMoreItems(route);
                 } else if(route === "/" && nomoregames === false){

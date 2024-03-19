@@ -1,28 +1,15 @@
 #!/bin/bash
 
-# MySQL credentials
+# Define MySQL credentials
 DB_USER="root"
 DB_PASSWORD="MyPortfolio345#$"
+DB_NAME="portfolio"
 
-# Backup directory on the server
+# Define backup directory
 BACKUP_DIR="/var/www/html/MyPortfolio/backup_mysql"
-# Create backup directory if it doesn't exist
-if [ ! -d "$BACKUP_DIR" ]; then
-    mkdir -p "$BACKUP_DIR"
-fi
 
-# Backup filename 
-BACKUP_FILENAME="backup_$(date +%Y%m%d%H%M%S).sql"
+# Create backup filename with timestamp
+BACKUP_FILENAME="$BACKUP_DIR/${DB_NAME}_$(date +"%Y%m%d%H%M%S").sql"
 
-# mysqldump command for all databases
-mysqldump -u $DB_USER -p$DB_PASSWORD --all-databases > "$BACKUP_DIR/$BACKUP_FILENAME"
-
-# Optional: Compress the backup file
-# gzip "$BACKUP_DIR/$BACKUP_FILENAME"
-
-# Number of days to retain backups
-NUM_RETAIN=7
-
-# Remove older backup files
-find "$BACKUP_DIR" -type f -name "backup_*.sql" -mtime +$NUM_RETAIN -exec rm {} \;
-#dd
+# Perform MySQL database backup
+mysqldump -u $DB_USER -p$DB_PASSWORD $DB_NAME > $BACKUP_FILENAME

@@ -28,7 +28,8 @@ Route::get('/privacy-policy', [HomeController::class, 'privacy_policy']);
 Route::post('/post/info', [ShopController::class, 'get_info'])->name('get_info.data');
 
 //auth
-Auth::routes(['register' => false]);
+// Auth::routes(['register' => false,'prefix' => 'admin', 'name' => 'admin.']);
+
 //kk
 //game
 // Route::domain('games.myintmyat.dev')->group(function () {
@@ -46,18 +47,15 @@ Auth::routes(['register' => false]);
 // Route::get('/search', [ShopController::class, 'search_scroll']);
 
 //admin panel
-Route::group(['middleware' => ['auth', 'checkstatus']], function () {
-    // Route::get('/admin/users', [AdminController::class, 'showUsersPage'])->name('admin.users');
-    Route::get('/admin/panel/games/create', [AdminController::class, 'post_game']);
-    Route::get('/admin/panel/messages', [AdminController::class, 'mesages_for_me']);
-    Route::post('/admin/panel/games/store', [AdminController::class, 'store_game']);
-    Route::get('/admin/panel/games', [AdminController::class, 'games']);
-    Route::get('/admin/panel/games/{id}', [AdminController::class, 'edit_game_page']);
-    Route::delete('/admin/panel/games/{id}', [AdminController::class, 'delete_game']);
-    Route::post('/admin/panel/games/update/{id}', [AdminController::class, 'update_game']);
+// Route::group(['middleware' => ['auth', 'checkadmin']], function () {
+//     // Route::get('/admin/users', [AdminController::class, 'showUsersPage'])->name('admin.users');
+//     Route::get('/admin/zynn/games', [AdminController::class, 'require_games'])->name('admin.games');
+//     Route::get('/admin/zynn/games/{id}/edit', [AdminController::class, 'edit_games'])->name('admin.edit_games');
+//     Route::get('/admin/zynn/messages', [AdminController::class, 'mesages_for_me']);
 
-    Route::resource('/admin/panel', AdminController::class);
-});
+//     Route::resource('/admin/zynn', AdminController::class);
+// });
+
 
 //facebook login message
 // Route::get('/webhook', [FacebookWebhookController::class, 'verify']);

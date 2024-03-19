@@ -1,4 +1,6 @@
 @php
+    use App\Models\User;
+
     function formatDownloads($downloads)
     {
         if ($downloads < 1000) {
@@ -18,6 +20,14 @@
 @endphp
 @foreach ($games as $game_count_0 => $game)
     @php
+        $user = $game->user;
+        if (isset($user_name)) {
+           $gameroute = $user_name ? Str::slug($user->name) : '';
+        }else{
+           $gameroute = '';
+        }
+    @endphp
+    @php
         $randomNumber = rand(1, 1000) + rand(1, 100);
     @endphp
     @if ($game_count === 3)
@@ -32,8 +42,8 @@
         @endphp
     @endif
     <div class="col">
-        <a href="{{ url(route('games_detail', ['id' => $game->id, 'name' => Str::slug($game->name)])) }}" id="card"
-            class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
+        <a href="{{$gameroute}}/{{$game->id}}/{{Str::slug($game->name)}}"
+            id="card" class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
             <div class="card home-card h-100 border-0">
                 <div class="">
                     <div class="parent">
@@ -50,8 +60,7 @@
                                     @foreach ($images as $count => $image)
                                         <div class="carousel-item h-100 {{ $count === 0 ? 'active' : '' }}"
                                             data-bs-interval="{{ $interval }}">
-                                            <img src="{{ $image }}"
-                                                class="d-block w-100 h-100"
+                                            <img src="{{ $image }}" class="d-block w-100 h-100"
                                                 alt="Image {{ $count + 1 }}">
                                         </div>
                                     @endforeach
@@ -97,7 +106,7 @@
 
                         <div class="d-flex flex-column justify-content-center align-items-end">
                             <p class="m-0 text-muted right_info_fz">
-                                {{ formatDownloads($game->downloads) }}
+                                {{ formatDownloads($game->downloads[0]) }}
                                 <i class="fa-solid fa-circle-arrow-down"></i>
                             </p>
                             <p class="m-0 text-muted right_info_fz">{{ $game->size }}</p>

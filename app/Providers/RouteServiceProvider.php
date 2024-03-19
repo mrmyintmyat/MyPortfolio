@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/';
+    public const HOME = '/admin/panel/home';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -29,7 +29,10 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            Route::domain('games.myintmyat.dev')->middleware(['web'])->group(base_path('routes/subdomain_web.php'));
+            Route::domain('games.myintmyat.dev')->middleware(['web'])->group(function () {
+                return redirect()->to('https://zynn.games');
+            });
+            Route::domain('zynn.games')->middleware(['web'])->group(base_path('routes/zynn_games.php'));
             Route::middleware('api')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
