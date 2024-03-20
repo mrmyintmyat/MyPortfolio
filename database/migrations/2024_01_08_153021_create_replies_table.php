@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('name');
             $table->longText('text');
-            $table->text('likes')->default(0);
+            $table->unsignedBigInteger('likes')->default(0);
             $table->text('from_user_id');
             $table->text('to_user_id');
             $table->unsignedBigInteger('post_id');

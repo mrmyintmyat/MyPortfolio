@@ -32,7 +32,7 @@
                                 <img class="w-100 h-100 rounded-circle border shadow-sm" src="{{ $user->logo }}"
                                     alt="">
                             </div>
-                            <div class="ms-2 text-center mt-2" style="line-height: 1rem;">
+                            <div class="text-center mt-2" style="line-height: 1rem;">
                                 <h5 class="m-0 fw-semibold">{{ $user->name }}</h5>
                                 <p class="m-0 text-muted">{{ $user->email }}</p>
                             </div>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('from_user_id');
             $table->text('to_user_id');
             $table->longText('text');
-            $table->text('likes')->default(0);
+            $table->unsignedBigInteger('likes')->default(0);
             $table->unsignedBigInteger('post_id');
             $table->timestamps();
             $table->foreign('post_id')->references('id')->on('games')->onDelete('cascade');
