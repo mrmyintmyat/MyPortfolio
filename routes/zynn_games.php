@@ -17,7 +17,6 @@ Route::post('/logout', function () {
     Auth::user()->update(
         [
          'is_logged_in' => false,
-         'setting' => ['notification' => false],
         ]
     );
     auth()->logout();

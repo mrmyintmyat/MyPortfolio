@@ -32,6 +32,11 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected function authenticated(Request $request, $user)
+    {
+        Auth::logoutOtherDevices($request->password);
+        $user->update(['device_token' => null]);
+    }
     /**
      * Create a new controller instance.
      *
