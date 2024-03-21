@@ -5,7 +5,7 @@
                 <div class="card-body p-0">
                     <div class="d-flex align-items-start">
                         <div class="avatar me-2 col-1">
-                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                            <img src="{{$comment->from_user->logo}}"
                                 alt="@user" class="img-fluid rounded-circle shadow-sm border" />
                         </div>
                         <div class="w-100">
@@ -69,7 +69,7 @@
                                             <div class="card-body">
                                                 <div class="d-flex align-items-start">
                                                     <div class="avatar me-2 col-1">
-                                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                                                        <img src="{{$reply->from_user->logo}}"
                                                             alt="@user" class="img-fluid rounded-circle" />
                                                     </div>
                                                     <div class="w-100">
@@ -142,7 +142,7 @@
                 <div class="card-body p-0">
                     <div class="d-flex align-items-start">
                         <div class="avatar me-2 col-1">
-                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                            <img src="{{$comment->from_user->logo}}"
                                 alt="@user" class="img-fluid rounded-circle shadow-sm border" />
                         </div>
                         <div class="w-100">

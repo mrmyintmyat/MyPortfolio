@@ -337,7 +337,7 @@
                                                         <a class="d-flex fw-medium justify-content-center text-black w-100 btn rounded-0 p-0"
                                                         href="/{{ \Illuminate\Support\Str::slug($user->name) }}?id={{ $user->id }}">
                                                         <div class="d-flex">
-                                                        <img class="w-auto rounded" style="height: 2.3rem;" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt="">
+                                                        <img class="w-auto rounded" style="height: 2.3rem;" src="{{$comment->from_user->logo}}" alt="">
                                                         <div class="ms-1 text-start d-flex flex-column justify-content-center" style="line-height: 0.9rem;">
                                                         <p style="font-size: 0.9rem;" class="m-0">{{ $user->name }}</p>
                                                         <p style="font-size: 0.7rem;" class="m-0 text-muted">{{ $user->games()->where('post_status', 'Published')->count() }}
@@ -574,7 +574,7 @@
                                                     <div class="card-body p-0">
                                                         <div class="d-flex align-items-start">
                                                             <div class="avatar me-2 col-1">
-                                                                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                                                                <img src="{{$comment->from_user->logo}}"
                                                                     alt="@user"
                                                                     class="img-fluid rounded-circle shadow-sm border" />
                                                             </div>
@@ -648,7 +648,7 @@
                                                                                 <div class="card-body">
                                                                                     <div class="d-flex align-items-start">
                                                                                         <div class="avatar me-2 col-1">
-                                                                                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                                                                                            <img src="{{$reply->from_user->logo}}"
                                                                                                 alt="@user"
                                                                                                 class="img-fluid rounded-circle" />
                                                                                         </div>
@@ -1117,7 +1117,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-start">
                         <div class="avatar me-2 col-1">
-                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                            <img src="${reply.from_user.logo}"
                                 alt="@user" class="img-fluid rounded-circle" />
                         </div>
                         <div class="w-100">
