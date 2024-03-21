@@ -86,11 +86,15 @@
     @php
         function checkImage($image)
         {
-            return \Illuminate\Support\Str::startsWith($image, '/storage/')
-                ? asset($image)
-                : asset('/storage/' . $image);
+            if (\Illuminate\Support\Str::startsWith($image, '/storage/')) {
+                return asset($image);
+            } elseif (!\Illuminate\Support\Str::startsWith($image, '/img/')) {
+                $image = '/storage/' . ltrim($image, '/');
+            }
+            return asset($image);
         }
     @endphp
+
     <section class="container-lg">
         <div class="w-100">
             <div class="row g-2 mb-md-0 mb-5">
