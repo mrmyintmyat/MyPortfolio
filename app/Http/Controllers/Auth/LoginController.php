@@ -43,10 +43,10 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        Auth::logoutOtherDevices($request->password);
         $user->update(['device_token' => null]);
+        Auth::logoutOtherDevices($request->session()->token());
     }
-    
+
     public function redirectToFacebook()
     {
         return Socialite::driver('facebook')->redirect();
