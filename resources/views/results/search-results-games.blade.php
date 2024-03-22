@@ -22,16 +22,18 @@
     @php
         $user = $game->user;
         if (isset($user_name)) {
-           $gameroute = $user_name ? Str::slug($user->name) : '';
-        }else{
-           $gameroute = '';
+            $gameroute = $user_name ? Str::slug($user->name) : '';
+        } else {
+            $gameroute = '';
         }
 
-        function checkImage($image)
-        {
-            return \Illuminate\Support\Str::startsWith($image, '/storage/')
-                ? asset($image)
-                : asset('/storage/' . $image);
+        if (!function_exists('checkImage')) {
+            function checkImage($image)
+            {
+                return \Illuminate\Support\Str::startsWith($image, '/storage/')
+                    ? asset($image)
+                    : asset('/storage/' . $image);
+            }
         }
     @endphp
     @php
@@ -49,8 +51,8 @@
         @endphp
     @endif
     <div class="col">
-        <a href="{{$gameroute}}/{{$game->id}}/{{Str::slug($game->name)}}"
-            id="card" class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
+        <a href="{{ $gameroute }}/{{ $game->id }}/{{ Str::slug($game->name) }}" id="card"
+            class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
             <div class="card home-card h-100 border-0">
                 <div class="">
                     <div class="parent">
