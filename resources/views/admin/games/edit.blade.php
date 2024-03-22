@@ -100,7 +100,7 @@
                             <div class="">
                                 <input id="downloads" type="text"
                                     class="form-control @error('downloads') is-invalid @enderror" name="downloads[]"
-                                    value="{{ $game->downloads[0] }}" required autocomplete="downloads">
+                                    value="{{ $game->downloads }}" required autocomplete="downloads">
 
                                 @error('downloads')
                                     <span class="invalid-feedback" role="alert">
