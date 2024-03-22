@@ -47,6 +47,7 @@ class WebCmNotificationController extends Controller
             'data' => [
                 'title' => $title,
                 'body' => $body,
+                'icon' => 'https://zynn.games/img/game_logo.png',
                 'click_action' => $link,
             ],
         ];
