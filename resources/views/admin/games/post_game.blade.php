@@ -339,7 +339,7 @@
 
         $(document).ready(function() {
             $('#category').select2({
-                tags: false, // Disable the creation of new tags
+                tags: true, // Disable the creation of new tags
                 tokenSeparators: [',', ' '], // Allow commas and spaces as separators
                 width: '100%'
             });
