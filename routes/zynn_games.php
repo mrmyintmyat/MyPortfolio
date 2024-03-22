@@ -15,14 +15,12 @@ use App\Http\Controllers\Admin\GameController as AdminGameController;
 Auth::routes([
     'verify' => true,
 ]);
-Route::post('/logout', function (Request $request): RedirectResponse
-{
-    Auth::user()->update(
-        [
-         'is_logged_in' => false,
-         'device_token' => null,
-        ]
-    );
+Route::post('/logout', function (Request $request): RedirectResponse {
+    Auth::user()->update([
+        'is_logged_in' => false,
+        'device_token' => null,
+    ]);
+
     Auth::logout();
 
     $request->session()->invalidate();
