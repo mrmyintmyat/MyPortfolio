@@ -486,7 +486,7 @@
         $(document).ready(function() {
             var preselectedValues = {!! json_encode(array_map('trim', explode(',', $game->category))) !!}; // Trim leading/trailing spaces
             $('#category').select2({
-                tags: false, // Disable the creation of new tags
+                tags: true, // Disable the creation of new tags
                 tokenSeparators: [',', ' '], // Allow commas and spaces as separators
                 width: '100%'
             });
