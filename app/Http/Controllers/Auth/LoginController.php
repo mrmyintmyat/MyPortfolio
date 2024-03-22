@@ -36,15 +36,15 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
-
     protected function authenticated(Request $request, $user)
     {
         $user->update(['device_token' => null]);
         Auth::logoutOtherDevices($request->password);
+    }
+    
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
     }
 
     public function redirectToFacebook()
