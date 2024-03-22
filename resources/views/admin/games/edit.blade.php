@@ -96,17 +96,19 @@
                         </div>
 
                         <div class=" mb-3">
-                            <label for="downloads" class="form-label">downloads</label>
+                            <label for="downloads" class="form-label">Downloads</label>
                             <div class="">
                                 <input hidden id="downloads" type="text"
-                                    class="form-control @error('downloads') is-invalid @enderror " name="downloads"
-                                    value="{{ $game->downloads }}" required autocomplete="downloads">
+                                    class="form-control @error('downloads') is-invalid @enderror" name="downloads"
+                                    value="{{ is_array($game->downloads) ? implode(',', $game->downloads) : $game->downloads }}"
+                                    required autocomplete="downloads">
                                 @error('downloads')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
                         </div>
                         <input hidden id="downloads" type="text"
                             class="form-control @error('downloads') is-invalid @enderror " name="downloads"
@@ -173,9 +175,9 @@
                             <label for="logo" class="form-label">Logo</label>
                             <div class="custom-file-upload">
                                 <span>Replace Logo</span>
-                                <input accept="image/*" onchange="changeLogo(event, '1')" id="imageInput1" type="file"
-                                    class="form-control @error('logo') is-invalid @enderror " name="logo"
-                                    autocomplete="logo">
+                                <input accept="image/*" onchange="changeLogo(event, '1')" id="imageInput1"
+                                    type="file" class="form-control @error('logo') is-invalid @enderror "
+                                    name="logo" autocomplete="logo">
                                 @error('logo')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
