@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Game\IncrementGameController;
 use App\Http\Controllers\Admin\GameController as AdminGameController;
 
-Route::get('/{category?}', function ($category) {
+Route::get('/{category?}', function ($category = null) {
     if ($category) {
         // Redirect to zynn.games with the category
         return Redirect::to("https://zynn.games/$category");

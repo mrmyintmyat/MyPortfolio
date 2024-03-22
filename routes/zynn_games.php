@@ -13,17 +13,17 @@ use App\Http\Controllers\Admin\GameController as AdminGameController;
 Auth::routes([
     'verify' => true,
 ]);
-Route::post('/logout', function () {
-    Auth::user()->update(
-        [
-         'is_logged_in' => false,
-         'device_token' => null,
-        ]
-    );
-    Auth::logout();
+// Route::post('/logout', function () {
+//     Auth::user()->update(
+//         [
+//          'is_logged_in' => false,
+//          'device_token' => null,
+//         ]
+//     );
+//     Auth::logout();
 
-    return redirect('/');
-})->name('logout');
+//     return redirect('/');
+// })->name('logout');
 //admin panel
 Route::group(['middleware' => ['auth', 'checkadmin']], function () {
     // Route::get('/admin/panel/games/create', [AdminController::class, 'post_game']);
