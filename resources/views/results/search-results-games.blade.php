@@ -26,6 +26,13 @@
         }else{
            $gameroute = '';
         }
+
+        function checkImage($image)
+        {
+            return \Illuminate\Support\Str::startsWith($image, '/storage/')
+                ? asset($image)
+                : asset('/storage/' . $image);
+        }
     @endphp
     @php
         $randomNumber = rand(1, 1000) + rand(1, 100);
@@ -60,7 +67,7 @@
                                     @foreach ($images as $count => $image)
                                         <div class="carousel-item h-100 {{ $count === 0 ? 'active' : '' }}"
                                             data-bs-interval="{{ $interval }}">
-                                            <img src="{{ $image }}" class="d-block w-100 h-100"
+                                            <img src="{{ checkImage($image) }}" class="d-block w-100 h-100"
                                                 alt="Image {{ $count + 1 }}">
                                         </div>
                                     @endforeach
@@ -83,7 +90,7 @@
                     <div onclick="" class="card-body py-2 py-lg-3 d-flex justify-content-between px-1"
                         id="item_title">
                         <div class=" d-flex" style="width: 3.5rem;">
-                            <img class="rounded-2 game_logo" src="{{ $game->logo }}" alt="">
+                            <img class="rounded-2 game_logo" src="{{ checkImage($game->logo) }}" alt="">
                             <div class="ms-2" style="line-height: 1rem;">
                                 <h5 class="card-title m-0 text-truncate" style="max-width: 200px; " id="title">
                                     {{ $game->name }}</h5>
