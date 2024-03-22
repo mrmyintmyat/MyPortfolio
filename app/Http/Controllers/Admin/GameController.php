@@ -331,7 +331,7 @@ class GameController extends Controller
                 'logo' => $logo,
                 'category' => $category,
                 'download_links' => $downloads_link,
-                'downloads' => $request->downloads,
+                'downloads' => json_decode($request->downloads[0], true),
                 'image' => $newImages,
                 'setting' => $setting,
                 'user_id' => Auth::user()->id,
