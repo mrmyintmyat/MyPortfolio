@@ -115,7 +115,9 @@ class GameController extends Controller
 
         $games = $gamesQuery->paginate(10, ['*'], 'page', $page)->shuffle();
 
-        return view('results.search-results-games', ['games' => $games, 'user_name' => $user_name])->render();
+        $html = view('results.search-results-games', ['games' => $games, 'user_name' => $user_name])->render();
+
+        return response()->json(['html' => $html]);
     }
 
     private function getUserGames($user, $id)

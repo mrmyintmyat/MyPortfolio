@@ -106,11 +106,11 @@ $(document).ready(function() {
 
             },
             success: function(response) {
-                if (response.length > 0) {
+                if (response.html.length > 0) {
                   setTimeout(() => {
                     $('.auto-load').hide();
                 $('.search-auto-load').hide();
-                    $('#item_container').append(response);
+                    $('#item_container').append(response.html);
                     nextPage++;
                     isLoading = false;
                   }, 1500);
