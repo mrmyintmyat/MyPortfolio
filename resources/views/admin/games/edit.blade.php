@@ -95,19 +95,19 @@
                             </div>
                         </div>
 
-                        {{-- <div class=" mb-3">
+                        <div class=" mb-3">
                             <label for="downloads" class="form-label">downloads</label>
                             <div class="">
                                 <input hidden id="downloads" type="text"
                                     class="form-control @error('downloads') is-invalid @enderror " name="downloads"
-                                    value="{{ $game->downloads[0] }}" required autocomplete="downloads">
+                                    value="{{ $game->downloads }}" required autocomplete="downloads">
                                 @error('downloads')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div> --}}
+                        </div>
                         <input hidden id="downloads" type="text"
                             class="form-control @error('downloads') is-invalid @enderror " name="downloads"
                             value="{{ $game->downloads[0] }}" required autocomplete="downloads">
