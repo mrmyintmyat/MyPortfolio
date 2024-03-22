@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Game\GameController;
 use App\Http\Controllers\User\UserController;
@@ -13,7 +15,8 @@ use App\Http\Controllers\Admin\GameController as AdminGameController;
 Auth::routes([
     'verify' => true,
 ]);
-Route::post('/logout', function () {
+Route::post('/logout', function (Request $request): RedirectResponse
+{
     Auth::user()->update(
         [
          'is_logged_in' => false,
