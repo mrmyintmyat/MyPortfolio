@@ -20,7 +20,7 @@ Route::post('/logout', function () {
          'device_token' => null,
         ]
     );
-    auth()->logout();
+    Auth::logout();
 
     return redirect('/');
 })->name('logout');

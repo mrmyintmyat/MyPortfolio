@@ -11,13 +11,13 @@ Route::get('/{category?}', function ($category) {
         return Redirect::to("https://zynn.games/$category");
     } else {
         // Redirect to zynn.games without a category
-        return Redirect::to("");
+        return Redirect::to("https://zynn.games");
     }
 });
-Route::get('/{name}/{id}', function ($name, $id) {
-    return Redirect::to("https://zynn.games/$name/$id");
+Route::get('/{id}/{name}', function ($id, $name) {
+    return Redirect::to("https://zynn.games/$id/$name");
 });
-Route::get('/{user_name}/{id}/{name}', function ($user_name, $id, $name) {
-    return Redirect::to("https://zynn.games/$user_name/$id/$name");
-});
+// Route::get('/{user_name}/{id}/{name}', function ($user_name, $id, $name) {
+//     return Redirect::to("https://zynn.games/$user_name/$id/$name");
+// });
 

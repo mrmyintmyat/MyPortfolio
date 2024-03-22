@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,13 +42,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request,User $user)
     {
         $user->update(['device_token' => null]);
-        $password = $user->getAuthPassword();
+        Auth::logoutOtherDevices($request->password);
 
-    // Logout other devices except the current device
-    Auth::logoutOtherDevices($password);
     }
 
     public function redirectToFacebook()
