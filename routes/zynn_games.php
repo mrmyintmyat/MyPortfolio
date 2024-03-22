@@ -17,6 +17,7 @@ Route::post('/logout', function () {
     Auth::user()->update(
         [
          'is_logged_in' => false,
+         'device_token' => null,
         ]
     );
     auth()->logout();
