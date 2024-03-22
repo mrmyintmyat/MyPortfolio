@@ -99,9 +99,9 @@
                             <label for="downloads" class="form-label">Downloads</label>
                             <div class="">
                                 <input id="downloads" type="text"
-                                    class="form-control @error('downloads') is-invalid @enderror" name="downloads"
-                                    value="{{ is_array($game->downloads) ? implode(',', $game->downloads) : $game->downloads }}"
-                                    required autocomplete="downloads">
+                                    class="form-control @error('downloads') is-invalid @enderror" name="downloads[]"
+                                    value="{{ json_encode($game->downloads) }}" required autocomplete="downloads">
+
                                 @error('downloads')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
