@@ -15,23 +15,35 @@ class IncrementGameController extends Controller
 {
     public function store(Request $request)
     {
+        // $gameId = $request->id;
+        // // $link = $request->link;
+        // // $download_again = $request->again;
+        // // $isMediaFire = $request->isMediaFire;
+        // // $key = 'downloaded_game_' . $gameId;
+        // $game = Game::findOrFail($gameId);
+        // // Check if the game has already been downloaded in this session
+        // // if (!$request->session()->has($key)) {
+        // DB::statement(
+        //     "
+        //     UPDATE games
+        //     SET downloads = JSON_SET(downloads, '$[0]', JSON_EXTRACT(downloads, '$[0]') + 1),
+        //         downloads = JSON_SET(downloads, '$[7]', JSON_EXTRACT(downloads, '$[7]') + 1)
+        //     WHERE id = ? AND post_status != '0'
+        // ",
+        //     [$gameId],
+        // );
+
         $gameId = $request->id;
-        // $link = $request->link;
-        // $download_again = $request->again;
-        $isMediaFire = $request->isMediaFire;
-        $key = 'downloaded_game_' . $gameId;
         $game = Game::findOrFail($gameId);
-        // Check if the game has already been downloaded in this session
-        // if (!$request->session()->has($key)) {
-        DB::statement(
-            "
-            UPDATE games
-            SET downloads = JSON_SET(downloads, '$[0]', JSON_EXTRACT(downloads, '$[0]') + 1),
-                downloads = JSON_SET(downloads, '$[7]', JSON_EXTRACT(downloads, '$[7]') + 1)
-            WHERE id = ? AND post_status != '0'
-        ",
-            [$gameId],
-        );
+
+        // Construct the JSON object for the update
+        $newDownloads = $game->downloads;
+        $newDownloads[0] += 1; // Increment the first value in the JSON array
+        $newDownloads[7] += 1; // Increment the eighth value in the JSON array
+
+        // Update the game record with the new downloads
+        $game->downloads = $newDownloads;
+        $game->save();
 
         if (Auth::check()) {
             $download = Download::where('user_id', Auth::user()->id)
