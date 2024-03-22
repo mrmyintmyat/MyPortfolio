@@ -238,7 +238,6 @@ class GameController extends Controller
 
     public function update(Request $request, $id)
     {
-        Log::info($request->all());
         $user = Auth::user();
 
         $game = $user->games()->findOrFail($id);
