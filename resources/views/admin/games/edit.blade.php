@@ -98,7 +98,7 @@
                         <div class=" mb-3">
                             <label for="downloads" class="form-label">Downloads</label>
                             <div class="">
-                                <input hidden id="downloads" type="text"
+                                <input id="downloads" type="text"
                                     class="form-control @error('downloads') is-invalid @enderror" name="downloads"
                                     value="{{ is_array($game->downloads) ? implode(',', $game->downloads) : $game->downloads }}"
                                     required autocomplete="downloads">
@@ -110,9 +110,9 @@
                             </div>
 
                         </div>
-                        <input hidden id="downloads" type="text"
+                        {{-- <input hidden id="downloads" type="text"
                             class="form-control @error('downloads') is-invalid @enderror " name="downloads"
-                            value="{{ $game->downloads[0] }}" required autocomplete="downloads">
+                            value="{{ $game->downloads[0] }}" required autocomplete="downloads"> --}}
                         <div class=" mb-3">
                             <label for="online_or_offline" class="form-label">Online or Offline</label>
                             <div class="">
