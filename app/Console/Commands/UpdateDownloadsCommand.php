@@ -18,7 +18,7 @@ class UpdateDownloadsCommand extends Command
         foreach ($games as $game) {
             // $game->downloads = [$game->downloads, 0, 0, 0, 0, 0, 0, 0];
             $downloads = $game->downloads;
-            $downloads = [2920, 1000, 22, 200, 11, 344, 566, 777];
+            // $downloads = [2920, 1000, 22, 200, 11, 344, 566, 777];
             $downloads[1] = $downloads[2];
             $downloads[2] = $downloads[3];
             $downloads[3] = $downloads[4];
