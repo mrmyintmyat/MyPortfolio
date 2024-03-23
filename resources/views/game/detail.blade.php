@@ -468,7 +468,7 @@
                                                     @if (filter_var($link, FILTER_VALIDATE_URL))
                                                         <a href="{{ $link }}"
                                                             onclick="handleDownloadClick({{ $game->id }}, false)"
-                                                            class="btn text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5 adslink"
+                                                            class="btn text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5"
                                                             style="background-color: {{ $randomColor }}">
                                                             {{ $name }}
                                                         </a>
@@ -510,7 +510,7 @@
                                                         @if (filter_var($link, FILTER_VALIDATE_URL))
                                                             <a href="{{ $link }}"
                                                                 onclick="handleDownloadClick({{ $game->id }}, false)"
-                                                                class="btn text-white shadow py-2 my-lg-2 w-100 mb-3  rounded-pill fw-bold fs-5 adslink"
+                                                                class="btn text-white shadow py-2 my-lg-2 w-100 mb-3  rounded-pill fw-bold fs-5"
                                                                 style="background-color: {{ getRandomColor() }}">
                                                                 {{ $name }}
                                                             </a>
