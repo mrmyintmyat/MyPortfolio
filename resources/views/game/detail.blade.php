@@ -143,10 +143,10 @@
             if ($downloads < 1000) {
                 return $downloads;
             } elseif ($downloads < 1000000) {
-                $formatted = number_format($downloads / 1000, 1);
-                return rtrim($formatted, '.0') . 'k+';
+                $formatted = number_format($downloads / 1000, 0); // Remove decimal places
+                return $formatted . 'k+';
             } else {
-                $formatted = number_format($downloads / 1000000, 1);
+                $formatted = number_format($downloads / 1000000, 1); // Keep one decimal place for millions
                 return rtrim($formatted, '.0') . 'M +';
             }
         }
@@ -574,8 +574,7 @@
                                                     <div class="card-body p-0">
                                                         <div class="d-flex align-items-start">
                                                             <div class="avatar me-2 col-1">
-                                                                <img src="{{$comment->from_user->logo}}"
-                                                                    alt="@user"
+                                                                <img src="{{ $comment->from_user->logo }}" alt="@user"
                                                                     class="img-fluid rounded-circle shadow-sm border" />
                                                             </div>
                                                             <div class="w-100">
@@ -594,7 +593,7 @@
                                                                                             <small class="text-muted ms-2">
                                                                                                 {{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans(null, true) }}
                                                                                             </small>
-                                                                                            @if($comment->from_user && $comment->from_user->user_token == 3)
+                                                                                            @if ($comment->from_user && $comment->from_user->user_token == 3)
                                                                                                 <small
                                                                                                     class="text-danger ms-2">
                                                                                                     Banned User
@@ -648,7 +647,7 @@
                                                                                 <div class="card-body">
                                                                                     <div class="d-flex align-items-start">
                                                                                         <div class="avatar me-2 col-1">
-                                                                                            <img src="{{$reply->from_user->logo}}"
+                                                                                            <img src="{{ $reply->from_user->logo }}"
                                                                                                 alt="@user"
                                                                                                 class="img-fluid rounded-circle" />
                                                                                         </div>
@@ -661,7 +660,7 @@
                                                                                                 </h5>
                                                                                                 <small
                                                                                                     class="text-muted ms-2">{{ \Carbon\Carbon::parse($reply->created_at)->diffForHumans(null, true) }}</small>
-                                                                                                    @if($reply->from_user && $reply->from_user->user_token == 3)
+                                                                                                @if ($reply->from_user && $reply->from_user->user_token == 3)
                                                                                                     <small
                                                                                                         class="text-danger ms-2">
                                                                                                         Banned User
@@ -744,7 +743,8 @@
                                                         @else
                                                             <div class="mb-3">
                                                                 <input type="text" id="reply_user_name" name="name"
-                                                                    class="form-control hide_user_rp_name" placeholder="Your Name">
+                                                                    class="form-control hide_user_rp_name"
+                                                                    placeholder="Your Name">
                                                             </div>
                                                         @endif
                                                         <input type="hidden" id="reply_game_id" name="post_id"
@@ -790,8 +790,8 @@
                                             <input type="text" id="name" name="name" class="form-control"
                                                 value="{{ Auth::user()->name }}" hidden>
                                         @else
-                                            <input type="text" id="name" name="name" class="form-control hide_user_cm_name"
-                                                placeholder="Your Name">
+                                            <input type="text" id="name" name="name"
+                                                class="form-control hide_user_cm_name" placeholder="Your Name">
                                         @endif
                                         <input type="hidden" name="post_id" id="post_id" class="form-control"
                                             value="{{ $game->id }}">
