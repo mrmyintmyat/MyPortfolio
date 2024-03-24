@@ -143,11 +143,17 @@
             if ($downloads < 1000) {
                 return $downloads;
             } elseif ($downloads < 1000000) {
-                $formatted = number_format($downloads / 1000, 0); // Remove decimal places
-                return $formatted . 'k+';
+                if ($downloads % 1000 === 0) {
+                    return number_format($downloads / 1000) . 'k+';
+                } else {
+                    return number_format($downloads / 1000, 1) . 'k+';
+                }
             } else {
-                $formatted = number_format($downloads / 1000000, 1); // Keep one decimal place for millions
-                return rtrim($formatted, '.0') . 'M +';
+                if ($downloads % 1000000 === 0) {
+                    return number_format($downloads / 1000000) . 'M+';
+                } else {
+                    return number_format($downloads / 1000000, 1) . 'M+';
+                }
             }
         }
 
