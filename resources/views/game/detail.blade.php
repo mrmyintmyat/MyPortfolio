@@ -926,7 +926,7 @@
     <script src="/js/game_scroll_data.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script>
-        const socket = new WebSocket('ws://localhost:8080?post_id={{ encrypt($game->id) }}');
+        const socket = new WebSocket('ws://zynn.games:8080?post_id={{ encrypt($game->id) }}');
 
         // Event listener for connection opening
         socket.addEventListener('open', function(event) {
