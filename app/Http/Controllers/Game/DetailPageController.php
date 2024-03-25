@@ -72,8 +72,15 @@ class DetailPageController extends Controller
             ->inRandomOrder()
             ->paginate(5);
 
+        $today_most_downloaded_games = Game::where('id', '!=', $id)
+            ->where('post_status', '=', 'Published')
+            ->whereRaw("JSON_EXTRACT(downloads, '$[7]') > ?", [0])
+            ->orderByRaw("CAST(JSON_EXTRACT(downloads, '$[7]') AS UNSIGNED) DESC")
+            ->latest()
+            ->paginate(8);
+
         $game_user_id = $game->user->id;
-        return view('game.detail', compact('game', 'MediaFire', 'most_downloaded_games', 'user_name', 'view_cm', 'view_rp', 'cm_id', 'cm_id_encrypt', 'rp_id_encrypt', 'game_user_id'));
+        return view('game.detail', compact('game', 'MediaFire', 'most_downloaded_games', 'today_most_downloaded_games', 'user_name', 'view_cm', 'view_rp', 'cm_id', 'cm_id_encrypt', 'rp_id_encrypt', 'game_user_id'));
     }
 
     private function validateSlug($game, $name, $user_name = null)

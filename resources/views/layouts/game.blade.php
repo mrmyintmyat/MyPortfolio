@@ -126,7 +126,7 @@
         </div>
     </div>
     <div class="container-fluid row m-0 p-0" id="main_container" style="">
-        <main class="pt-0 main px-lg-2 px-0">
+        <main class="pt-0 main px-0">
             @yield('btn')
             <nav id="navbar" class="navbar shadow-sm bg-white  fixed-top d-flex px-2" data-aos="fade-down"
                 data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true" style="z-index: 1;">
@@ -163,7 +163,7 @@
                         </div>
                     </div>
 
-                    <div class="px-2 d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
                         @if (request()->is('/') || request()->id)
                             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -303,7 +303,7 @@
                     href="{{ $gameroute }}">
                     <i class="fas fa-home"></i>
                     <div class="d-flex justify-content-center">
-                        <span>GAMES</span>
+                        <span>HOME</span>
                     </div>
                 </a>
             </li>

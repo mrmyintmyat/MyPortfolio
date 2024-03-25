@@ -174,7 +174,7 @@
     @endphp
 @endsection
 @section('main')
-    <section class="px-0 container mt-2 mb-5">
+    <section class="px-0 mb-5 container mt-2">
         <div class="">
             <ul class="list-unstyled game_detail_hide">
                 {{-- <h1 class="m-0">News</h1> --}}
@@ -816,6 +816,40 @@
                             @endif
                         </section>
                         <section>
+                            <div class="mt-3">
+                                <h3>Today Hot Games</h3>
+                            </div>
+                            <div class="row row-cols-4 px-2">
+                                @if (!empty($today_most_downloaded_games))
+                                    @foreach ($today_most_downloaded_games as $today_hot_game)
+                                        @php
+                                            $user = $today_hot_game->user;
+                                            $gameroute = $user_name ? '/' . Str::slug($user->name) : '';
+                                        @endphp
+                                        <div class="col mb-2 p-0">
+                                            <a href="{{ $gameroute }}/{{ $today_hot_game->id }}/{{ Str::slug($today_hot_game->name) }}"
+                                                id="card"
+                                                class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
+                                                <div class="card home-card h-100 border-0">
+                                                    <div class="card-body py-2 d-flex flex-column justify-content-center align-items-center"
+                                                        id="item_title">
+                                                        <img style="width: 4.3rem; height: 4.3rem;" class="rounded-2 game_logo"
+                                                            src="{{ checkImage($today_hot_game->logo) }}"
+                                                            alt="">
+                                                        <h5 class="card-title text-center m-0 text-truncate col-12" id="title">
+                                                            {{ $today_hot_game->name }}</h5>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <h4 class="text-center py-3">Not yet...</h4>
+                                @endif
+                            </div>
+                        </section>
+
+                        <section>
                             <div class="my-3">
                                 <h3>Most downloaded games</h3>
                             </div>
@@ -917,7 +951,21 @@
 
         </div>
     </section>
-    <div id="url_copy_notification" class="url_copy_notification" style="display: none;">
+    {{-- <footer class="footer py-3" style="background: #fff; margin-bottom: 5rem;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="m-0 fw-semibold">&copy; 2024 Zynn Games. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" style="color: #0f0;">Privacy Policy</a> | <a href="#" style="color: #0f0;">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer> --}}
+
+
+    <div id="url_copy_notification" class="url_copy_notification mb-3" style="display: none;">
         URL Copied!
     </div>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -926,7 +974,7 @@
     <script src="/js/game_scroll_data.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script>
-       const socket = new WebSocket('ws://0.0.0.0:8080?post_id={{ encrypt($game->id) }}');
+        const socket = new WebSocket('ws://0.0.0.0:8080?post_id={{ encrypt($game->id) }}');
 
         // Event listener for connection opening
         socket.addEventListener('open', function(event) {
@@ -1172,7 +1220,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             new ClipboardJS('#copyButton', {
                 text: function() {
-                    return `https://games.myintmyat.dev/` + `{{ request()->path() }}`;
+                    return `https://zynn.games/` + `{{ request()->path() }}`;
                 }
             });
 
