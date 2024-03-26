@@ -1443,7 +1443,7 @@
                     var ClassName = links[index].className;
                     var shouldConvertLink = includes_domains.some(domain => ClassName.includes(domain));
                     if (shouldConvertLink) {
-                        fetch('https://w2ad.link/api?api=167d32a934e9c6aabcba71180131f4a01de36247&url='+encodeURIComponent(originalLink)+'&alias={{request()->name}}-{{$game->id}}', {
+                        fetch('https://w2ad.link/api?api=167d32a934e9c6aabcba71180131f4a01de36247&url='+encodeURIComponent(originalLink), {
                                 method: 'GET',
                                 headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded',
