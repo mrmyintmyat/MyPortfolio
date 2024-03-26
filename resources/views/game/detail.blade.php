@@ -1451,6 +1451,7 @@
                             })
                             .then(response => response.json())
                             .then(data => {
+                                console.log(data)
                                 var generatedLink = data.shortenedUrl;
                                 links[index].href = generatedLink;
                             })
