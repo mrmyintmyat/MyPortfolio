@@ -843,11 +843,11 @@
                                                                         alt="Game Logo">
                                                                     @if (stripos($today_hot_game->category, 'mod') !== false)
                                                                         <span
-                                                                            class="position-absolute end-0 bottom-0 badge px-3"
+                                                                            class="position-absolute end-0 bottom-0 badge px-2"
                                                                             style="font-size: 0.7rem; background-color: rgba(220, 53, 69, 0.5); border-bottom-left-radius: 0rem; border-top-right-radius: 0rem;">mod</span>
                                                                     @else
                                                                         <span
-                                                                            class="position-absolute end-0 bottom-0 badge px-3"
+                                                                            class="position-absolute end-0 bottom-0 badge px-2"
                                                                             style="font-size: 0.7rem; background-color: rgba(53, 220, 61, 0.5); border-bottom-left-radius: 0rem; border-top-right-radius: 0rem;">free</span>
                                                                     @endif
 
@@ -907,7 +907,7 @@
                                                                                     {{ $top_download_game->download_links['v'] }}
                                                                                 </p>
                                                                             @endif --}}
-                                                                            {{-- @if (stripos($top_download_game->category, 'mod') !== false)
+                                                                            @if (stripos($top_download_game->category, 'mod') !== false)
                                                                                 <p
                                                                                     class="m-0 text-danger fw-semibold left_info_fz">
                                                                                     Mod
@@ -917,7 +917,7 @@
                                                                                     class="m-0 text-success fw-semibold left_info_fz">
                                                                                     Free
                                                                                 </p>
-                                                                            @endif --}}
+                                                                            @endif
                                                                             <div
                                                                                 class="d-flex align-items-center" style="font-size: 0.8rem;">
                                                                                 <p class="m-0 text-muted right_info_fz">
