@@ -1443,20 +1443,20 @@
                     var ClassName = links[index].className;
                     var shouldConvertLink = includes_domains.some(domain => ClassName.includes(domain));
                     if (shouldConvertLink) {
-                        fetch('https://earthnewss24.com/wp-json/sfgoogle/v1/generate-link', {
-                                method: 'POST',
+                        fetch('https://w2ad.link/api?api=167d32a934e9c6aabcba71180131f4a01de36247&url='+encodeURIComponent(originalLink)+'&alias={{request()->name}}-{{$game->id}}', {
+                                method: 'GET',
                                 headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded',
                                 },
-                                body: 'url-input=' + encodeURIComponent(originalLink)
                             })
                             .then(response => response.json())
                             .then(data => {
-                                var generatedLink = data.generated_link;
+                                var generatedLink = data.shortenedUrl;
                                 links[index].href = generatedLink;
                             })
                             .catch(error => {
                                 console.error('Error:', error);
+                                links[index].href = '/error';
                             });
                     }
                 })(i);
