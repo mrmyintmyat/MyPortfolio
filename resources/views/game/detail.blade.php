@@ -174,7 +174,7 @@
     @endphp
 @endsection
 @section('main')
-    <section class="px-0 mb-5 container mt-2">
+    <section class="px-0 container mt-2" style="margin-bottom: 5rem;">
         <div class="">
             <ul class="list-unstyled game_detail_hide">
                 {{-- <h1 class="m-0">News</h1> --}}
@@ -816,120 +816,149 @@
                             @endif
                         </section>
                         <section>
-                            <div class="mt-3">
-                                <h3>Today Hot Games</h3>
-                            </div>
-                            <div class="row row-cols-4 px-2">
-                                @if (!empty($today_most_downloaded_games))
-                                    @foreach ($today_most_downloaded_games as $today_hot_game)
-                                        @php
-                                            $user = $today_hot_game->user;
-                                            $gameroute = $user_name ? '/' . Str::slug($user->name) : '';
-                                        @endphp
-                                        <div class="col mb-2 p-0">
-                                            <a href="{{ $gameroute }}/{{ $today_hot_game->id }}/{{ Str::slug($today_hot_game->name) }}"
-                                                id="card"
-                                                class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
-                                                <div class="card home-card h-100 border-0">
-                                                    <div class="card-body py-2 d-flex flex-column justify-content-center align-items-center"
-                                                        id="item_title">
-                                                        <div class="position-relative">
-                                                            <img style="width: 4.3rem; height: 4.3rem;" class="rounded-2 game_logo"
-                                                                src="{{ checkImage($today_hot_game->logo) }}" alt="Game Logo">
-                                                                @if (stripos($today_hot_game->category, 'mod') !== false)
-                                                                <span class="position-absolute end-0 bottom-0 badge" style="font-size: 0.7rem; background-color: rgba(220, 53, 69, 0.5);">mod</span>
-                                                                @else
-                                                                <span class="position-absolute end-0 bottom-0 badge" style="font-size: 0.7rem; background-color: rgba(53, 220, 61, 0.5);">free</span>
-                                                                @endif
+                            <div class="card mt-3 shadow-sm">
+                                <h5 class="card-header border-bottom-0 bg-white">
+                                    Today's Hot Games
+                                    <img style="width: 2rem;" class="rounded-pill" src="https://media.tenor.com/Y7FoYqyQOqAAAAAC/elmo-fire-elmo.gif" alt="">
+                                </h5>
+                                <div class="card-body p-0 overflow-auto">
+                                    <div class="row row-cols-4 px-2" style="min-width: 20rem;">
+                                        @if (!empty($today_most_downloaded_games))
+                                            @foreach ($today_most_downloaded_games as $today_hot_game)
+                                                @php
+                                                    $user = $today_hot_game->user;
+                                                    $gameroute = $user_name ? '/' . Str::slug($user->name) : '';
+                                                @endphp
+                                                <div class="col mb-2 p-0">
+                                                    <a href="{{ $gameroute }}/{{ $today_hot_game->id }}/{{ Str::slug($today_hot_game->name) }}"
+                                                        id="card"
+                                                        class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
+                                                        <div class="card home-card h-100 border-0">
+                                                            <div class="card-body py-2 d-flex flex-column justify-content-center align-items-center"
+                                                                id="item_title">
+                                                                <div class="position-relative">
+                                                                    <img style="width: 4rem; height: 4rem;"
+                                                                        class="rounded-2 game_logo"
+                                                                        src="{{ checkImage($today_hot_game->logo) }}"
+                                                                        alt="Game Logo">
+                                                                    @if (stripos($today_hot_game->category, 'mod') !== false)
+                                                                        <span
+                                                                            class="position-absolute end-0 bottom-0 badge px-3"
+                                                                            style="font-size: 0.7rem; background-color: rgba(220, 53, 69, 0.5); border-top-left-radius: 10px; border-bottom-right-radius: 10px;">mod</span>
+                                                                    @else
+                                                                        <span
+                                                                            class="position-absolute end-0 bottom-0 badge px-3"
+                                                                            style="font-size: 0.7rem; background-color: rgba(53, 220, 61, 0.5); border-top-left-radius: 10px; border-bottom-right-radius: 10px;">free</span>
+                                                                    @endif
 
+                                                                </div>
+
+
+                                                                <h6 class="card-title text-center m-0 text-truncate col-12"
+                                                                    id="title">
+                                                                    {{ $today_hot_game->name }}</h6>
+                                                            </div>
                                                         </div>
-
-
-                                                        <h5 class="card-title text-center m-0 text-truncate col-12" id="title">
-                                                            {{ $today_hot_game->name }}</h5>
-                                                    </div>
+                                                    </a>
                                                 </div>
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                @else
-                                    <h4 class="text-center py-3">Not yet...</h4>
-                                @endif
+                                            @endforeach
+                                        @else
+                                            <h4 class="text-center py-3">Not yet...</h4>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         <section>
-                            <div class="my-3">
-                                <h3>Most downloaded games</h3>
-                            </div>
-                            <div>
-                                @if (!empty($most_downloaded_games))
-                                    @foreach ($most_downloaded_games as $top_download_game)
-                                        @php
-                                            $user = $top_download_game->user;
-                                            $gameroute = $user_name ? '/' . Str::slug($user->name) : '';
-                                        @endphp
-                                        <div class="col mb-2">
-                                            <a href="{{ $gameroute }}/{{ $top_download_game->id }}/{{ Str::slug($top_download_game->name) }}"
-                                                id="card"
-                                                class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
-                                                <div class="card home-card h-100 border border-1">
-                                                    <div class="">
-                                                        <div onclick=""
-                                                            class="card-body py-3 d-flex justify-content-between"
-                                                            id="item_title">
-                                                            <div class=" d-flex" style="width: 3.5rem;">
-                                                                <img class="w-100 h-100 rounded-2 game_logo"
-                                                                    src="{{ checkImage($top_download_game->logo) }}"
-                                                                    alt="">
-                                                                <div class="ms-2" style="line-height: 1.1rem">
-                                                                    <h5 class="card-title m-0 text-truncate"
-                                                                        style="max-width: 200px; " id="title">
-                                                                        {{ $top_download_game->name }}</h5>
-                                                                    @if (isset($top_download_game->download_links['v']))
-                                                                        <p
-                                                                            class="m-0 text-secondary fw-semibold left_info_fz">
-                                                                            {{ $top_download_game->download_links['v'] }}
+                            <div class="card mt-3 mt-md-0 shadow-sm">
+                                <h5 class="card-header border-bottom-0 bg-white p-3 pb-1">Most downloaded games</h5>
+                                <div class="card-body p-2 overflow-auto">
+                                    <div class="row row-cols-3" style="width: 60rem;">
+                                        @if (!empty($most_downloaded_games))
+                                            @foreach ($most_downloaded_games as $top_download_game)
+                                                @php
+                                                    $user = $top_download_game->user;
+                                                    $gameroute = $user_name ? '/' . Str::slug($user->name) : '';
+                                                @endphp
+                                                <div class="col mb-2">
+                                                    <a href="{{ $gameroute }}/{{ $top_download_game->id }}/{{ Str::slug($top_download_game->name) }}"
+                                                        id="card"
+                                                        class="h-100 border-0 mb-1 text-decoration-none text-dark">
+                                                        <div class="card home-card h-100 border-0">
+                                                            <div class="">
+                                                                <div onclick=""
+                                                                    class="card-body p-2 d-flex justify-content-between"
+                                                                    id="item_title">
+                                                                    <div class="d-flex">
+                                                                        <img style="width: 3.6rem; height: 3.6rem;"
+                                                                            class="h-100 rounded-2 game_logo"
+                                                                            src="{{ checkImage($top_download_game->logo) }}"
+                                                                            alt="">
+                                                                        <div class="ms-2" style="line-height: 1.1rem">
+                                                                            <h6 class="card-title m-0" id="title"
+                                                                                style="max-width: 100%; overflow: hidden; white-space: nowrap;">
+                                                                                {{ $top_download_game->name }}
+                                                                            </h6>
+
+                                                                            {{-- @if (isset($top_download_game->download_links['v']))
+                                                                                <p
+                                                                                    class="m-0 text-secondary fw-semibold left_info_fz">
+                                                                                    {{ $top_download_game->download_links['v'] }}
+                                                                                </p>
+                                                                            @endif --}}
+                                                                            {{-- @if (stripos($top_download_game->category, 'mod') !== false)
+                                                                                <p
+                                                                                    class="m-0 text-danger fw-semibold left_info_fz">
+                                                                                    Mod
+                                                                                </p>
+                                                                            @else
+                                                                                <p
+                                                                                    class="m-0 text-success fw-semibold left_info_fz">
+                                                                                    Free
+                                                                                </p>
+                                                                            @endif --}}
+                                                                            <div
+                                                                                class="d-flex align-items-center" style="font-size: 0.8rem;">
+                                                                                <p class="m-0 text-muted right_info_fz">
+                                                                                    {{ formatDownloads($top_download_game->downloads[0]) }}
+                                                                                    <i
+                                                                                        class="fa-solid fa-circle-arrow-down"></i>
+                                                                                </p>
+                                                                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                                                                <p class="m-0 text-muted right_info_fz">
+                                                                                    {{ $top_download_game->size }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    {{-- <div
+                                                                        class="d-flex flex-column justify-content-center align-items-end">
+                                                                        <p class="m-0 text-muted right_info_fz">
+                                                                            {{ formatDownloads($top_download_game->downloads[0]) }}
+                                                                            <i class="fa-solid fa-circle-arrow-down"></i>
                                                                         </p>
-                                                                    @endif
-                                                                    @if (stripos($top_download_game->category, 'mod') !== false)
-                                                                        <p
-                                                                            class="m-0 text-danger fw-semibold left_info_fz">
-                                                                            Mod
+                                                                        <p class="m-0 text-muted right_info_fz">
+                                                                            {{ $top_download_game->size }}
                                                                         </p>
-                                                                    @else
-                                                                        <p
-                                                                            class="m-0 text-success fw-semibold left_info_fz">
-                                                                            Free
-                                                                        </p>
-                                                                    @endif
+                                                                    </div> --}}
                                                                 </div>
                                                             </div>
-
-                                                            <div
-                                                                class="d-flex flex-column justify-content-center align-items-end">
-                                                                <p class="m-0 text-muted right_info_fz">
-                                                                    {{ formatDownloads($top_download_game->downloads[0]) }}
-                                                                    <i class="fa-solid fa-circle-arrow-down"></i>
-                                                                </p>
-                                                                <p class="m-0 text-muted right_info_fz">
-                                                                    {{ $top_download_game->size }}
-                                                                </p>
-                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </a>
                                                 </div>
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                @else
-                                    <h4 class="text-center py-3">Not yet...</h4>
-                                @endif
-                                {{-- <div class="d-lg-flex d-none justify-content-center" style="height: 8rem;">
+                                            @endforeach
+                                        @else
+                                            <h4 class="text-center py-3">Not yet...</h4>
+                                        @endif
+                                        {{-- <div class="d-lg-flex d-none justify-content-center" style="height: 8rem;">
                                     <a class="col-12" href="https://t.me/zynngames">
                                         <img class="w-100 h-100" src="/img/join_telegram.gif" alt="Animated GIF">
                                     </a>
                                 </div> --}}
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     </div>

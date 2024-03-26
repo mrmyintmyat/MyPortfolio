@@ -70,7 +70,7 @@ class DetailPageController extends Controller
             ->whereRaw("JSON_EXTRACT(downloads, '$[0]') > ?", [20])
             ->orderByRaw("CAST(JSON_EXTRACT(downloads, '$[0]') AS UNSIGNED) DESC")
             ->inRandomOrder()
-            ->paginate(5);
+            ->paginate(9);
 
         $today_most_downloaded_games = Game::where('id', '!=', $id)
             ->where('post_status', '=', 'Published')

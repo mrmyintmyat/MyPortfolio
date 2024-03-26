@@ -44,6 +44,18 @@ body{
     width: 0px;
    }
 
+.overflow-auto::-webkit-scrollbar{
+    height: 5px;
+    width: 3px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    background-color: #8a8a8a;
+    width: 5px;
+}
+
 @media (min-width: 2000px)
 {
     .row-cols-desktop-5 > * {
