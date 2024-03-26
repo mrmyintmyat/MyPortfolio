@@ -833,9 +833,18 @@
                                                 <div class="card home-card h-100 border-0">
                                                     <div class="card-body py-2 d-flex flex-column justify-content-center align-items-center"
                                                         id="item_title">
-                                                        <img style="width: 4.3rem; height: 4.3rem;" class="rounded-2 game_logo"
-                                                            src="{{ checkImage($today_hot_game->logo) }}"
-                                                            alt="">
+                                                        <div class="position-relative">
+                                                            <img style="width: 4.3rem; height: 4.3rem;" class="rounded-2 game_logo"
+                                                                src="{{ checkImage($today_hot_game->logo) }}" alt="Game Logo">
+                                                                @if (stripos($today_hot_game->category, 'mod') !== false)
+                                                                <span class="position-absolute end-0 bottom-0 badge" style="font-size: 0.7rem; background-color: rgba(220, 53, 69, 0.5);">mod</span>
+                                                                @else
+                                                                <span class="position-absolute end-0 bottom-0 badge" style="font-size: 0.7rem; background-color: rgba(53, 220, 61, 0.5);">free</span>
+                                                                @endif
+
+                                                        </div>
+
+
                                                         <h5 class="card-title text-center m-0 text-truncate col-12" id="title">
                                                             {{ $today_hot_game->name }}</h5>
                                                     </div>
