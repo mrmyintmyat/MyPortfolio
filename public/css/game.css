@@ -175,6 +175,10 @@ h5{
 
 @media (max-width: 992px) {
 
+    .overflow-auto::-webkit-scrollbar-thumb {
+        background-color: #ffffff00;
+    }
+
     .about-image-btn{
         width: 100%;
     }

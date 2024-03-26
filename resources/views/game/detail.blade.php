@@ -844,11 +844,11 @@
                                                                     @if (stripos($today_hot_game->category, 'mod') !== false)
                                                                         <span
                                                                             class="position-absolute end-0 bottom-0 badge px-3"
-                                                                            style="font-size: 0.7rem; background-color: rgba(220, 53, 69, 0.5); border-top-left-radius: 10px; border-bottom-right-radius: 10px;">mod</span>
+                                                                            style="font-size: 0.7rem; background-color: rgba(220, 53, 69, 0.5); border-bottom-left-radius: 0rem; border-top-right-radius: 0rem;">mod</span>
                                                                     @else
                                                                         <span
                                                                             class="position-absolute end-0 bottom-0 badge px-3"
-                                                                            style="font-size: 0.7rem; background-color: rgba(53, 220, 61, 0.5); border-top-left-radius: 10px; border-bottom-right-radius: 10px;">free</span>
+                                                                            style="font-size: 0.7rem; background-color: rgba(53, 220, 61, 0.5); border-bottom-left-radius: 0rem; border-top-right-radius: 0rem;">free</span>
                                                                     @endif
 
                                                                 </div>
@@ -871,7 +871,7 @@
                         </section>
 
                         <section>
-                            <div class="card mt-3 mt-md-0 shadow-sm">
+                            <div class="card mt-3 mt-lg-0 shadow-sm">
                                 <h5 class="card-header border-bottom-0 bg-white p-3 pb-1">Most downloaded games</h5>
                                 <div class="card-body p-2 overflow-auto">
                                     <div class="row row-cols-3" style="width: 60rem;">
