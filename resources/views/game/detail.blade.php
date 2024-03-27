@@ -495,7 +495,7 @@
                                             onclick="handleDownloadClick({{ $game->id }}, true)"
                                             class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5 adslink"
                                             id="downloadBtn">
-                                            @if (stripos($top_download_game->category, 'mod') !== false)
+                                            @if (stripos($game->category, 'mod') !== false)
                                                 Download Mod
                                             @else
                                                 Download Now
