@@ -495,7 +495,11 @@
                                             onclick="handleDownloadClick({{ $game->id }}, true)"
                                             class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5 adslink"
                                             id="downloadBtn">
-                                            Download Now
+                                            @if (stripos($top_download_game->category, 'mod') !== false)
+                                                Download Mod
+                                            @else
+                                                Download Now
+                                            @endif
                                         </a>
                                     @endif
 
@@ -819,7 +823,8 @@
                             <div class="card mt-3 shadow-sm">
                                 <h5 class="card-header border-bottom-0 bg-white">
                                     Today's Hot Games
-                                    <img style="width: 2rem;" class="rounded-pill" src="https://media.tenor.com/Y7FoYqyQOqAAAAAC/elmo-fire-elmo.gif" alt="">
+                                    <img style="width: 2rem;" class="rounded-pill"
+                                        src="https://media.tenor.com/Y7FoYqyQOqAAAAAC/elmo-fire-elmo.gif" alt="">
                                 </h5>
                                 <div class="card-body p-0 overflow-auto">
                                     <div class="row row-cols-4 px-2" style="min-width: 20rem;">
@@ -918,8 +923,8 @@
                                                                                     Free
                                                                                 </p>
                                                                             @endif
-                                                                            <div
-                                                                                class="d-flex align-items-center" style="font-size: 0.8rem;">
+                                                                            <div class="d-flex align-items-center"
+                                                                                style="font-size: 0.8rem;">
                                                                                 <p class="m-0 text-muted right_info_fz">
                                                                                     {{ formatDownloads($top_download_game->downloads[0]) }}
                                                                                     <i
@@ -1443,12 +1448,13 @@
                     var ClassName = links[index].className;
                     var shouldConvertLink = includes_domains.some(domain => ClassName.includes(domain));
                     if (shouldConvertLink) {
-                        fetch('https://w2ad.link/api?api=167d32a934e9c6aabcba71180131f4a01de36247&url='+encodeURIComponent(originalLink), {
-                                method: 'GET',
-                                headers: {
-                                    'Content-Type': 'application/x-www-form-urlencoded',
-                                },
-                            })
+                        fetch('https://w2ad.link/api?api=167d32a934e9c6aabcba71180131f4a01de36247&url=' +
+                                encodeURIComponent(originalLink), {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                    },
+                                })
                             .then(response => response.json())
                             .then(data => {
                                 console.log(data)
