@@ -474,7 +474,7 @@
                                                     @if (filter_var($link, FILTER_VALIDATE_URL))
                                                         <a href="{{ $link }}"
                                                             onclick="handleDownloadClick({{ $game->id }}, false)"
-                                                            class="btn text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5"
+                                                            class="btn text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5 adslink"
                                                             style="background-color: {{ $randomColor }}">
                                                             {{ $name }}
                                                         </a>
@@ -502,7 +502,6 @@
                                             @endif
                                         </a>
                                     @endif
-
                                 </div>
                                 @if (isset($MediaFire))
                                     <div class="text-center mb-3"><strong class="text-danger">ဂိမ်းကို
@@ -520,7 +519,7 @@
                                                         @if (filter_var($link, FILTER_VALIDATE_URL))
                                                             <a href="{{ $link }}"
                                                                 onclick="handleDownloadClick({{ $game->id }}, false)"
-                                                                class="btn text-white shadow py-2 my-lg-2 w-100 mb-3  rounded-pill fw-bold fs-5"
+                                                                class="btn text-white shadow py-2 my-lg-2 w-100 mb-3  rounded-pill fw-bold fs-5 adslink"
                                                                 style="background-color: {{ getRandomColor() }}">
                                                                 {{ $name }}
                                                             </a>
