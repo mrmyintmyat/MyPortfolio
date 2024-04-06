@@ -92,7 +92,9 @@ class GameController extends Controller
 
     public function make_money()
     {
-        $mostDownloadedGame = Game::orderBy('downloads', 'desc')->first();
+        $mostDownloadedGame = Game::where('downloads->0', '>', 0) // Check if the first element is greater than 0
+            ->orderByDesc('downloads->0') // Order by the first element of the array in descending order
+            ->first();
 
         $userWithMostGames = User::select('users.*', 'games_count')->leftJoin(DB::raw('(SELECT user_id, COUNT(*) as games_count FROM games GROUP BY user_id) as game_counts'), 'users.id', '=', 'game_counts.user_id')->orderByDesc('games_count')->first();
 
@@ -102,7 +104,7 @@ class GameController extends Controller
             $downloads = $game->downloads ?? [0, 0, 0, 0, 0, 0, 0, 0];
             $totalDownloads[0] = ($totalDownloads[0] ?? 0) + $downloads[0];
         }
-// return $totalDownloads;
+        // return $totalDownloads;
         $totalDownloads = json_encode($totalDownloads);
         return view('game.make-money', compact('mostDownloadedGame', 'userWithMostGames', 'totalDownloads'));
     }
