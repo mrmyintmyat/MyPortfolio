@@ -53,7 +53,7 @@ class GameController extends Controller
         $id = $request->query('id', null);
         if ($id) {
             $user = User::findOrFail($id);
-            if ($user->status = 'user') {
+            if ($user->status == 'user') {
                 return abort(404);
             }
             $this->validateUser($user, $name);
