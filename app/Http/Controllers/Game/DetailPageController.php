@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Game;
 
 use App\Models\Game;
+use App\Models\User;
 use App\Models\Reply;
 use App\Models\Comment;
 use Illuminate\Support\Str;
@@ -19,6 +20,10 @@ class DetailPageController extends Controller
 
     public function user_game_detail(Request $request, $user_name, $id, $name)
     {
+        $user = User::find($request->query('id', null));
+        if ($user && $user->user_token == 3) {
+            return abort(404);
+        }
         return $this->gameDetail($request, $id, $name, $user_name);
     }
 

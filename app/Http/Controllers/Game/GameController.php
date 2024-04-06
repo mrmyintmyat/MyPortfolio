@@ -12,6 +12,7 @@ use App\Models\Comment;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,7 @@ class GameController extends Controller
     public function index(Request $request)
     {
         $category = $request->query('category', null);
-        $games = $category ? $this->getCategoryGames($category) : $this->getAllGames();
+        $games = $category ? $this->getCategoryGames($category, null) : $this->getAllGames();
 
         if ($request->ajax()) {
             return $this->ajaxResponse($request, $games, null);
@@ -52,6 +53,9 @@ class GameController extends Controller
         $id = $request->query('id', null);
         if ($id) {
             $user = User::findOrFail($id);
+            if ($user->status = 'user') {
+                return abort(404);
+            }
             $this->validateUser($user, $name);
 
             $games = $category ? $this->getCategoryGames($category, $id) : $this->getUserGames($user, $id);
@@ -64,10 +68,11 @@ class GameController extends Controller
             $user_name = $name;
 
             return view('game.index', compact('games', 'popular_games', 'user_name'));
-        }elseif($name === 'privacy-policy'){
-          return $this->privacy_policy();
-        }
-         elseif (!Auth::check()) {
+        } elseif ($name === 'privacy-policy') {
+            return $this->privacy_policy();
+        } elseif ($name === 'make-money') {
+            return $this->make_money();
+        } elseif (!Auth::check()) {
             return redirect('/login');
         } elseif ($name === 'notices') {
             $user = Auth::user();
@@ -83,6 +88,23 @@ class GameController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    public function make_money()
+    {
+        $mostDownloadedGame = Game::orderBy('downloads', 'desc')->first();
+
+        $userWithMostGames = User::select('users.*', 'games_count')->leftJoin(DB::raw('(SELECT user_id, COUNT(*) as games_count FROM games GROUP BY user_id) as game_counts'), 'users.id', '=', 'game_counts.user_id')->orderByDesc('games_count')->first();
+
+        $totalDownloads = [];
+        $games = Game::all();
+        foreach ($games as $game) {
+            $downloads = $game->downloads ?? [0, 0, 0, 0, 0, 0, 0, 0];
+            $totalDownloads[0] = ($totalDownloads[0] ?? 0) + $downloads[0];
+        }
+// return $totalDownloads;
+        $totalDownloads = json_encode($totalDownloads);
+        return view('game.make-money', compact('mostDownloadedGame', 'userWithMostGames', 'totalDownloads'));
     }
 
     private function validateUser($user, $name)
@@ -109,8 +131,10 @@ class GameController extends Controller
             } elseif ($category) {
                 $gamesQuery->where('category', 'like', "%$category%")->inRandomOrder();
             }
-        } elseif ($user_id) {
+        }
+        if ($user_id) {
             $gamesQuery->where('user_id', '=', $user_id);
+            $user_name = Str::slug(User::find($user_id)->name);
         }
 
         $games = $gamesQuery->paginate(10, ['*'], 'page', $page)->shuffle();
@@ -144,17 +168,22 @@ class GameController extends Controller
         return $games;
     }
 
-    public function getCategoryGames($category)
+    public function getCategoryGames($category, $user_id)
     {
         $gamesQuery = Game::latest()->where('post_status', '=', 'Published');
 
         if ($category === 'new' || $category === 'New') {
             $gamesQuery->where('category', 'not like', '%old%');
-            $games = $gamesQuery->paginate(10);
         } elseif ($category) {
             $gamesQuery->where('category', 'like', "%$category%")->inRandomOrder();
-            $games = $gamesQuery->paginate(10)->shuffle();
         }
+
+        // Add condition for user_id
+        if ($user_id) {
+            $gamesQuery->where('user_id', $user_id);
+        }
+
+        $games = $gamesQuery->paginate(10);
 
         return $games;
     }
@@ -203,10 +232,7 @@ class GameController extends Controller
 
         $notices_link = env('APP_URL') . '/notices';
 
-        $user_unchecked_notices = User::find($to_user_id)->notices()
-        ->where('is_checked', 0)
-        ->where('type', 'LIKE', '%"link"%')
-        ->get();
+        $user_unchecked_notices = User::find($to_user_id)->notices()->where('is_checked', 0)->where('type', 'LIKE', '%"link"%')->get();
 
         if ($request->has('parent_id')) {
             $comment = Reply::create([
@@ -310,23 +336,21 @@ class GameController extends Controller
     public function games_search(Request $request)
     {
         $query = $request->input('query');
+        $user_id = $request->input('user_id');
+        $query = $request->input('query');
 
-        // $page = $request->input('search_nextPage');
-        // if ($page) {
-        //     $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
-        //         ->where('post_status', '=', 'Published')
-        //         ->latest()
-        //         ->paginate(10, ['*'], 'page', $page);
-        //     $html = view('results.search-results-games', ['games' => $games])->render();
-        //     return response()->json(['html' => $html]);
-        // }
-
-        $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
+        $gamesQuery = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
             ->where('post_status', '=', 'Published')
-            ->latest()
-            ->paginate(10);
-        $startCount = 10;
-        $html = view('results.search-results-games', ['games' => $games])->render();
+            ->latest();
+
+        if ($user_id) {
+            $gamesQuery->where('user_id', '=', $user_id);
+            $user_name = Str::slug(User::find($user_id)->name);
+        }
+
+        $games = $gamesQuery->paginate(10);
+
+        $html = view('results.search-results-games', ['games' => $games, 'user_name' => $user_name ?? null])->render();
         return response()->json(['html' => $html]);
     }
 
@@ -336,31 +360,32 @@ class GameController extends Controller
         $user_id = $request->input('user_id');
         $page = $request->input('search_nextPage');
 
-        if ($page) {
-            $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
-                ->where('post_status', '=', 'Published')
-                ->latest()
-                ->paginate(10, ['*'], 'page', $page);
-            $html = view('results.search-results-games', ['games' => $games])->render();
-            return response()->json(['html' => $html]);
-        } elseif ($user_id) {
-            $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
-                ->where('post_status', '=', 'Published')
-                ->where('user_id', '=', $user_id)
-                ->latest()
-                ->paginate(10, ['*'], 'page', $page);
-            $html = view('results.search-results-games', ['games' => $games])->render();
-            return response()->json(['html' => $html]);
+        $gamesQuery = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $query)) . '%'])
+            ->where('post_status', '=', 'Published')
+            ->latest();
+
+        if ($user_id) {
+            $gamesQuery->where('user_id', '=', $user_id);
+            $user_name = Str::slug(User::find($user_id)->name);
         }
 
-        return redirect()->back();
+        if ($page) {
+            $games = $gamesQuery->paginate(10, ['*'], 'page', $page);
+        } else {
+            $games = $gamesQuery->paginate(10);
+        }
+
+        $html = view('results.search-results-games', ['games' => $games, 'user_name' => $user_name ?? null])->render();
+        return response()->json(['html' => $html]);
     }
 
-    public function privacy_policy(){
+    public function privacy_policy()
+    {
         return view('game.privacy');
     }
 
-    function generateRandomPassword($length = 12) {
+    function generateRandomPassword($length = 12)
+    {
         // Define character sets for different types of characters
         $lowercase = 'abcdefghijklmnopqrstuvwxyz';
         $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -378,5 +403,19 @@ class GameController extends Controller
         $password = str_shuffle($password);
 
         return $password;
+    }
+
+    public function reqadmin(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->status == 'admin') {
+            return back();
+        } else {
+            $user->status = 'request';
+            $user->w2ad_token = $request->w2ad_token;
+            $user->save();
+
+            return back()->with('status', 'Your request has been submitted. We will review your request and get back to you shortly.');
+        }
     }
 }

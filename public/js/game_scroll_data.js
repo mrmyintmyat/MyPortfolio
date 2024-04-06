@@ -15,6 +15,8 @@ $(document).ready(function() {
         e.preventDefault();
     })
     $('#search').keyup(function(e) {
+        const params = new URLSearchParams(window.location.search);
+        const user_id = params.get('id');
         searchnogames = false;
         var query = $(this).val();
         input_val = query;
@@ -26,7 +28,8 @@ $(document).ready(function() {
                 url: '/games/search/1/2',
                 data: {
                     _token: csrfToken,
-                    query: query
+                    query: query,
+                    user_id: user_id
                 },
                 beforeSend: function() {
                     $('#item_container_search').empty();
@@ -106,7 +109,7 @@ $(document).ready(function() {
 
             },
             success: function(response) {
-                if (response.html.length > 0) {
+                if (!check_search && response.html.length > 0) {
                   setTimeout(() => {
                     $('.auto-load').hide();
                 $('.search-auto-load').hide();

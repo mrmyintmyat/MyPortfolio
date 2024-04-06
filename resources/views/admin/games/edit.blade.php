@@ -494,5 +494,12 @@
             });
             $('#category').val(preselectedValues).trigger('change'); // Pre-select the options
         });
+
+        window.addEventListener('beforeunload', function(event) {
+            // Cancel the event as returning a non-empty string will prompt the user with a confirmation dialog
+            event.preventDefault();
+            // Set the message to display in the confirmation dialog
+            event.returnValue = 'Are you sure you want to leave this page? Your changes may not be saved.';
+        });
     </script>
 @endsection

@@ -17,9 +17,40 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/f0be33b496.js" crossorigin="anonymous"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/loader.css?v=<?php echo time(); ?>">
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <link rel="stylesheet" href="/css/login.css">
+    <style>
+            .loader_container {
+        background: rgb(10, 10, 10);
+    }
+
+    .reversed-text {
+        display: inline-block;
+        transform: scale(-1);
+        font-family: "Archivo Black", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+        background: linear-gradient(to bottom, #14FF00,
+                #2c7725, #11ff00);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+    }
+
+    .text-right {
+        display: inline-block;
+        transform: scaleX(-1);
+        font-family: "Archivo Black", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+        background: linear-gradient(to bottom, #14FF00,
+                #2c7725, #11ff00);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+
+    }
+    </style>
 </head>
 
 <body>
@@ -56,6 +87,33 @@
             </div>
         </div>
     @endif
+    <div class="loader_container" style="position: fixed; top: 0px; width: 100%; z-index: 2;">
+        <div class="scene">
+            <div class="cube-wrapper">
+                <div class="cube">
+                    <div class="cube-faces">
+                        <div class="cube-face shadow"></div>
+                        <div class="cube-face bottom"></div>
+                        <div class="cube-face top text-white text-center d-flex align-items-center fw-bold">
+                            <span class="reversed-text">ZYNN GAMES</span>
+                        </div>
+                        <div class="cube-face left text-white text-center d-flex align-items-center fw-bold">
+                            <span class="reversed-text">ZYNN GAMES</span>
+                        </div>
+                        <div class="cube-face right text-white text-center d-flex align-items-center fw-bold">
+                            <span class="text-right">ZYNN GAMES</span>
+                        </div>
+                        <div class="cube-face back text-white text-center d-flex align-items-center fw-bold">
+                            <span class="reversed-text">ZYNN GAMES</span>
+                        </div>
+                        <div class="cube-face front text-white text-center d-flex align-items-center fw-bold">
+                            <span class="reversed-text">ZYNN GAMES</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="app">
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -120,6 +178,11 @@
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        $(document).ready(function() {
+            setTimeout(() => {
+                $('.loader_container').fadeOut();
+            }, 500);
+        });
         AOS.init();
     </script>
 </body>

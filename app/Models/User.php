@@ -24,7 +24,7 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'logo','email', 'status', 'is_logged_in', 'device_token', 'password', 'user_token', 'setting'];
+    protected $fillable = ['name', 'logo','email', 'status', 'is_logged_in', 'device_token', 'password', 'user_token', 'setting', 'w2ad_token'];
 
     /**
      * The attributes that should be hidden for serialization.

@@ -91,9 +91,13 @@
         -webkit-background-clip: text;
 
     }
+
+    .dark-mode .text-muted {
+        color: white;
+    }
 </style>
 
-<body>
+<body class="">
     <?php
     // use App\Models\Notice;
     ?>
@@ -128,7 +132,7 @@
     <div class="container-fluid row m-0 p-0" id="main_container" style="">
         <main class="pt-0 main px-0">
             @yield('btn')
-            <nav id="navbar" class="navbar shadow-sm bg-white  fixed-top d-flex px-2" data-aos="fade-down"
+            <nav id="navbar" class="navbar shadow-sm fixed-top d-flex px-2 bg-white" data-aos="fade-down"
                 data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true" style="z-index: 1;">
                 <div class="container-md p-0">
                     <div class="d-flex align-items-center">
@@ -204,13 +208,13 @@
                                     @endif
                                 </a>
                                 @if (!request()->is('profile'))
-                                <a class="btn rounded-pill fw-semibold d-sm-flex d-none flex-column border-0"
-                                    href="/profile">
-                                    <div>
-                                        <img class="rounded-circle border shadow-sm" style="width: 1.5rem;"
-                                            src="{{ Auth::user()->logo }}" alt="">
-                                    </div>
-                                </a>
+                                    <a class="btn rounded-pill fw-semibold d-sm-flex d-none flex-column border-0"
+                                        href="/profile">
+                                        <div>
+                                            <img class="rounded-circle border shadow-sm" style="width: 1.5rem;"
+                                                src="{{ Auth::user()->logo }}" alt="">
+                                        </div>
+                                    </a>
                                 @endif
                             @else
                                 <div class="d-sm-flex d-none">
@@ -297,7 +301,7 @@
 
     </div>
     <div class="fixed-bottom-bar d-sm-none d-block">
-        <ul class="list-unstyled row row-cols-4 shadow-lg bg-light py-2 pb-1">
+        <ul class="list-unstyled row row-cols-5 shadow-lg bg-light py-2 pb-1">
             <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('/') || request()->category) text-muted @endif"
                     href="{{ $gameroute }}">
@@ -363,6 +367,17 @@
                     </div>
                 </a>
             </li> --}}
+            @if (Auth::check() && (Auth::user()->status = 'admin' || (Auth::user()->status = 'adminzynn')))
+                <li class="d-flex justify-content-center">
+                    <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted"
+                        href="/admin/panel/home">
+                        <i class="fa-solid fa-lock"></i>
+                        <div class="d-flex justify-content-center">
+                            <span>ADMIN</span>
+                        </div>
+                    </a>
+                </li>
+            @endif
             @if (Auth::check())
                 <li class="d-flex justify-content-center">
                     <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 p-0 @if (!request()->is('profile')) text-muted @endif"
@@ -377,18 +392,6 @@
                     </a>
                 </li>
             @endif
-
-            {{-- @if (Auth::check() && (Auth::user()->status = 'admin' || (Auth::user()->status = 'adminzynn')))
-                <li class="d-flex justify-content-center">
-                    <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted"
-                        href="/admin/panel/home">
-                        <i class="fa-solid fa-lock"></i>
-                        <div class="d-flex justify-content-center">
-                            <span>ADMIN</span>
-                        </div>
-                    </a>
-                </li>
-            @endif --}}
         </ul>
     </div>
 
@@ -597,8 +600,7 @@
             );
         });
     </script>
-    @if (Auth::check() &&
-            Auth::user()->device_token == null)
+    @if (Auth::check() && Auth::user()->device_token == null)
         <script>
             startFCM();
         </script>

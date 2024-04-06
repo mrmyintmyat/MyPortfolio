@@ -3,16 +3,19 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
+use App\Models\Noti;
 use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Http\Controllers\WebCmNotificationController;
 use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource
@@ -35,6 +38,7 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('w2ad_token'),
                 Select::make('status')
                 ->options([
                     'user' => 'User',
@@ -100,6 +104,52 @@ class UserResource extends Resource
                     $user->notices()->delete();
                 }),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('sendNoti')->form([
+                    Forms\Components\TextInput::make('title')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('text')
+                        ->required(),
+                    Forms\Components\TextInput::make('link')
+                        ->default('https://zynn.games/notices')
+                        ->required(),
+                    Forms\Components\Toggle::make('also_create_in_database')
+                        ->required(),
+                ])
+                ->action(function (User $user, array $data): void {
+                    $webNotificationController = new WebCmNotificationController();
+
+                    // Ensure variables are properly interpolated without quotes
+                    $title = $data['title'];
+                    $text = $data['text'];
+                    $link = $data['link'];
+
+                    if ($data['also_create_in_database']) {
+                        Noti::create([
+                            'image' => null,
+                            'title' => $title,
+                            'text' => $text,
+                            'user_id' => $user->id,
+                            'game_id' => '0',
+                            'from_id' => null,
+                            'type' => null,
+                        ]);
+                    }
+                    // Send the web notification
+                    try {
+                        $webNotificationController->sendWebNotification([$user->device_token], $title, $text, $link);
+
+                        Notification::make()
+                         ->title('Send successfully')
+                         ->success()
+                         ->send();
+                    } catch (\Exception $e) {
+                        Notification::make()
+                        ->title('Something went wrong')
+                        ->danger()
+                        ->send();
+                    }
+                })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

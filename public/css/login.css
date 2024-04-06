@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
-body{margin: 0;padding: 0;background: rgb(19, 19, 19);height: 100vh;font-family:
+body{margin: 0;padding: 0;background: url('/img/make-money-bg.png');height: 100vh;font-family:
 sans-serif;background-size: cover;background-repeat: no-repeat;background-position: center;}@media
 screen and (max-width: 600px){body{background-size: cover fixed}}#particles-js{height: 100%}
 .loginBox{
@@ -15,7 +15,9 @@ screen and (max-width: 600px){body{background-size: cover fixed}}#particles-js{h
     box-sizing: border-box;
     box-shadow: 0px 5px 15px #00000098;
 }
-
+.bg-linear-dark {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.686), rgba(0, 0, 0, 0.686), rgba(0, 0, 0, 0.686));
+}
     .user{margin: 0 auto;display: block;margin-bottom:
 20px}h3{margin: 0;padding: 0 0 20px;color: #262626;text-align: center}.loginBox input{width: 100%;margin-bottom:
 20px}
@@ -72,5 +74,6 @@ input[type="submit"]{
     justify-content: center;
     min-height: 100vh;
     min-width: 100%;
+    border-radius: 0rem;
    }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="d-flex justify-content-center align-items-center bg-linear-dark" style="min-height: 100vh;">
         <div class="loginBox">
             <div>
                 <div class="w-100 text-center" style="height: 8rem;">

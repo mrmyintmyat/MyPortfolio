@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\NotiResource\Pages;
-use App\Filament\Resources\NotiResource\RelationManagers;
-use App\Models\Noti;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Noti;
+use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\NotiResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\NotiResource\RelationManagers;
 
 class NotiResource extends Resource
 {
@@ -34,10 +36,10 @@ class NotiResource extends Resource
                 Forms\Components\Textarea::make('text')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('user_id')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                Select::make('user_id')
+                    ->label('User')
+                    ->options(User::all()->pluck('name', 'id'))
+                    ->searchable(),
                 Forms\Components\Textarea::make('game_id')
                     ->required()
                     ->maxLength(65535)

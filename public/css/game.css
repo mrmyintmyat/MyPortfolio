@@ -415,3 +415,39 @@ h5{
     color: #000000;
     font-size: 80%;
 }
+
+.dark-mode{
+    background: #121416;
+}
+
+/* .dark-mode #navbar *{
+    color: white;
+  } */
+
+.title_icon{
+    color: #09d309;
+}
+
+.dark-mode #navbar #nav_icon{
+    color: white;
+  }
+
+.dark-mode #navbar li a{
+   color: #00FF00;
+}
+
+.dark-mode #navbar li *{
+    color: white;
+ }
+
+.dark-mode .card{
+    background: #00000000;
+}
+
+.dark-mode .card .card-title{
+    color: #0dbe0d;
+}
+
+.dark-mode #item_title .text-muted {
+    color: white;
+}

@@ -162,9 +162,8 @@
                                         <input type="text"
                                             class="
                                              form-control col rounded-0 appName text-primary fw-medium"
-                                            value="MediaFire" placeholder="Name"
-                                            disabled>
-                                            <input type="hidden" name="download_links[1]['name']" value="MediaFire">
+                                            value="MediaFire" placeholder="Name" disabled>
+                                        <input type="hidden" name="download_links[1]['name']" value="MediaFire">
                                         <button onclick="DeleteDownloadLink('1')"
                                             class="btn rounded-0 col-2 col-lg-2 h-100 bg-danger"><i
                                                 class="fa-solid fa-trash text-light"></i></button>
@@ -187,19 +186,23 @@
                                 <label class="form-label p-2 m-0 w-100">Post Setting</label>
                                 <div class="d-flex flex-lg-row flex-column p-0 col-12" id="">
                                     <div class="p-0 col-lg-6 col-12 d-flex">
-                                        <input type="text" class="border-0 form-control col rounded-0 appName fw-medium"
-                                            value="comment" placeholder="Name" disabled>
-                                            <input type="hidden" name="setting[0]['name']" value="comment">
-                                        <div class="form-check form-switch bg-body-secondary h-100 d-flex align-items-center">
+                                        <input type="text"
+                                            class="border-0 form-control col rounded-0 appName fw-medium" value="comment"
+                                            placeholder="Name" disabled>
+                                        <input type="hidden" name="setting[0]['name']" value="comment">
+                                        <div
+                                            class="form-check form-switch bg-body-secondary h-100 d-flex align-items-center">
                                             <input name="setting[0]['value']" class="form-check-input" type="checkbox"
                                                 role="switch" id="flexSwitchCheckChecked" checked>
                                         </div>
                                     </div>
                                     <div class="p-0 col-lg-6 col-12 d-flex">
-                                        <input type="text" class="border-0 form-control col rounded-0 appName fw-medium"
+                                        <input type="text"
+                                            class="border-0 form-control col rounded-0 appName fw-medium"
                                             value="earthnewss24_ads" placeholder="Name" disabled>
-                                            <input type="hidden" name="setting[1]['name']" value="earthnewss24_ads">
-                                        <div class="form-check form-switch bg-body-secondary h-100 d-flex align-items-center">
+                                        <input type="hidden" name="setting[1]['name']" value="earthnewss24_ads">
+                                        <div
+                                            class="form-check form-switch bg-body-secondary h-100 d-flex align-items-center">
                                             <input name="setting[1]['value']" class="form-check-input" type="checkbox"
                                                 role="switch" id="flexSwitchCheckChecked">
                                         </div>
@@ -251,6 +254,20 @@
 @endsection
 @section('script')
     <script>
+        $(document).ready(function() {
+            // Add the beforeunload event listener inside the document ready function
+            window.addEventListener('beforeunload', function(event) {
+                // Cancel the event as returning a non-empty string will prompt the user with a confirmation dialog
+                event.preventDefault();
+                // Set the message to display in the confirmation dialog
+                event.returnValue =
+                    'Are you sure you want to leave this page? Your changes may not be saved.';
+            });
+
+            // Your other JavaScript code here...
+        });
+
+
         let downloadLinksContainer = $('#downloadLinksContainer');
         let count = 2;
         $('#addLink').click(function() {

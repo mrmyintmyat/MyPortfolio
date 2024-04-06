@@ -336,14 +336,14 @@
                                             }
 
                                             ?>
-                                            {{-- <table class="table table-bordered m-0">
+                                            <table class="table table-bordered m-0">
                                             <tbody>
                                                 <tr>
                                                     <td class="text-center col-6">
                                                         <a class="d-flex fw-medium justify-content-center text-black w-100 btn rounded-0 p-0"
                                                         href="/{{ \Illuminate\Support\Str::slug($user->name) }}?id={{ $user->id }}">
                                                         <div class="d-flex">
-                                                        <img class="w-auto rounded" style="height: 2.3rem;" src="{{$comment->from_user->logo}}" alt="">
+                                                        <img class="w-auto rounded" style="height: 2.3rem;" src="{{$game->user->logo}}" alt="">
                                                         <div class="ms-1 text-start d-flex flex-column justify-content-center" style="line-height: 0.9rem;">
                                                         <p style="font-size: 0.9rem;" class="m-0">{{ $user->name }}</p>
                                                         <p style="font-size: 0.7rem;" class="m-0 text-muted">{{ $user->games()->where('post_status', 'Published')->count() }}
@@ -354,7 +354,7 @@
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                                    </table> --}}
+                                                    </table>
                                             @for ($count = 0; $count < $totalParagraphs; $count += 2)
                                                 {{-- Display first paragraph --}}
                                                 <?php
@@ -1437,7 +1437,7 @@
             }
         }
     </script>
-    @if (isset($game->setting['earthnewss24_ads']) && $game->setting['earthnewss24_ads'])
+    @if (isset($game->setting['earthnewss24_ads']) && $game->setting['earthnewss24_ads'] && $game->user->w2ad_token != null)
         <script type="text/javascript">
             var includes_domains = ["adslink"];
             var links = document.getElementsByTagName('a');
@@ -1447,7 +1447,7 @@
                     var ClassName = links[index].className;
                     var shouldConvertLink = includes_domains.some(domain => ClassName.includes(domain));
                     if (shouldConvertLink) {
-                        fetch('https://w2ad.link/api?api=167d32a934e9c6aabcba71180131f4a01de36247&url=' +
+                        fetch('https://w2ad.link/api?api={{$game->user->w2ad_token}}&url=' +
                                 encodeURIComponent(originalLink), {
                                     method: 'GET',
                                     headers: {

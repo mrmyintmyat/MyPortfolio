@@ -57,6 +57,8 @@ Route::post('/{user_name}/{id}/{name}', [GameController::class, 'post_comment'])
 
 Route::post('/store-token', [WebCmNotificationController::class, 'storeToken'])->name('store.token');
 
+Route::post('/request-admin', [GameController::class, 'reqadmin'])->name('req.admin');
+
 Route::put('/update-profile', [UserController::class, 'update'])->name('update.profile');
 
 Route::get('/privacy-policy', [GameController::class, 'privacy_policy']);
