@@ -156,14 +156,14 @@
                                 @endphp
                                 <li><a style=""
                                         class="btn fw-semibold me-2 @if (!request()->is('/') || request()->category) text-muted @endif"
-                                        href="{{env('APP_URL')}}{{ $gameroute }}">HOME</a></li>
+                                        href="{{ env('APP_URL') }}{{ $gameroute }}">HOME</a></li>
                                 <li><a style=""
                                         class="btn fw-semibold @if (request()->category != 'new') text-muted @endif"
-                                        href="{{env('APP_URL')}}{{ $gameroute }}&category=new">NEW
+                                        href="{{ env('APP_URL') }}{{ $gameroute }}&category=new">NEW
                                         GAMES</a></li>
                                 <li><a style=""
                                         class="btn fw-semibold @if (request()->category != 'old') text-muted @endif"
-                                        href="{{env('APP_URL')}}{{ $gameroute }}&category=old">OLD GAMES</a></li>
+                                        href="{{ env('APP_URL') }}{{ $gameroute }}&category=old">OLD GAMES</a></li>
                             </ul>
                         </div>
                     </div>
@@ -218,22 +218,22 @@
                                     </a>
                                 @endif
                             @else
-                             @if ($setting->register)
-                                <div class="d-sm-flex d-none">
-                                    <a class="btn btn-white rounded-3 fw-semibold d-flex align-items-center"
-                                        href="/register">
-                                        <i class="fa-solid fa-user-plus fs-6" id="nav_icon"
-                                            style="color: rgba(71, 71, 71, 1)"></i>
-                                        <span class="ms-2">Sign up</span>
-                                    </a>
-                                    <a class="btn btn-white ms-2 rounded-3 fw-semibold d-flex align-items-center"
-                                        href="/login">
-                                        <i class="fa-solid fa-right-to-bracket fs-6" id="nav_icon"
-                                            style="color: rgba(71, 71, 71, 1)"></i>
-                                        <span class="ms-2">Login</span>
-                                    </a>
-                                </div>
-                             @endif
+                                @if ($setting->register)
+                                    <div class="d-sm-flex d-none">
+                                        <a class="btn btn-white rounded-3 fw-semibold d-flex align-items-center"
+                                            href="/register">
+                                            <i class="fa-solid fa-user-plus fs-6" id="nav_icon"
+                                                style="color: rgba(71, 71, 71, 1)"></i>
+                                            <span class="ms-2">Sign up</span>
+                                        </a>
+                                        <a class="btn btn-white ms-2 rounded-3 fw-semibold d-flex align-items-center"
+                                            href="/login">
+                                            <i class="fa-solid fa-right-to-bracket fs-6" id="nav_icon"
+                                                style="color: rgba(71, 71, 71, 1)"></i>
+                                            <span class="ms-2">Login</span>
+                                        </a>
+                                    </div>
+                                @endif
                             @endif
                             @if (request()->is('profile'))
                                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 justify-content-center align-items-center"
@@ -307,7 +307,7 @@
         <ul class="list-unstyled row row-cols-5 shadow-lg bg-light py-2 pb-1">
             <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('/') || request()->category) text-muted @endif"
-                    href="{{env('APP_URL')}}{{ $gameroute }}">
+                    href="{{ env('APP_URL') }}{{ $gameroute }}">
                     <i class="fas fa-home"></i>
                     <div class="d-flex justify-content-center">
                         <span>HOME</span>
@@ -316,7 +316,7 @@
             </li>
             <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (request()->category != 'new') text-muted @endif"
-                    href="{{env('APP_URL')}}{{ $gameroute }}&category=new">
+                    href="{{ env('APP_URL') }}{{ $gameroute }}&category=new">
                     <i class="fas fa-star"></i>
                     <div class="d-flex justify-content-center">
                         <span>NEWS</span>
@@ -325,7 +325,7 @@
             </li>
             <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (request()->category != 'old') text-muted @endif"
-                    href="{{env('APP_URL')}}{{ $gameroute }}&category=old">
+                    href="{{ env('APP_URL') }}{{ $gameroute }}&category=old">
                     <i class="fas fa-archive"></i>
                     <div class="d-flex justify-content-center">
                         <span>OLDS</span>
@@ -444,20 +444,24 @@
 
             $('#agreeBtn').click(function() {
                 // Set the cookie when the user agrees
-                setCookie('privacy_agreed', 'true', 365);
+                setCookie('privacy_agreed', 'true', 365, '.zynn.games');
                 $('#privacyModal').modal('hide');
             });
         });
 
         // Function to set a cookie
-        function setCookie(name, value, days) {
+        function setCookie(name, value, days, domain) {
             var expires = "";
             if (days) {
                 var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 expires = "; expires=" + date.toUTCString();
             }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            var domainAttribute = "";
+            if (domain) {
+                domainAttribute = "; domain=" + domain;
+            }
+            document.cookie = name + "=" + (value || "") + expires + domainAttribute + "; path=/";
         }
 
         // Function to get a cookie by name
