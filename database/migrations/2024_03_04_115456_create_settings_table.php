@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('site_title')->nullable();
             $table->string('site_description')->nullable();
             $table->string('logo_path')->nullable();
-            $table->boolean('comments');
+            $table->boolean('comments')->default(false);
             $table->boolean('register')->default(true);
             $table->boolean('site_status')->default(true);
             $table->timestamps();
