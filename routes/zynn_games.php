@@ -13,8 +13,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\GameController as AdminGameController;
 
 //auth
-$registerEnabled = Settings::first()->register ?? true;
-
+$registerEnabled = false;
+// Settings::first()->register ?? true
 Auth::routes([
     'verify' => true,
     'register' => $registerEnabled,
