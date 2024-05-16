@@ -42,12 +42,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function authenticated(Request $request,User $user)
-    {
-        $user->update(['device_token' => null]);
-        Auth::logoutOtherDevices($request->password);
+    // protected function authenticated(Request $request,User $user)
+    // {
+    //     $user->update(['device_token' => null]);
+    //     Auth::logoutOtherDevices($request->password);
 
-    }
+    // }
 
     public function redirectToFacebook()
     {

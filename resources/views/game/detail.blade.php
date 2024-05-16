@@ -138,6 +138,7 @@
 @section('btn')
     @php
         use App\Models\User;
+        use App\Models\Settings;
         function formatDownloads($downloads)
         {
             if ($downloads < 1000) {
@@ -171,6 +172,7 @@
         }
 
         $user = $game->user;
+        $setting = Settings::first();
     @endphp
 @endsection
 @section('main')
@@ -337,24 +339,29 @@
 
                                             ?>
                                             <table class="table table-bordered m-0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-center col-6">
-                                                        <a class="d-flex fw-medium justify-content-center text-black w-100 btn rounded-0 p-0"
-                                                        href="/{{ \Illuminate\Support\Str::slug($user->name) }}?id={{ $user->id }}">
-                                                        <div class="d-flex">
-                                                        <img class="w-auto rounded" style="height: 2.3rem;" src="{{$game->user->logo}}" alt="">
-                                                        <div class="ms-1 text-start d-flex flex-column justify-content-center" style="line-height: 0.9rem;">
-                                                        <p style="font-size: 0.9rem;" class="m-0">{{ $user->name }}</p>
-                                                        <p style="font-size: 0.7rem;" class="m-0 text-muted">{{ $user->games()->where('post_status', 'Published')->count() }}
-                                                            games</p>
-                                                        </div>
-                                                        </div>
-                                                    </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                                    </table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-center col-6">
+                                                            <a class="d-flex fw-medium justify-content-center text-black w-100 btn rounded-0 p-0"
+                                                                href="{{ env('APP_URL') }}/{{ \Illuminate\Support\Str::slug($user->name) }}?id={{ $user->id }}">
+                                                                <div class="d-flex">
+                                                                    <img class="w-auto rounded" style="height: 2.3rem;"
+                                                                        src="{{ $game->user->logo }}" alt="">
+                                                                    <div class="ms-1 text-start d-flex flex-column justify-content-center"
+                                                                        style="line-height: 0.9rem;">
+                                                                        <p style="font-size: 0.9rem;" class="m-0">
+                                                                            {{ $user->name }}</p>
+                                                                        <p style="font-size: 0.7rem;"
+                                                                            class="m-0 text-muted">
+                                                                            {{ $user->games()->where('post_status', 'Published')->count() }}
+                                                                            games</p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                             @for ($count = 0; $count < $totalParagraphs; $count += 2)
                                                 {{-- Display first paragraph --}}
                                                 <?php
@@ -394,12 +401,13 @@
                                                 {{-- Display image with modal --}}
                                                 @if (isset($images[$count / 2]))
                                                     <div class="w-100 d-flex justify-content-center px-2">
-                                                        <button type="button" class="btn btn-link about-image-btn mb-2 p-0"
+                                                        <button type="button"
+                                                            class="btn btn-link about-image-btn mb-2 p-0"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#imageModal{{ $count / 2 }}">
                                                             <img class="image w-100 rounded-3"
-                                                                src="{{ checkImage($images[$count / 2]) }}" alt="ERR"
-                                                                loading="auto|eager|lazy">
+                                                                src="{{ checkImage($images[$count / 2]) }}"
+                                                                alt="ERR" loading="auto|eager|lazy">
                                                         </button>
                                                     </div>
                                                     @php
@@ -472,8 +480,8 @@
                                                         $randomColor = getRandomColor();
                                                     @endphp
                                                     @if (filter_var($link, FILTER_VALIDATE_URL))
-                                                        <a href="{{ $link }}"
-                                                            onclick="handleDownloadClick({{ $game->id }}, false)"
+                                                        <a href="{{ request()->url() }}"
+                                                            onclick="handleDownloadClick({{ $game->id }}, false, '{{ $name }}'); return false;"
                                                             class="btn text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5 adslink"
                                                             style="background-color: {{ $randomColor }}">
                                                             {{ $name }}
@@ -491,8 +499,8 @@
                                             <p>No download links available.</p>
                                         @endif
                                     @else
-                                        <a href="{{ $MediaFire }}"
-                                            onclick="handleDownloadClick({{ $game->id }}, true)"
+                                        <a href="{{ request()->url() }}"
+                                            onclick="handleDownloadClick({{ $game->id }}, true,'MediaFire'); return false;"
                                             class="btn bg-dark text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5 adslink"
                                             id="downloadBtn">
                                             @if (stripos($game->category, 'mod') !== false)
@@ -517,8 +525,8 @@
                                                             $randomColor = getRandomColor();
                                                         @endphp
                                                         @if (filter_var($link, FILTER_VALIDATE_URL))
-                                                            <a href="{{ $link }}"
-                                                                onclick="handleDownloadClick({{ $game->id }}, false)"
+                                                            <a href="{{ request()->url() }}"
+                                                                onclick="handleDownloadClick({{ $game->id }}, false, '{{ $name }}'); return false;"
                                                                 class="btn text-white shadow py-2 my-lg-2 w-100 mb-3  rounded-pill fw-bold fs-5 adslink"
                                                                 style="background-color: {{ getRandomColor() }}">
                                                                 {{ $name }}
@@ -559,7 +567,7 @@
                         <section class="d-flex flex-column justify-content-center py-lg-4 text-dark">
                             <h3 class="mb-4">Comments</h3>
                             <div class="comments_container">
-                                @if ($game->setting && !$game->setting['comment'])
+                                @if (($game->setting && !$game->setting['comment']) || !$setting->comments)
                                     <div class="text-center">
                                         <h5 class="w-100 text-center mb-3">Comments are disabled for this post</h5>
                                         <p>
@@ -831,11 +839,19 @@
                                             @foreach ($today_most_downloaded_games as $today_hot_game)
                                                 @php
                                                     $user = $today_hot_game->user;
-                                                    $gameroute = $user_name ? '/' . Str::slug($user->name) : '';
+                                                    $gameroute = $user_name
+                                                        ? route('games.user.detail', [
+                                                            'subdomain' => Str::slug($today_hot_game->name),
+                                                            'user_name' => Str::slug($user->name),
+                                                            'id' => $today_hot_game->id,
+                                                        ])
+                                                        : route('games.detail', [
+                                                            'subdomain' => Str::slug($today_hot_game->name),
+                                                            'id' => $today_hot_game->id,
+                                                        ]);
                                                 @endphp
                                                 <div class="col mb-2 p-0">
-                                                    <a href="{{ $gameroute }}/{{ $today_hot_game->id }}/{{ Str::slug($today_hot_game->name) }}"
-                                                        id="card"
+                                                    <a href="{{ $gameroute }}" {{-- {{env('')}}{{ Str::slug($today_hot_game->name) }}.{{env('WEB_URL')}}{{ $gameroute }}/{{ $today_hot_game->id }} --}} id="card"
                                                         class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
                                                         <div class="card home-card h-100 border-0">
                                                             <div class="card-body py-2 d-flex flex-column justify-content-center align-items-center"
@@ -883,11 +899,19 @@
                                             @foreach ($most_downloaded_games as $top_download_game)
                                                 @php
                                                     $user = $top_download_game->user;
-                                                    $gameroute = $user_name ? '/' . Str::slug($user->name) : '';
+                                                    $gameroute = $user_name
+                                                        ? route('games.user.detail', [
+                                                            'subdomain' => Str::slug($top_download_game->name),
+                                                            'user_name' => Str::slug($user->name),
+                                                            'id' => $top_download_game->id,
+                                                        ])
+                                                        : route('games.detail', [
+                                                            'subdomain' => Str::slug($top_download_game->name),
+                                                            'id' => $top_download_game->id,
+                                                        ]);
                                                 @endphp
                                                 <div class="col mb-2">
-                                                    <a href="{{ $gameroute }}/{{ $top_download_game->id }}/{{ Str::slug($top_download_game->name) }}"
-                                                        id="card"
+                                                    <a href="{{ $gameroute }}" id="card"
                                                         class="h-100 border-0 mb-1 text-decoration-none text-dark">
                                                         <div class="card home-card h-100 border-0">
                                                             <div class="">
@@ -1066,7 +1090,7 @@
 
             // AJAX request to submit the form
             $.ajax({
-                url: '{{ route('post_comment', ['user_name' => Str::slug($user->name), 'id' => encrypt($game->id), 'name' => Str::slug($game->name)]) }}',
+                url: '{{ route('post_comment', ['subdomain' => Str::slug($game->name), 'user_name' => Str::slug($user->name), 'id' => encrypt($game->id)]) }}',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -1107,7 +1131,7 @@
             var textinput = formData
             // AJAX request to submit the form
             $.ajax({
-                url: '{{ route('post_comment', ['user_name' => Str::slug($user->name), 'id' => encrypt($game->id), 'name' => Str::slug($game->name)]) }}',
+                url: '{{ route('post_comment', ['subdomain' => Str::slug($game->name), 'user_name' => Str::slug($user->name), 'id' => encrypt($game->id)]) }}',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -1288,15 +1312,19 @@
 
         let isDownloading = false;
 
-        function handleDownloadClick(gameId, isMediaFire, download_again = false) {
+        function handleDownloadClick(gameId, isMediaFire, linkName, download_again = false) {
             // Make an AJAX request to increment downloads
             if (!isDownloading) {
+                let countdowntime = 0;
                 if (isMediaFire) {
+                    countdowntime = 1000;
                     // Change the button style to a circle
                     document.getElementById('downloadBtn').classList.add('circle-btn');
 
                     // Start the countdown animation
                     startCountdown();
+                } else {
+                    countdowntime = 0;
                 }
 
                 $.ajaxSetup({
@@ -1310,6 +1338,7 @@
                     data: {
                         id: gameId,
                         again: download_again,
+                        linkName: linkName,
                         isMediaFire: isMediaFire
                     },
                     success: function(response) {
@@ -1317,8 +1346,9 @@
                             isDownloading = true;
 
                             setTimeout(() => {
+                                window.location.href = response.direct_link;
                                 isDownloading = false;
-                            }, 5000);
+                            }, countdowntime);
                         } else {
                             isDownloading = false;
                             // If success is false, show the modal or take appropriate action
@@ -1333,8 +1363,8 @@
                         // Reset the flag after a delay
                         setTimeout(() => {
                             isDownloading = false;
-                        }, 5000);
-                        console.error('Error incrementing downloads:', error);
+                        }, countdowntime);
+                        alert('Error incrementing downloads:', error);
                     }
                 });
             } else {
@@ -1437,7 +1467,7 @@
             }
         }
     </script>
-    @if (isset($game->setting['earthnewss24_ads']) && $game->setting['earthnewss24_ads'] && $game->user->w2ad_token != null)
+    {{-- @if (isset($game->setting['earthnewss24_ads']) && $game->setting['earthnewss24_ads'] && $game->user->w2ad_token != null)
         <script type="text/javascript">
             var includes_domains = ["adslink"];
             var links = document.getElementsByTagName('a');
@@ -1468,5 +1498,5 @@
                 })(i);
             }
         </script>
-    @endif
+    @endif --}}
 @endsection

@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ZYNN</title>
-    <meta name="description" content="Passionate web developer specializing in front-end technologies. Proven track record in creating visually appealing and user-friendly websites. Explore my portfolio to see examples of my work and discover how I can bring your digital projects to life.">
-    <meta name="keywords" content="web development, front-end development, responsive design, JavaScript, HTML, CSS, portfolio, web design, UI/UX, Jquery, Php, Laravel, Node Js, Bootstrap">
+    <meta name="description"
+        content="Passionate web developer specializing in front-end technologies. Proven track record in creating visually appealing and user-friendly websites. Explore my portfolio to see examples of my work and discover how I can bring your digital projects to life.">
+    <meta name="keywords"
+        content="web development, front-end development, responsive design, JavaScript, HTML, CSS, portfolio, web design, UI/UX, Jquery, Php, Laravel, Node Js, Bootstrap">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://myintmyat.dev">
     <link rel="alternate" href="https://myintmyat.dev" hreflang="en">
@@ -219,9 +221,14 @@
                             <div class="card-body">
                                 <h5 class="card-title">Football AdminPanel</h5>
                                 <p class="card-text">
-                                    The Football Admin Panel plays a crucial role in our live football app. As part of a
-                                    dedicated team effort,
+                                    In our live football app, there's no need to manually post matches as our system
+                                    automatically handles it for you.
                                     <span class="collapse" id="ftadminpanel">
+                                        Additionally, you have the option to edit these
+                                        automated matches.
+                                        The Football Admin Panel plays a crucial role in our live football app. As part
+                                        of a
+                                        dedicated team effort,
                                         we've created this dynamic admin panel to manage various aspects of live
                                         football events. With features like match scheduling, live score updates, and
                                         real-time statistics, it empowers users to stay informed and engaged during live
@@ -271,6 +278,30 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+            <section class="mb-5 mt-3" id="scrollspyClients">
+                {{-- <div class="d-flex flex-column align-items-center mb-4">
+                    <h2 class="" data-aos="zoom-in-down">Some Project</h2>
+                    <div style="height: 3px; width: 310px; opacity: 0.3;" class="bg_style-blue" data-aos="zoom-in">
+                    </div>
+                </div> --}}
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+                    <a href="https://zynn.games" class="col rounded-3" data-aos="fade-up">
+                        <div class="shadow-sm rounded-3">
+                            <img class="w-100" src="/img/zynngames.jpg" alt="">
+                        </div>
+                    </a>
+                    <a href="https://nextpj.net" class="col rounded-3" data-aos="fade-up">
+                        <div class="shadow-sm rounded-3">
+                            <img class="w-100" src="/img/nextpj.jpg" alt="">
+                        </div>
+                    </a>
+                    <a href="https://mmexchange.org" class="col rounded-3" data-aos="fade-up">
+                        <div class="shadow-sm rounded-3">
+                            <img class="w-100" src="/img/mmexchange.jpg" alt="">
+                        </div>
+                    </a>
                 </div>
             </section>
             {{-- ll --}}
@@ -413,10 +444,9 @@
                                 placeholder="Your Full Name" aria-label="Your Full Name">
                         </div>
                         <div class="col-md-6" data-aos="zoom-in-left" data-aos-duration="1100">
-                            <input type="email" name="email_or_phone" required
+                            <input type="email" name="email" required
                                 class="form-control rounded-pill p-2 px-4 text-blue" id="sed_msg_input"
-                                placeholder="Your Email Address"
-                                aria-label="Your Email Address">
+                                placeholder="Your Email Address" aria-label="Your Email Address">
                         </div>
                         <div class="col-12" data-aos="fade-right" data-aos-duration="1100">
                             <input type="text" name="subject" required
@@ -433,6 +463,11 @@
                                 Message</button>
                         </div>
                     </form>
+
+                    <div id="formSuccess" class="alert alert-success" style="display:none;">Message sent
+                        successfully!</div>
+                    <div id="formError" class="alert alert-danger" style="display:none;"></div>
+
                 </div>
             </section>
 
@@ -498,23 +533,41 @@
             //   toastTrigger.addEventListener('click', () => {
             //   })
             // }
-            $("#messageForm").submit(function(event) {
-                event.preventDefault(); // Prevent the default form submission
+            $('#messageForm').on('submit', function(event) {
+                event.preventDefault();
 
-                // Serialize the form data
-                var formData = $(this).serialize();
+                // Clear previous error messages and styles
+                $('.invalid-feedback').remove();
+                $('.is-invalid').removeClass('is-invalid');
 
-                // Send a POST request
+                let formData = $(this).serialize();
+
                 $.ajax({
                     type: "POST",
                     url: "/send_message",
                     data: formData,
-                    success: function(response) {
-                        toast_show(response.Done);
-                        $("#messageForm")[0].reset();
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    error: function(error) {
-                        alert("error");
+                    success: function(response) {
+                        if (response.success) {
+                            toast_show(response.success);
+                            $("#messageForm")[0].reset();
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            for (let key in errors) {
+                                let input = $(`[name="${key}"]`);
+                                let errorMsg =
+                                    `<div class="invalid-feedback">${errors[key][0]}</div>`;
+                                input.addClass('is-invalid');
+                                input.after(errorMsg);
+                            }
+                        } else {
+                            alert("An unexpected error occurred.");
+                        }
                     }
                 });
             });

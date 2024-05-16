@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
+use App\Filament\Resources\MessageResource\Pages;
+use App\Filament\Resources\MessageResource\RelationManagers;
+use App\Models\Message;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,19 +13,28 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CategoryResource extends Resource
+class MessageResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Message::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationGroup = 'Table Management';
+    protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('email_or_phone')
+                    ->email()
+                    ->tel()
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('subject')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('message')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -36,6 +45,12 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email_or_phone')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('subject')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('message')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -50,8 +65,6 @@ class CategoryResource extends Resource
                 //
             ])
             ->actions([
-                // Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -71,10 +84,9 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'view' => Pages\ViewCategory::route('/{record}'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => Pages\ListMessages::route('/'),
+            'create' => Pages\CreateMessage::route('/create'),
+            'edit' => Pages\EditMessage::route('/{record}/edit'),
         ];
     }
 }

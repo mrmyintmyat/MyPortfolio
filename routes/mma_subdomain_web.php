@@ -8,15 +8,16 @@ use App\Http\Controllers\Admin\GameController as AdminGameController;
 Route::get('/{category?}', function ($category = null) {
     if ($category) {
         // Redirect to zynn.games with the category
-        return Redirect::to("https://zynn.games/$category");
+        return Redirect::to("https://zynn.games/?&category=$category");
     } else {
         // Redirect to zynn.games without a category
         return Redirect::to("https://zynn.games");
     }
 });
 Route::get('/{id}/{name}', function ($id, $name) {
-    return Redirect::to("https://zynn.games/$id/$name");
+    return Redirect::to("https://$name.zynn.games/$id");
 });
+
 // Route::get('/{user_name}/{id}/{name}', function ($user_name, $id, $name) {
 //     return Redirect::to("https://zynn.games/$user_name/$id/$name");
 // });

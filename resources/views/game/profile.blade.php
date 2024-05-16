@@ -139,11 +139,23 @@
                                 <div class="d-flex align-items-center bg-white text-dark ps-2 rounded-start-2">
                                     <i class="fa-solid fa-key fs-6" id="nav_icon"></i>
                                 </div>
-                                <input type="password" value="{{ $user->id * 937667564564 - 539523223322 }}"
+                                <input type="password" value="{{$user->name}}{{ 937667564564 - 937667504564 - $user->id  }}"
                                     class="border-0 col-10 ps-2 bg-white text-dark rounded-0 appName fw-medium"
                                     id="passwordInput" disabled>
                                 <div class="toggle-password">
                                     <i class="fa-solid fa-eye-slash" id="toggleIcon"></i>
+                                </div>
+                            </div>
+                            <p class="text-center m-0">or</p>
+                            <div class="p-1 col-12 mt-2 d-flex rounded-2 border px-2">
+                                <div class="d-flex align-items-center bg-white text-dark ps-2 rounded-start-2">
+                                    <i class="fa-solid fa-key fs-6" id="nav_icon"></i>
+                                </div>
+                                <input type="password" value="{{ $user->id * 937667564564 - 539523223322 }}"
+                                    class="border-0 col-10 ps-2 bg-white text-dark rounded-0 appName fw-medium"
+                                    id="passwordInput2" disabled>
+                                <div class="toggle-password">
+                                    <i class="fa-solid fa-eye-slash" id="toggleIcon2"></i>
                                 </div>
                             </div>
                         @endif
@@ -201,6 +213,15 @@
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
                 toggleIcon.classList.toggle('fa-eye');
+            });
+
+            const passwordInput2 = document.getElementById('passwordInput2');
+            const toggleIcon2 = document.getElementById('toggleIcon2');
+
+            toggleIcon2.addEventListener('click', function() {
+                const type = passwordInput2.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput2.setAttribute('type', type);
+                toggleIcon2.classList.toggle('fa-eye');
             });
         </script>
     @endif
@@ -261,7 +282,9 @@
         function logout() {
             @if (Auth::check() && Auth::user()->status === 'guest')
                 var additionalText = `<br><div class='text-danger'> Please remember your email and password.</div>
-                <br>Your email: {{ Auth::user()->email }}<br>Your password: {{ $user->id * 937667564564 - 539523223322 }}<br>
+                <br>Your email: {{ Auth::user()->email }}<br>Your password: {{$user->name}}{{ 937667564564 - 937667504564 - $user->id  }}<br>
+                Or <br>
+                Your password: {{ $user->id * 937667564564 - 539523223322 }}
                 `;
             @else
                 var additionalText = "";

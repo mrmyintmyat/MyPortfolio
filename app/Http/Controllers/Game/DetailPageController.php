@@ -13,13 +13,16 @@ use App\Http\Controllers\Controller;
 
 class DetailPageController extends Controller
 {
-    public function detail(Request $request, $id, $name)
+    public function detail(Request $request, $subdomain, $id)
     {
+        $name = $request->subdomain;
+        // return $id;
         return $this->gameDetail($request, $id, $name, null);
     }
 
-    public function user_game_detail(Request $request, $user_name, $id, $name)
+    public function user_game_detail(Request $request, $subdomain, $user_name, $id)
     {
+        $name = $request->subdomain;
         $user = User::find($request->query('id', null));
         if ($user && $user->user_token == 3) {
             return abort(404);
@@ -33,7 +36,7 @@ class DetailPageController extends Controller
         //need to check ban or not
         $this->validateSlug($game, $name, $user_name);
 
-        $MediaFire = isset($game->download_links['MediaFire']) ? $this->scrap_mediafire($game->download_links['MediaFire']) : null;
+        $MediaFire = isset($game->download_links['MediaFire']) ? true : null;
 
         $cm_page = $request->query('cm_page', 1);
         $reply_page = $request->query('rp_page', 1);
@@ -180,7 +183,7 @@ class DetailPageController extends Controller
                 $extractedLink = $matches[1];
                 return $extractedLink;
             } else {
-                return 'Link not found.';
+                return '/error';
             }
         } else {
             return '/error';

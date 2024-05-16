@@ -189,8 +189,9 @@ class GameController extends Controller
         return $games;
     }
 
-    public function post_comment(Request $request, $user_name, $id, $name)
+    public function post_comment(Request $request, $subdomain, $user_name, $id)
     {
+        $name = $request->subdomain;
         $id = decrypt($id);
         $game = Game::where('id', $id)->where('post_status', '=', 'Published')->firstOrFail();
 
@@ -204,6 +205,15 @@ class GameController extends Controller
         } else {
             $user_latest_id = User::latest()->value('id') + 1;
             $randomname = $this->generateRandomPassword(8);
+            $name = $request->name;
+            $number1 = 937667564564;
+            $number2 = 937667504564;
+
+            // Perform the arithmetic operation first
+            $calculatedNumber = $number1 - $number2 - $user_latest_id;
+
+            // Concatenate the result with the name
+            $password = $name . $calculatedNumber;
             $email = Str::slug($request->name) . '@zynn.games';
             $user = User::create([
                 'name' => $request->name,
@@ -211,9 +221,9 @@ class GameController extends Controller
                 'status' => 'guest',
                 'is_logged_in' => true,
                 'setting' => ['notification' => true],
-                'password' => bcrypt($user_latest_id * 937667564564 - 539523223322),
+                'password' => bcrypt($password),
             ]);
-            Auth::login($user);
+           Auth::login($user);
             $from_user = $user->id;
             $name = $user->name;
         }

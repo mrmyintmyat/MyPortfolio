@@ -22,9 +22,22 @@
     @php
         $user = $game->user;
         if (isset($user_name)) {
-            $gameroute = $user_name ? Str::slug($user->name) : '';
+            $gameroute = $user_name
+            ? route('games.user.detail', [
+                'subdomain' => Str::slug($game->name),
+                'user_name' => Str::slug($user->name),
+                'id' => $game->id,
+            ])
+            : route('games.detail', [
+                'subdomain' => Str::slug($game->name),
+                'id' => $game->id,
+            ]);
+
         } else {
-            $gameroute = '';
+            $gameroute = route('games.detail', [
+                'subdomain' => Str::slug($game->name),
+                'id' => $game->id,
+            ]);
         }
 
         if (!function_exists('checkImage')) {
@@ -51,7 +64,7 @@
         @endphp
     @endif
     <div class="col">
-        <a href="{{ $gameroute }}/{{ $game->id }}/{{ Str::slug($game->name) }}" id="card"
+        <a href="{{ $gameroute }}" id="card"
             class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
             <div class="card home-card h-100 border-0">
                 <div class="">

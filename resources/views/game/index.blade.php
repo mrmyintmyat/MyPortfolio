@@ -134,11 +134,20 @@
                             @foreach ($popular_games as $count => $game)
                                 @php
                                     $user = $game->user;
-                                    $gameroute = $user_name ? Str::slug($user->name) : '';
+                                    $gameroute = $user_name
+                                        ? route('games.user.detail', [
+                                            'subdomain' => Str::slug($game->name),
+                                            'user_name' => Str::slug($user->name),
+                                            'id' => $game->id,
+                                        ])
+                                        : route('games.detail', [
+                                            'subdomain' => Str::slug($game->name),
+                                            'id' => $game->id,
+                                        ]);
                                 @endphp
                                 <div class="col carousel-item @if ($count === 0) active @endif"
                                     data-bs-interval="8000">
-                                    <a href="{{ $gameroute }}/{{ $game->id }}/{{ Str::slug($game->name) }}"
+                                    <a href="{{ $gameroute }}"
                                         id="card"
                                         class="h-100 d-block w-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
                                         <div style="min-height: 5rem;"
@@ -194,8 +203,17 @@
                     @endphp
                     @foreach ($games as $game_count_0 => $game)
                         @php
-                            $user = $game->user;
-                            $gameroute = $user_name ? Str::slug($user->name) : '';
+                           $user = $game->user;
+                                    $gameroute = $user_name
+                                        ? route('games.user.detail', [
+                                            'subdomain' => Str::slug($game->name),
+                                            'user_name' => Str::slug($user->name),
+                                            'id' => $game->id,
+                                        ])
+                                        : route('games.detail', [
+                                            'subdomain' => Str::slug($game->name),
+                                            'id' => $game->id,
+                                        ]);
                         @endphp
                         @if ($game_count === 3)
                             @php
@@ -209,7 +227,7 @@
                             @endphp
                         @endif
                         <div class="col">
-                            <a href="{{ $gameroute }}/{{ $game->id }}/{{ Str::slug($game->name) }}" id="card"
+                            <a href="{{ $gameroute }}" id="card"
                                 class="h-100 border-0 mb-sm-2 mb-1 border-light text-decoration-none text-dark">
                                 <div class="card home-card h-100 border-0">
                                     <div class="">

@@ -99,7 +99,8 @@
 
 <body class="">
     <?php
-    // use App\Models\Notice;
+    use App\Models\Settings;
+    $setting = Settings::first();
     ?>
     @yield('alert')
     <div class="loader_container" style="position: fixed; top: 0px; width: 100%; z-index: 2;">
@@ -136,7 +137,7 @@
                 data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true" style="z-index: 1;">
                 <div class="container-md p-0">
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('games_index') }}" class="navbar-brand title_icon m-0" href="#">
+                        <a href="/" class="navbar-brand title_icon m-0" href="#">
                             ZYNN<span class="text-dark fs-6">v1</span>
                         </a>
 
@@ -155,20 +156,20 @@
                                 @endphp
                                 <li><a style=""
                                         class="btn fw-semibold me-2 @if (!request()->is('/') || request()->category) text-muted @endif"
-                                        href="{{ $gameroute }}">HOME</a></li>
+                                        href="{{env('APP_URL')}}{{ $gameroute }}">HOME</a></li>
                                 <li><a style=""
                                         class="btn fw-semibold @if (request()->category != 'new') text-muted @endif"
-                                        href="{{ $gameroute }}&category=new">NEW
+                                        href="{{env('APP_URL')}}{{ $gameroute }}&category=new">NEW
                                         GAMES</a></li>
                                 <li><a style=""
                                         class="btn fw-semibold @if (request()->category != 'old') text-muted @endif"
-                                        href="{{ $gameroute }}&category=old">OLD GAMES</a></li>
+                                        href="{{env('APP_URL')}}{{ $gameroute }}&category=old">OLD GAMES</a></li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
-                        @if (request()->is('/') || request()->id)
+                        @if (request()->is('/'))
                             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                                 aria-label="Toggle navigation">
@@ -217,6 +218,7 @@
                                     </a>
                                 @endif
                             @else
+                             @if ($setting->register)
                                 <div class="d-sm-flex d-none">
                                     <a class="btn btn-white rounded-3 fw-semibold d-flex align-items-center"
                                         href="/register">
@@ -231,6 +233,7 @@
                                         <span class="ms-2">Login</span>
                                     </a>
                                 </div>
+                             @endif
                             @endif
                             @if (request()->is('profile'))
                                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 justify-content-center align-items-center"
@@ -304,7 +307,7 @@
         <ul class="list-unstyled row row-cols-5 shadow-lg bg-light py-2 pb-1">
             <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('/') || request()->category) text-muted @endif"
-                    href="{{ $gameroute }}">
+                    href="{{env('APP_URL')}}{{ $gameroute }}">
                     <i class="fas fa-home"></i>
                     <div class="d-flex justify-content-center">
                         <span>HOME</span>
@@ -313,7 +316,7 @@
             </li>
             <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (request()->category != 'new') text-muted @endif"
-                    href="{{ $gameroute }}&category=new">
+                    href="{{env('APP_URL')}}{{ $gameroute }}&category=new">
                     <i class="fas fa-star"></i>
                     <div class="d-flex justify-content-center">
                         <span>NEWS</span>
@@ -322,14 +325,14 @@
             </li>
             <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (request()->category != 'old') text-muted @endif"
-                    href="{{ $gameroute }}&category=old">
+                    href="{{env('APP_URL')}}{{ $gameroute }}&category=old">
                     <i class="fas fa-archive"></i>
                     <div class="d-flex justify-content-center">
                         <span>OLDS</span>
                     </div>
                 </a>
             </li>
-            @if (!Auth::check())
+            {{-- @if (!Auth::check())
                 <li class="d-flex justify-content-center">
                     <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted" href="/login">
                         <i class="fa-solid fa-right-to-bracket"></i>
@@ -338,7 +341,7 @@
                         </div>
                     </a>
                 </li>
-            @endif
+            @endif --}}
 
             {{-- <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('old')) text-muted @endif"
@@ -547,25 +550,6 @@
                 }).catch(function(error) {
                     // Permission denied, set cookie
                     document.cookie = "notificationPermissionRequested=false";
-                    // $.ajaxSetup({
-                    //     headers: {
-                    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    //     }
-                    // });
-                    // $.ajax({
-                    //     url: '{{ route('store.token') }}',
-                    //     type: 'POST',
-                    //     data: {
-                    //         notok: true
-                    //     },
-                    //     dataType: 'JSON',
-                    //     success: function(response) {
-                    //         // Handle success
-                    //     },
-                    //     error: function(error) {
-                    //         // Handle error
-                    //     },
-                    // });
                 });
         }
 

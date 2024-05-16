@@ -10,6 +10,7 @@ use Sunra\PhpSimple\HtmlDomParser;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class IncrementGameController extends Controller
 {
@@ -18,7 +19,7 @@ class IncrementGameController extends Controller
         // $gameId = $request->id;
         // // $link = $request->link;
         // // $download_again = $request->again;
-        // // $isMediaFire = $request->isMediaFire;
+        $isMediaFire = filter_var($request->isMediaFire, FILTER_VALIDATE_BOOLEAN);
         // // $key = 'downloaded_game_' . $gameId;
         // $game = Game::findOrFail($gameId);
         // // Check if the game has already been downloaded in this session
@@ -65,16 +66,51 @@ class IncrementGameController extends Controller
         }
         // Mark the game as downloaded in the session
         // $request->session()->put($key, true);
+        // Ensure $request->linkName is a string
+        $linkName = (string) $request->linkName;
 
-        // if ($isMediaFire == true) {
-        //     $direct_link = $this->scrap_mediafire($link);
-        //     return response()->json(['success' => true, 'direct_link' => $direct_link]);
-        // }
+        // Log and check if link name exists in download_links
+        if (isset($game->download_links[$linkName])) {
+            if ($isMediaFire) {
+                $link = $game->download_links[$linkName];
+                $scrappedLink = $this->scrap_mediafire($link);
 
-        return response()->json(['success' => true]);
+            } else {
+                $scrappedLink = $game->download_links[$linkName];
+            }
+
+            $direct_link = $this->makeadslink($game, $scrappedLink);
+
+            if (empty($direct_link)) {
+                Log::error('Direct Link is empty or null.');
+            } else {
+            }
+        } else {
+            Log::warning('Link Name not found in download links:', [$linkName]);
+        }
+
+        return response()->json(['success' => true, 'direct_link' => $direct_link]);
+
         // }
 
         // return response()->json(['success' => false, 'message' => 'Game already downloaded']);
+    }
+
+    public function makeadslink($game, $link)
+    {
+        if (isset($game->setting['earthnewss24_ads']) && $game->setting['earthnewss24_ads'] && $game->user->w2ad_token != null) {
+            $response = Http::get("https://w2ad.link/api?api={$game->user->w2ad_token}&url=$link");
+
+            if ($response->successful()) {
+                $data = $response->json();
+                return $data['shortenedUrl'];
+            } else {
+                $statusCode = $response->status();
+                return "Error fetching data. Status code: $statusCode";
+            }
+        } else {
+            return $link;
+        }
     }
 
     public function scrap_mediafire($link)
@@ -82,7 +118,7 @@ class IncrementGameController extends Controller
         try {
             $htmlContent = file_get_contents($link);
         } catch (\Throwable $th) {
-            return 'Error fetching HTML content.';
+            return '/error';
         }
 
         if ($htmlContent !== false) {
@@ -95,10 +131,10 @@ class IncrementGameController extends Controller
                 $extractedLink = $matches[1];
                 return $extractedLink;
             } else {
-                return 'Link not found.';
+                return '/error';
             }
         } else {
-            return 'Error fetching HTML content.';
+            return '/error';
         }
     }
 }

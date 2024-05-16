@@ -1,4 +1,5 @@
 <?php
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
@@ -12,9 +13,13 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\GameController as AdminGameController;
 
 //auth
+$registerEnabled = Settings::first()->register ?? true;
+
 Auth::routes([
     'verify' => true,
+    'register' => $registerEnabled,
 ]);
+
 Route::post('/logout', function (Request $request): RedirectResponse {
     Auth::user()->update([
         'is_logged_in' => false,
@@ -42,23 +47,35 @@ Route::group(['middleware' => ['auth', 'checkadmin']], function () {
     Route::resource('/admin/panel/games', AdminGameController::class);
 });
 
-Route::get('/', [GameController::class, 'index'])->name('games_index');
-// Route::get('/{category}', [GameController::class, 'oldGames'])->name('oldGames');
-Route::post('/games/search/1/2', [GameController::class, 'games_search'])->name('games_search');
-Route::resource('/increment-downloads', IncrementGameController::class)->only(['store']);
-Route::get('/games/search/1/2', [GameController::class, 'games_search_scroll'])->name('games_search_scroll');
-Route::get('/{name}', [GameController::class, 'profile'])->name('profile');
+Route::group(['middleware' => ['check.site.status']], function () {
+    Route::get('/', [GameController::class, 'index'])->name('games_index');
+    // Route::get('/{category}', [GameController::class, 'oldGames'])->name('oldGames');
+    Route::post('/games/search/1/2', [GameController::class, 'games_search'])->name('games_search');
+    Route::get('/games/search/1/2', [GameController::class, 'games_search_scroll'])->name('games_search_scroll');
+    Route::get('/{name}', [GameController::class, 'profile'])->name('profile');
 
-Route::get('/{user_name}/{id}/{name}', [DetailPageController::class, 'user_game_detail'])->name('games_detail');
+    Route::get('/{user_name}/{id}/{name}', function ($user_name, $id, $name) {
+        return Redirect::to("https://$name.zynn.games/$user_name/$id");
+    });
 
-Route::get('/{id}/{name}', [DetailPageController::class, 'detail']);
+    Route::get('/{id}/{name}', function ($id, $name) {
+        return Redirect::to("https://$name.zynn.games/$id");
+    });
 
-Route::post('/{user_name}/{id}/{name}', [GameController::class, 'post_comment'])->name('post_comment');
+    // Route::post('/{user_name}/{id}/{name}', [GameController::class, 'post_comment'])->name('post_comment');
 
-Route::post('/store-token', [WebCmNotificationController::class, 'storeToken'])->name('store.token');
+    Route::post('/store-token', [WebCmNotificationController::class, 'storeToken'])->name('store.token');
 
-Route::post('/request-admin', [GameController::class, 'reqadmin'])->name('req.admin');
+    Route::post('/request-admin', [GameController::class, 'reqadmin'])->name('req.admin');
 
-Route::put('/update-profile', [UserController::class, 'update'])->name('update.profile');
+    Route::put('/update-profile', [UserController::class, 'update'])->name('update.profile');
 
-Route::get('/privacy-policy', [GameController::class, 'privacy_policy']);
+    Route::get('/privacy-policy', [GameController::class, 'privacy_policy']);
+});
+
+Route::group(['middleware' => ['check.site.status'], 'domain' => '{subdomain}.zynn.games'], function () {
+    Route::get('/{id}', [DetailPageController::class, 'detail'])->name('games.detail');
+    Route::get('/{user_name}/{id}', [DetailPageController::class, 'user_game_detail'])->name('games.user.detail');
+    Route::post('/{user_name}/{id}', [GameController::class, 'post_comment'])->name('post_comment');
+    Route::resource('/increment-downloads', IncrementGameController::class)->only(['store']);
+});
