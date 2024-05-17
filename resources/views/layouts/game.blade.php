@@ -332,7 +332,7 @@
                     </div>
                 </a>
             </li>
-            {{-- @if (!Auth::check())
+            @if (!Auth::check() && $setting->register)
                 <li class="d-flex justify-content-center">
                     <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted" href="/login">
                         <i class="fa-solid fa-right-to-bracket"></i>
@@ -341,7 +341,7 @@
                         </div>
                     </a>
                 </li>
-            @endif --}}
+            @endif
 
             {{-- <li class="d-flex justify-content-center">
                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 @if (!request()->is('old')) text-muted @endif"
@@ -436,6 +436,8 @@
     </script>
     <script>
         $(document).ready(function() {
+            var webUrl = "{{ env('WEB_URL') }}";
+
             var privacyAgreed = getCookie('privacy_agreed');
 
             if (!privacyAgreed) {
@@ -444,7 +446,7 @@
 
             $('#agreeBtn').click(function() {
                 // Set the cookie when the user agrees
-                setCookie('privacy_agreed', 'true', 365, '.zynn.games');
+                setCookie('privacy_agreed', 'true', 365, '.' + webUrl);
                 $('#privacyModal').modal('hide');
             });
         });

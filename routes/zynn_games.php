@@ -73,7 +73,10 @@ Route::group(['middleware' => ['check.site.status']], function () {
     Route::get('/privacy-policy', [GameController::class, 'privacy_policy']);
 });
 
-Route::group(['middleware' => ['check.site.status'], 'domain' => '{subdomain}.zynn.games'], function () {
+$webUrl = env('WEB_URL', 'localhost');
+$domain = '{subdomain}.' . $webUrl;
+
+Route::group(['middleware' => ['check.site.status'], 'domain' => $domain], function () {
     Route::get('/{id}', [DetailPageController::class, 'detail'])->name('games.detail');
     Route::get('/{user_name}/{id}', [DetailPageController::class, 'user_game_detail'])->name('games.user.detail');
     Route::post('/{user_name}/{id}', [GameController::class, 'post_comment'])->name('post_comment');
