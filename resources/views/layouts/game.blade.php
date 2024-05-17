@@ -210,7 +210,7 @@
                                 </a>
                                 @if (!request()->is('profile'))
                                     <a class="btn rounded-pill fw-semibold d-sm-flex d-none flex-column border-0"
-                                        href="/profile">
+                                        href="{{env("APP_URL")}}/profile">
                                         <div>
                                             <img class="rounded-circle border shadow-sm" style="width: 1.5rem;"
                                                 src="{{ Auth::user()->logo }}" alt="">
@@ -384,7 +384,7 @@
             @if (Auth::check())
                 <li class="d-flex justify-content-center">
                     <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 p-0 @if (!request()->is('profile')) text-muted @endif"
-                        href="/profile">
+                        href="{{env("APP_URL")}}/profile">
                         <div>
                             <img class="rounded-circle border shadow-sm" style="width: 1.2rem;"
                                 src="{{ Auth::user()->logo }}" alt="">

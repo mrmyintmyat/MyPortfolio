@@ -60,10 +60,10 @@ class RouteServiceProvider extends ServiceProvider
             // Route::domain('{subdomain}.localhost')->group(function () {
 
             // });
-            Route::domain('zynn.games')
-                ->middleware(['web'])
-                ->group(base_path('routes/zynn_games.php'));
-                
+            // Route::domain('zynn.games')
+            //     ->middleware(['web'])
+            //     ->group(base_path('routes/zynn_games.php'));
+
             Route::middleware('api')->prefix('api')->group(base_path('routes/api.php'));
 
             Route::middleware('web')->group(base_path('routes/web.php'));
