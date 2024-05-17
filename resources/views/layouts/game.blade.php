@@ -436,7 +436,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            var webUrl = "{{ env('WEB_URL') }}";
+            var webUrl = ".{{ env('WEB_URL') }}";
 
             var privacyAgreed = getCookie('privacy_agreed');
 
@@ -446,7 +446,7 @@
 
             $('#agreeBtn').click(function() {
                 // Set the cookie when the user agrees
-                setCookie('privacy_agreed', 'true', 365, '.' + webUrl);
+                setCookie('privacy_agreed', 'true', 365, webUrl);
                 $('#privacyModal').modal('hide');
             });
         });
@@ -523,13 +523,35 @@
         const messaging = firebase.messaging();
 
 
+        function setCookie(name, value, days, domain) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            var cookieDomain = domain ? "; domain=" + domain : "";
+            document.cookie = name + "=" + (value || "") + expires + cookieDomain + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
         function startFCM() {
-            if (getCookie('notificationPermissionRequested') == false) {
+            if (getCookie('notificationPermissionRequested') === "false") {
                 return;
             }
             messaging.requestPermission()
                 .then(function() {
-                    return messaging.getToken()
+                    return messaging.getToken();
                 })
                 .then(function(response) {
                     // Permission granted, store token and set cookie
@@ -547,7 +569,8 @@
                         dataType: 'JSON',
                         success: function(response) {
                             // Token stored successfully
-                            document.cookie = "notificationPermissionRequested=true";
+                            setCookie("notificationPermissionRequested", "true", 365,
+                                '.{{ env('WEB_URL', 'localhost') }}');
                         },
                         error: function(error) {
                             // Handle error
@@ -555,22 +578,9 @@
                     });
                 }).catch(function(error) {
                     // Permission denied, set cookie
-                    document.cookie = "notificationPermissionRequested=false";
+                    setCookie("notificationPermissionRequested", "false", 365,
+                        '.{{ env('WEB_URL', 'localhost') }}');
                 });
-        }
-
-        function getCookie(name) {
-            const cookieString = document.cookie;
-            const cookies = cookieString.split('; ');
-
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i];
-                const [cookieName, cookieValue] = cookie.split('=');
-                if (cookieName === name) {
-                    return decodeURIComponent(cookieValue);
-                }
-            }
-            return null; // Return null if cookie with given name is not found
         }
 
         messaging.onMessage(function(payload) {
