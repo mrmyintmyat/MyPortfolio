@@ -29,6 +29,17 @@
     <link rel="stylesheet" href="/css/game.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="/css/loader.css?v=<?php echo time(); ?>">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K91SSTJVVF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K91SSTJVVF');
+    </script>
     {{-- <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script> --}}
     {{-- <script>
         window.fbAsyncInit = function() {
@@ -210,7 +221,7 @@
                                 </a>
                                 @if (!request()->is('profile'))
                                     <a class="btn rounded-pill fw-semibold d-sm-flex d-none flex-column border-0"
-                                        href="{{env("APP_URL")}}/profile">
+                                        href="{{ env('APP_URL') }}/profile">
                                         <div>
                                             <img class="rounded-circle border shadow-sm" style="width: 1.5rem;"
                                                 src="{{ Auth::user()->logo }}" alt="">
@@ -384,7 +395,7 @@
             @if (Auth::check())
                 <li class="d-flex justify-content-center">
                     <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 p-0 @if (!request()->is('profile')) text-muted @endif"
-                        href="{{env("APP_URL")}}/profile">
+                        href="{{ env('APP_URL') }}/profile">
                         <div>
                             <img class="rounded-circle border shadow-sm" style="width: 1.2rem;"
                                 src="{{ Auth::user()->logo }}" alt="">
