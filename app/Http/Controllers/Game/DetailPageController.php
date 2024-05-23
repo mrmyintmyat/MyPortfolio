@@ -186,6 +186,7 @@ class DetailPageController extends Controller
 
                 if ($response->successful()) {
                     // The link is working, proceed with redirection
+                    Log::info('Redirecting to: ' . $originalLink);
                     return redirect($originalLink);
                 } else {
                     // The link is not accessible
