@@ -187,7 +187,7 @@ class DetailPageController extends Controller
                 if ($response->successful()) {
                     // The link is working, proceed with redirection
                     Log::info('Redirecting to: ' . $originalLink);
-                    return redirect($originalLink);
+                    return redirect()->away($originalLink);
                 } else {
                     // The link is not accessible
                     return abort(404, 'The download link is not accessible.');
