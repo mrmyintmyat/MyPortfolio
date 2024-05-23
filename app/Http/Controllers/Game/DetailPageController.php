@@ -182,7 +182,7 @@ class DetailPageController extends Controller
             return $originalLink;
             // Make a HEAD request to check if the link is accessible
             try {
-                $response = Http::head("$originalLink");
+                $response = Http::head($originalLink);
 
                 if ($response->successful()) {
                     // The link is working, proceed with redirection
