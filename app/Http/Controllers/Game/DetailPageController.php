@@ -179,6 +179,7 @@ class DetailPageController extends Controller
         if (Cache::has($cacheKey)) {
             $encryptedLink = Cache::get($cacheKey);
             $originalLink = Crypt::decrypt($encryptedLink);
+            return $originalLink;
             // Make a HEAD request to check if the link is accessible
             try {
                 $response = Http::head("$originalLink");
