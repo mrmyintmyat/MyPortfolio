@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Game;
 
 use App\Models\Game;
 use App\Models\Download;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Sunra\PhpSimple\HtmlDomParser;
