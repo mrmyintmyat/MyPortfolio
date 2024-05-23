@@ -90,7 +90,7 @@ class IncrementGameController extends Controller
 
             $download_page_link = $base_url . "?id=$game->id";
 
-            $direct_link = $this->makeadslink($game, $download_page_link);
+            $direct_link = $this->makeadslink($game, $scrappedLink);
 
             if (empty($direct_link)) {
                 Log::error('Direct Link is empty or null.');
