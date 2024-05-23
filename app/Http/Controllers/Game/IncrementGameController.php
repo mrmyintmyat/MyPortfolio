@@ -86,7 +86,7 @@ class IncrementGameController extends Controller
 
             // Cache::put($cacheKey, $scrappedLink, now()->addMinutes(10));
             Cache::put('download_link_' . $uniqueId, $encryptedLink, now()->addMinutes(10));
-            $base_url = route('games.detail', ['subdomain' => 'download', 'id' => $encryptedLink]);
+            $base_url = route('games.detail', ['subdomain' => 'download', 'id' => $uniqueId]);
 
             $download_page_link = $base_url . "?id=$game->id";
 
