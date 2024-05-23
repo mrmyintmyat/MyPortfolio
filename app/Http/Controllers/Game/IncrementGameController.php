@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 
 class IncrementGameController extends Controller
 {
@@ -79,7 +81,16 @@ class IncrementGameController extends Controller
                 $scrappedLink = $game->download_links[$linkName];
             }
 
-            $direct_link = $this->makeadslink($game, $scrappedLink);
+            $encryptedLink = Crypt::encryptString($scrappedLink);
+            $cacheKey = 'download_link_' . md5($encryptedLink);
+
+            Cache::put($cacheKey, $scrappedLink, now()->addMinutes(10));
+
+            $base_url = route('games.detail', ['subdomain' => 'download','id' => $encryptedLink]);
+
+            $download_page_link = $base_url . "?id=$game->id";
+
+            $direct_link = $this->makeadslink($game, $download_page_link);
 
             if (empty($direct_link)) {
                 Log::error('Direct Link is empty or null.');

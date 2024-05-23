@@ -10,12 +10,18 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 
 class DetailPageController extends Controller
 {
     public function detail(Request $request, $subdomain, $id)
     {
         $name = $request->subdomain;
+        if ($subdomain === 'download') {
+            return $this->download($request, $subdomain, $id);
+        }
         // return $id;
         return $this->gameDetail($request, $id, $name, null);
     }
@@ -164,6 +170,37 @@ class DetailPageController extends Controller
 
     //     return $replies;
     // }
+
+    public function download($request, $subdomain, $link)
+    {
+        $cacheKey = 'download_link_' . md5($link);
+        $id = $request->query('id');
+        $game = Game::find($id);
+        if (Cache::has($cacheKey)) {
+            $originalLink = Cache::get($cacheKey);
+
+            // Make a HEAD request to check if the link is accessible
+            try {
+                $response = Http::head("$originalLink");
+
+                if ($response->successful()) {
+                    // The link is working, proceed with redirection
+                    return redirect($originalLink);
+                } else {
+                    // The link is not accessible
+                    return abort(404, 'The download link is not accessible.');
+                }
+            } catch (\Exception $e) {
+                // Handle the exception
+                return abort(500, 'An error occurred: ' . $e->getMessage());
+            }
+        } else {
+            return redirect()->route('games.detail', [
+                'subdomain' => Str::slug($game->name),
+                'id' => $game->id,
+            ]);
+        }
+    }
 
     public function scrap_mediafire($link)
     {

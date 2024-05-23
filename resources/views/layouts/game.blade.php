@@ -191,7 +191,7 @@
                         <div class="d-flex">
                             @if (Auth::check())
                                 <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 align-items-center justify-content-center"
-                                    href="/notices">
+                                    href="{{ env('APP_URL') }}/notices">
                                     @if (Auth::check())
                                         @php
                                             $userfornoti = Auth::user();
@@ -232,13 +232,13 @@
                                 @if ($setting->register)
                                     <div class="d-sm-flex d-none">
                                         <a class="btn btn-white rounded-3 fw-semibold d-flex align-items-center"
-                                            href="/register">
+                                            href="{{ env('APP_URL') }}/register">
                                             <i class="fa-solid fa-user-plus fs-6" id="nav_icon"
                                                 style="color: rgba(71, 71, 71, 1)"></i>
                                             <span class="ms-2">Sign up</span>
                                         </a>
                                         <a class="btn btn-white ms-2 rounded-3 fw-semibold d-flex align-items-center"
-                                            href="/login">
+                                            href="{{ env('APP_URL') }}/login">
                                             <i class="fa-solid fa-right-to-bracket fs-6" id="nav_icon"
                                                 style="color: rgba(71, 71, 71, 1)"></i>
                                             <span class="ms-2">Login</span>
@@ -296,7 +296,7 @@
                                     </div>
                                 @endforeach
                             @endif
-                            <a href="/privacy-policy"
+                            <a href="{{ env('APP_URL') }}/privacy-policy"
                                 class="text-decoration-none p-1 col-12 mb-2 d-flex rounded-2 border px-2">
                                 <div class="d-flex align-items-center bg-white text-dark ps-2 rounded-start-2">
                                     <i class="fa-solid fa-shield-halved fs-6" id="nav_icon"></i>
@@ -345,7 +345,7 @@
             </li>
             @if (!Auth::check() && $setting->register)
                 <li class="d-flex justify-content-center">
-                    <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted" href="/login">
+                    <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted" href="{{ env('APP_URL') }}/login">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <div class="d-flex justify-content-center">
                             <span>LOGIN</span>
@@ -384,7 +384,7 @@
             @if (Auth::check() && (Auth::user()->status = 'admin' || (Auth::user()->status = 'adminzynn')))
                 <li class="d-flex justify-content-center">
                     <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted"
-                        href="/admin/panel/home">
+                        href="{{ env('APP_URL') }}/admin/panel/home">
                         <i class="fa-solid fa-lock"></i>
                         <div class="d-flex justify-content-center">
                             <span>ADMIN</span>
@@ -419,7 +419,7 @@
                 <div class="modal-body border-0 text-center py-0">
                     <h4 class="modal-title" id="privacyModalLabel">Privacy Policy</h4>
                     <p>Your privacy is important to us. Please review our
-                        <a href="/privacy-policy" class="text-dark">
+                        <a href="{{ env('APP_URL') }}/privacy-policy" class="text-dark">
                             privacy policy
                         </a>
                         before continuing.
