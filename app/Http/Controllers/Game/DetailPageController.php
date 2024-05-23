@@ -175,6 +175,7 @@ class DetailPageController extends Controller
     {
         $cacheKey = 'download_link_' . md5($link);
         $id = $request->query('id');
+        return $id;
         $game = Game::find($id);
         if (Cache::has($cacheKey)) {
             $originalLink = Cache::get($cacheKey);
