@@ -20,7 +20,6 @@ class DetailPageController extends Controller
     {
         $name = $request->subdomain;
         if ($subdomain === 'download') {
-            return $name;
             return $this->download($request, $subdomain, $id);
         }
         // return $id;
@@ -174,9 +173,8 @@ class DetailPageController extends Controller
 
     public function download($request, $subdomain, $link)
     {
-        $cacheKey = 'download_link_' . md5($link);
+        $cacheKey = 'download_link_' . $link;
         $id = $request->query('id');
-        return $id;
         $game = Game::find($id);
         if (Cache::has($cacheKey)) {
             $originalLink = Cache::get($cacheKey);

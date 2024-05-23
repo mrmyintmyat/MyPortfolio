@@ -76,17 +76,16 @@ class IncrementGameController extends Controller
             if ($isMediaFire) {
                 $link = $game->download_links[$linkName];
                 $scrappedLink = $this->scrap_mediafire($link);
-
             } else {
                 $scrappedLink = $game->download_links[$linkName];
             }
 
             $encryptedLink = Crypt::encryptString($scrappedLink);
-            $cacheKey = 'download_link_' . md5($encryptedLink);
+            $uniqueId = Str::uuid()->toString();
 
-            Cache::put($cacheKey, $scrappedLink, now()->addMinutes(10));
-
-            $base_url = route('games.detail', ['subdomain' => 'download','id' => $encryptedLink]);
+            // Cache::put($cacheKey, $scrappedLink, now()->addMinutes(10));
+            Cache::put('download_link_' . $uniqueId, $encryptedLink, now()->addMinutes(10));
+            $base_url = route('games.detail', ['subdomain' => 'download', 'id' => $encryptedLink]);
 
             $download_page_link = $base_url . "?id=$game->id";
 
