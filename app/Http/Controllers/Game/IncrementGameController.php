@@ -81,7 +81,7 @@ class IncrementGameController extends Controller
                 $scrappedLink = $game->download_links[$linkName];
             }
 
-            $encryptedLink = Crypt::encryptString($scrappedLink);
+            $encryptedLink = Crypt::encrypt($scrappedLink);
             $uniqueId = Str::uuid()->toString();
 
             // Cache::put($cacheKey, $scrappedLink, now()->addMinutes(10));

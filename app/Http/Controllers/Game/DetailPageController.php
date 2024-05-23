@@ -177,10 +177,10 @@ class DetailPageController extends Controller
         $id = $request->query('id');
         $game = Game::find($id);
         if (Cache::has($cacheKey)) {
-            $originalLink = Cache::get($cacheKey);
-
+            $encryptedLink = Cache::get($cacheKey);
+            $originalLink = Crypt::decrypt($encryptedLink);
             // Make a HEAD request to check if the link is accessible
-            try {
+            // try {
                 $response = Http::head("$originalLink");
 
                 if ($response->successful()) {
@@ -190,10 +190,10 @@ class DetailPageController extends Controller
                     // The link is not accessible
                     return abort(404, 'The download link is not accessible.');
                 }
-            } catch (\Exception $e) {
-                // Handle the exception
-                return abort(500, 'An error occurred: ' . $e->getMessage());
-            }
+            // } catch (\Exception $e) {
+            //     // Handle the exception
+            //     return abort(500, 'An error occurred: ' . $e->getMessage());
+            // }
         } else {
             return redirect()->route('games.detail', [
                 'subdomain' => Str::slug($game->name),
