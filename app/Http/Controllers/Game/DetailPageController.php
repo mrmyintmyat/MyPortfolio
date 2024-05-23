@@ -20,6 +20,7 @@ class DetailPageController extends Controller
     {
         $name = $request->subdomain;
         if ($subdomain === 'download') {
+            return $name;
             return $this->download($request, $subdomain, $id);
         }
         // return $id;
