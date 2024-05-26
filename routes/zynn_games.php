@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Game\GameController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Game\DetailPageController;
@@ -63,6 +64,7 @@ Route::group(['middleware' => ['check.site.status']], function () {
     });
 
     // Route::post('/{user_name}/{id}/{name}', [GameController::class, 'post_comment'])->name('post_comment');
+    Route::post('/send_message', [PortfolioController::class, 'storeMessage'])->name('send_message');
 
     Route::post('/store-token', [WebCmNotificationController::class, 'storeToken'])->name('store.token');
 
