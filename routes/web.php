@@ -23,7 +23,7 @@ use App\Http\Controllers\Message\FacebookWebhookController;
 
 // portfolio
 Route::get('/', [PortfolioController::class, 'index']);
-Route::post('/send_message', [PortfolioController::class, 'storeMessage'])->name('send_message');
+// Route::post('/send_message', [PortfolioController::class, 'storeMessage'])->name('send_message');
 Route::get('/privacy-policy', [HomeController::class, 'privacy_policy']);
 Route::post('/post/info', [ShopController::class, 'get_info'])->name('get_info.data');
 
