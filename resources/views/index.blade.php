@@ -549,7 +549,7 @@
                 console.log("OKK")
 
                 $.ajax({
-                    url: "{{ route('send_message') }}",
+                    url: "http://zynn.games/send_message",
                     type: "POST",
                     data: formData,
                     success: function(response) {
