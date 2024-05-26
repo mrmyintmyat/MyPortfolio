@@ -535,30 +535,22 @@
             // }
             $('#messageForm').on('submit', function(event) {
                 event.preventDefault();
-                console.log("OKK")
+
                 // Clear previous error messages and styles
                 $('.invalid-feedback').remove();
                 $('.is-invalid').removeClass('is-invalid');
-                let csrfToken = $('meta[name="csrf-token"]').attr('content');
-                let formData = $(this).serialize();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    }
-                });
-                console.log("OKK")
 
-                $.ajax({
+                let formData = $(this).serialize();
+
+                $.post({
                     url: "/send_message",
-                    type: "POST",
                     data: formData,
                     success: function(response) {
                         if (response.success) {
                             toast_show(response.success);
                             $("#messageForm")[0].reset();
                         }
-                        console.log("OKK")
-
+                        console.log("OKK");
                     },
                     error: function(xhr) {
                         if (xhr.status === 422) {
@@ -571,15 +563,13 @@
                                 input.after(errorMsg);
                             }
                         } else {
-                            console.log("NOOO")
-
+                            console.log("NOOO");
                             alert("An unexpected error occurred.");
                         }
                     }
                 });
-                console.log("OKK")
-
             });
+
             // const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]')
             // firstScrollSpyEl.addEventListener('activate.bs.scrollspy', () => {
             //     const checkForAni = document.getElementById("check_for_ani");
