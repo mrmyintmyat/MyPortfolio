@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class PortfolioController extends Controller
@@ -37,6 +38,7 @@ class PortfolioController extends Controller
             ]);
             return response()->json(['success' => 'Message sent successfully']);
         } catch (\Exception $e) {
+            Log::error("NOOOOO");
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500); // HTTP status code 500 for internal server error
         }
     }
