@@ -548,7 +548,7 @@
                 });
                 $.ajax({
                     type: "POST",
-                    url: "/send_message",
+                    url: "{{ route('send_message') }}",
                     data: formData,
                     success: function(response) {
                         if (response.success) {
