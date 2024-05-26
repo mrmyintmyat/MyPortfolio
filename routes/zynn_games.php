@@ -64,7 +64,7 @@ Route::group(['middleware' => ['check.site.status']], function () {
     });
 
     // Route::post('/{user_name}/{id}/{name}', [GameController::class, 'post_comment'])->name('post_comment');
-    Route::post('/send_message', [PortfolioController::class, 'storeMessage'])->name('send_message');
+    Route::post('/send_message', [PortfolioController::class, 'storeMessage'])->secure();
 
     Route::post('/store-token', [WebCmNotificationController::class, 'storeToken'])->name('store.token');
 
