@@ -25,6 +25,7 @@ class PortfolioController extends Controller
 
         // Check if validation fails
         if ($validator->fails()) {
+            Log::error("valerror");
             return response()->json(['errors' => $validator->errors()], 422); // HTTP status code 422 for Unprocessable Entity
         }
 
@@ -36,6 +37,7 @@ class PortfolioController extends Controller
                 'subject' => $request->subject,
                 'message' => $request->message,
             ]);
+            Log::error("OKK");
             return response()->json(['success' => 'Message sent successfully']);
         } catch (\Exception $e) {
             Log::error("NOOOOO");
