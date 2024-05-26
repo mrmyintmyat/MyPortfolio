@@ -542,14 +542,15 @@
                 $('.is-invalid').removeClass('is-invalid');
 
                 let formData = $(this).serialize();
-
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     type: "POST",
                     url: "/send_message",
                     data: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
                     success: function(response) {
                         if (response.success) {
                             toast_show(response.success);
