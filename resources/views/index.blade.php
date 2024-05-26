@@ -549,8 +549,8 @@
                 console.log("OKK")
 
                 $.ajax({
-                    type: "POST",
                     url: "{{ route('send_message') }}",
+                    type: "POST",
                     data: formData,
                     success: function(response) {
                         if (response.success) {
