@@ -535,7 +535,7 @@
             // }
             $('#messageForm').on('submit', function(event) {
                 event.preventDefault();
-
+                console.log("OKK")
                 // Clear previous error messages and styles
                 $('.invalid-feedback').remove();
                 $('.is-invalid').removeClass('is-invalid');
@@ -546,6 +546,8 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
+                console.log("OKK")
+
                 $.ajax({
                     type: "POST",
                     url: "{{ route('send_message') }}",
@@ -555,6 +557,8 @@
                             toast_show(response.success);
                             $("#messageForm")[0].reset();
                         }
+                console.log("OKK")
+
                     },
                     error: function(xhr) {
                         if (xhr.status === 422) {
@@ -567,10 +571,14 @@
                                 input.after(errorMsg);
                             }
                         } else {
+                console.log("NOOO")
+
                             alert("An unexpected error occurred.");
                         }
                     }
                 });
+                console.log("OKK")
+
             });
             // const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]')
             // firstScrollSpyEl.addEventListener('activate.bs.scrollspy', () => {
