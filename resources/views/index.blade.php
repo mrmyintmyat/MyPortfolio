@@ -549,7 +549,7 @@
                 console.log("OKK")
 
                 $.ajax({
-                    url: "{{ secure_url('send_message') }}",
+                    url: "{{ route('send_message') }}",
                     type: "POST",
                     data: formData,
                     success: function(response) {
