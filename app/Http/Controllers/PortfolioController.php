@@ -9,13 +9,15 @@ use Illuminate\Support\Facades\Validator;
 
 class PortfolioController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('index');
     }
 
     public function storeMessage(Request $request)
     {
-        Log::error("1ok");
+        Log::info('Received request to store message.');
+
         // Define validation rules
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -23,11 +25,12 @@ class PortfolioController extends Controller
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
-        Log::error("2ok");
+
+        Log::info('Validation complete.');
 
         // Check if validation fails
         if ($validator->fails()) {
-            Log::error("valerror");
+            Log::warning('Validation failed.', ['errors' => $validator->errors()]);
             return response()->json(['errors' => $validator->errors()], 422); // HTTP status code 422 for Unprocessable Entity
         }
 
@@ -39,10 +42,12 @@ class PortfolioController extends Controller
                 'subject' => $request->subject,
                 'message' => $request->message,
             ]);
-            Log::error("OKK");
+
+            Log::info('Message created successfully.');
+
             return response()->json(['success' => 'Message sent successfully']);
         } catch (\Exception $e) {
-            Log::error("NOOOOO");
+            Log::error('An error occurred while storing the message.', ['exception' => $e->getMessage()]);
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500); // HTTP status code 500 for internal server error
         }
     }
