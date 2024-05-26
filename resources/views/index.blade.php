@@ -542,11 +542,11 @@
                 $('.is-invalid').removeClass('is-invalid');
 
                 let formData = $(this).serialize();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+                // $.ajaxSetup({
+                //     headers: {
+                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                //     }
+                // });
                 $.ajax({
                     type: "POST",
                     url: "/send_message",
