@@ -542,6 +542,12 @@
 
                 let formData = $(this).serialize();
 
+                // Get the CSRF token value from the meta tag
+                let csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                // Add the CSRF token to the formData
+                formData += `&_token=${csrfToken}`;
+
                 $.post({
                     url: "/send_message",
                     data: formData,
@@ -569,6 +575,7 @@
                     }
                 });
             });
+
 
             // const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]')
             // firstScrollSpyEl.addEventListener('activate.bs.scrollspy', () => {
