@@ -539,11 +539,11 @@
                 // Clear previous error messages and styles
                 $('.invalid-feedback').remove();
                 $('.is-invalid').removeClass('is-invalid');
-
+                let csrfToken = $('meta[name="csrf-token"]').attr('content');
                 let formData = $(this).serialize();
                 $.ajaxSetup({
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        'X-CSRF-TOKEN': csrfToken
                     }
                 });
                 console.log("OKK")
@@ -557,7 +557,7 @@
                             toast_show(response.success);
                             $("#messageForm")[0].reset();
                         }
-                console.log("OKK")
+                        console.log("OKK")
 
                     },
                     error: function(xhr) {
@@ -571,7 +571,7 @@
                                 input.after(errorMsg);
                             }
                         } else {
-                console.log("NOOO")
+                            console.log("NOOO")
 
                             alert("An unexpected error occurred.");
                         }
