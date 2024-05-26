@@ -437,7 +437,6 @@
 
                 <div>
                     <form id="messageForm" class="row g-3">
-                        @csrf
                         <div class="col-md-6" data-aos="fade-right" data-aos-duration="1100">
                             <input type="text" name="name" required
                                 class="form-control rounded-pill p-2 px-4 text-blue" id="sed_msg_input"
@@ -545,8 +544,10 @@
                 // Get the CSRF token value from the meta tag
                 let csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-                // Add the CSRF token to the formData
-                formData += `&_token=${csrfToken}`;
+                // Append the CSRF token to the formData if it's not already included
+                if (!formData.includes('_token')) {
+                    formData += `&_token=${csrfToken}`;
+                }
 
                 $.post({
                     url: "/send_message",
