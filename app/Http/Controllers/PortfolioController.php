@@ -15,6 +15,7 @@ class PortfolioController extends Controller
 
     public function storeMessage(Request $request)
     {
+        Log::error("1ok");
         // Define validation rules
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -22,6 +23,7 @@ class PortfolioController extends Controller
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
+        Log::error("2ok");
 
         // Check if validation fails
         if ($validator->fails()) {
