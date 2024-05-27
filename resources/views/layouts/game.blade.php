@@ -148,7 +148,7 @@
                 data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true" style="z-index: 1;">
                 <div class="container-md p-0">
                     <div class="d-flex align-items-center">
-                        <a href="/" class="navbar-brand title_icon m-0" href="#">
+                        <a href="{{env('APP_URL')}}" class="navbar-brand title_icon m-0" href="#">
                             ZYNN<span class="text-dark fs-6">v1</span>
                         </a>
 
