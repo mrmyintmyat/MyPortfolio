@@ -10,7 +10,9 @@
 @endsection
 @php $images = $game->image; @endphp
 @section('image')
-    {{ \Illuminate\Support\Str::startsWith($images[0], '/storage/') ? asset($images[0]) : asset('/storage/' . $images[0]) }}
+    @if (!empty($images))
+        {{ \Illuminate\Support\Str::startsWith($images[0], '/storage/') ? asset($images[0]) : asset('/storage/' . $images[0]) }}
+    @endif
 @endsection
 @section('keywords')
     {{ $game->name }},{{ $game->category }}
@@ -324,7 +326,7 @@
                                                 // Loop through each line
                                                 foreach ($lines as $line) {
                                                     // Trim the line and split into label and value
-                                                    $parts = preg_split('/[:\-]/', $line, 2);
+                                                    $parts = preg_split('/[:]/', $line, 2);
                                                     $parts = array_map('trim', $parts);
 
                                                     // Check if both label and value are present
@@ -399,7 +401,7 @@
                                                 @endif
 
                                                 {{-- Display image with modal --}}
-                                                @if (isset($images[$count / 2]))
+                                                @if (isset($images[$count / 2]) && !empty($images))
                                                     <div class="w-100 d-flex justify-content-center px-2">
                                                         <button type="button"
                                                             class="btn btn-link about-image-btn mb-2 p-0"
@@ -420,7 +422,7 @@
                                                     <p class="px-2">{!! nl2br(htmlspecialchars($paragraphs[$count + 1])) !!}</p>
                                                 @endif
                                             @endfor
-                                            @if ($still_have_images < $totalImages)
+                                            @if ($still_have_images < $totalImages && !empty($images))
                                                 @for ($i = $still_have_images; $i < $totalImages; $i++)
                                                     <div class="w-100 d-flex justify-content-center px-2">
                                                         <button type="button"
@@ -483,13 +485,13 @@
                                                         <a href="{{ request()->url() }}"
                                                             onclick="handleDownloadClick({{ $game->id }}, false, '{{ $name }}'); return false;"
                                                             class="btn text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5 adslink"
-                                                            style="background-color: {{ $randomColor }}">
+                                                            style="background-color: black;">
                                                             {{ $name }}
                                                         </a>
                                                     @else
                                                         <button
                                                             class="btn text-white shadow py-2 my-lg-2 mb-3 col-lg-6 col-12 rounded-pill fw-bold fs-5"
-                                                            style="background-color: {{ $randomColor }}">
+                                                            style="background-color: black;">
                                                             {{ $name }}
                                                         </button>
                                                     @endif
@@ -528,13 +530,13 @@
                                                             <a href="{{ request()->url() }}"
                                                                 onclick="handleDownloadClick({{ $game->id }}, false, '{{ $name }}'); return false;"
                                                                 class="btn text-white shadow py-2 my-lg-2 w-100 mb-3  rounded-pill fw-bold fs-5 adslink"
-                                                                style="background-color: {{ getRandomColor() }}">
+                                                                style="background-color: black;">
                                                                 {{ $name }}
                                                             </a>
                                                         @else
                                                             <button
                                                                 class="btn text-white shadow py-2 my-lg-2 w-100 mb-3  rounded-pill fw-bold fs-5"
-                                                                style="background-color: {{ getRandomColor() }}">
+                                                                style="background-color: black;">
                                                                 {{ $name }}
                                                             </button>
                                                         @endif
@@ -1034,6 +1036,24 @@
     <div id="url_copy_notification" class="url_copy_notification mb-3" style="display: none;">
         URL Copied!
     </div>
+
+    @if (request()->error)
+        <div class="modal fade show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-modal="true" role="dialog" style="display: block;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 mx-3 shadow">
+                    <div class="modal-header border-0 pb-2">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center fw-medium pt-0 pb-4 text-danger">
+                        {{ request()->error }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('script')
@@ -1284,9 +1304,11 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
+            var fullUrl = `{{ url()->current() }}`;
+
             new ClipboardJS('#copyButton', {
                 text: function() {
-                    return `https://zynn.games/` + `{{ request()->path() }}`;
+                    return fullUrl;
                 }
             });
 
@@ -1346,7 +1368,7 @@
                             isDownloading = true;
 
                             setTimeout(() => {
-                                window.location.href = response.direct_link;
+                                window.open(response.direct_link, '_blank', 'noopener,noreferrer');
                                 isDownloading = false;
                             }, countdowntime);
                         } else {
