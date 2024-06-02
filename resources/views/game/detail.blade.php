@@ -1037,7 +1037,6 @@
         URL Copied!
     </div>
 
-    @if (request()->error)
         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
             aria-modal="true" role="dialog">
             <div class="modal-dialog modal-dialog-centered w-100 d-flex justify-content-center">
@@ -1052,7 +1051,6 @@
                 </div>
             </div>
         </div>
-    @endif
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
