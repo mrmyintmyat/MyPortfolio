@@ -50,7 +50,7 @@
                 datasets: [{
                     label: 'Daily Total Downloads',
                     data: Object.values({!! $totalDownloads !!}),
-                    backgroundColor: '#15C7FF',
+                    backgroundColor: '#1bc900',
                     borderColor: '#15C7FF',
                     borderWidth: 1,
                     fill: 'start'

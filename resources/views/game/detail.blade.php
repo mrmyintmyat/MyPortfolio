@@ -1038,12 +1038,12 @@
     </div>
 
     @if (request()->error)
-        <div class="modal fade show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-modal="true" role="dialog" style="display: block;">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content border-0 mx-3 shadow">
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
+            aria-modal="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered w-100 d-flex justify-content-center">
+                <div class="modal-content border-0 mx-3 shadow" style="width: 14rem;">
                     <div class="modal-header border-0 pb-2">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                        <h1 class="modal-title fs-5" id="errorModalLabel"></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center fw-medium pt-0 pb-4 text-danger">
@@ -1059,6 +1059,27 @@
 @section('script')
     <script src="/js/game_scroll_data.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modalElement = document.getElementById('errorModal');
+            var modal = new bootstrap.Modal(modalElement);
+
+            // Automatically hide the modal when the close button is clicked
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                modalElement.style.display = 'none';
+            });
+
+            // Show the modal if there's an error
+            var error = '{{ request()->error }}';
+        if (error) {
+            modal.show();
+            // Remove the error parameter from the route
+            var url = window.location.href;
+            var cleanUrl = url.replace(/(\?|&)error=[^&]*(&|$)/, '$1').replace(/(&|\?)$/, '');
+            window.history.replaceState({}, document.title, cleanUrl);
+        }
+        });
+    </script>
     <script>
         const socket = new WebSocket('ws://0.0.0.0:8080?post_id={{ encrypt($game->id) }}');
 
@@ -1368,7 +1389,7 @@
                             isDownloading = true;
 
                             setTimeout(() => {
-                                window.open(response.direct_link, '_blank', 'noopener,noreferrer');
+                                window.location.href = response.direct_link;
                                 isDownloading = false;
                             }, countdowntime);
                         } else {

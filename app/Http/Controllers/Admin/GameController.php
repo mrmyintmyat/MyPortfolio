@@ -170,7 +170,7 @@ class GameController extends Controller
             'name' => 'required|string|max:255',
             'about' => 'required|string',
             'size' => 'required|string',
-            'online_or_offline' => 'required|in:online,offline,Online/Offline',
+            'online_or_offline' => 'required|in:online,offline,Online/Offline,unknow',
             'logo' => 'required',
             'category' => 'required',
             'download_links' => 'required',
@@ -189,7 +189,7 @@ class GameController extends Controller
                     $images[] = $path;
                 }
             } else {
-                $images = json_decode($request->image, true);
+                $images = json_decode($request->image, true);//need
             }
             if ($request->hasFile('logo')) {
                 $path = $request->file('logo')->store('game_logos', 'public');
@@ -294,6 +294,7 @@ class GameController extends Controller
         $oldlogo = $game->logo;
         $ImageFromRequest = json_decode($request->Existimage, true);
         $logo = $game->logo;
+        $newImages = [];
         try {
             if ($request->hasFile('newImage')) {
                 foreach ($request->file('newImage') as $file) {

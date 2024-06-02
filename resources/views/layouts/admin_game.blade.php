@@ -117,6 +117,14 @@
                                 <span class="ms-2 d-md-block d-none">Post game</span>
                             </div>
                         </a>
+                        <a href="{{ route('scrapan1.index') }}" id="focus_tag"
+                            class="list-group-item list-group-item-action text-center p-2 py-3 border-0 d-flex justify-content-center justify-content-md-start align-items-center text-white text-lg-start bg-menu"
+                            aria-current="true">
+                            <div class="d-flex flex-column flex-md-row align-items-center">
+                                <i class="fa-solid fa-gamepad"></i>
+                                <span class="ms-2 d-md-block d-none">GET GAME</span>
+                            </div>
+                        </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>

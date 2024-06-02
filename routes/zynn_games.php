@@ -7,6 +7,7 @@ use App\Http\Controllers\Game\GameController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Scrap\ScrapAn1Controller;
 use App\Http\Controllers\Game\DetailPageController;
 use App\Http\Controllers\WebCmNotificationController;
 use App\Http\Controllers\Game\IncrementGameController;
@@ -45,6 +46,9 @@ Route::group(['middleware' => ['auth', 'checkadmin']], function () {
     // Route::post('/admin/panel/games/update/{id}', [AdminController::class, 'update_game']);
     Route::get('/admin/panel/games/view/{id}', [AdminGameController::class, 'view_game']);
     Route::get('/admin/panel/home', [AdminGameController::class, 'home'])->name('home');
+    Route::get('/admin/panel/scrap/an1', [ScrapAn1Controller::class, 'index'])->name('scrapan1.index');
+    Route::post('/admin/panel/scrap/an1', [ScrapAn1Controller::class, 'edit'])->name('scrapan1.edit');
+    Route::post('/admin/panel/scrap/an1/store', [ScrapAn1Controller::class, 'store'])->name('scrapan1.store');
     Route::resource('/admin/panel/games', AdminGameController::class);
 });
 

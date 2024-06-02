@@ -81,6 +81,11 @@ class IncrementGameController extends Controller
                 $scrappedLink = $game->download_links[$linkName];
             }
 
+            if (empty($scrappedLink)) {
+                $direct_link = '?error=ဂိမ်းကို Vpnကျော်ပြီးမှဒေါင်းပါ!';
+                return response()->json(['success' => true, 'direct_link' => $direct_link]);
+            }
+
             $encryptedLink = Crypt::encrypt($scrappedLink);
             $uniqueId = Str::uuid()->toString();
 
@@ -90,12 +95,8 @@ class IncrementGameController extends Controller
 
             $download_page_link = $base_url . "?id=$game->id";
 
-            $direct_link = $this->makeadslink($game, $scrappedLink);
+            $direct_link = $this->makeadslink($game, $download_page_link);
 
-            if (empty($direct_link)) {
-                Log::error('Direct Link is empty or null.');
-            } else {
-            }
         } else {
             Log::warning('Link Name not found in download links:', [$linkName]);
         }
@@ -129,7 +130,7 @@ class IncrementGameController extends Controller
         try {
             $htmlContent = file_get_contents($link);
         } catch (\Throwable $th) {
-            return '/error';
+            return '';
         }
 
         if ($htmlContent !== false) {
@@ -142,10 +143,10 @@ class IncrementGameController extends Controller
                 $extractedLink = $matches[1];
                 return $extractedLink;
             } else {
-                return '/error';
+                return '';
             }
         } else {
-            return '/error';
+            return '';
         }
     }
 }

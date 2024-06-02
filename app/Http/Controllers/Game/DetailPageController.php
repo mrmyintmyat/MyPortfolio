@@ -178,22 +178,22 @@ class DetailPageController extends Controller
         $game = Game::find($id);
         if (Cache::has($cacheKey)) {
             $encryptedLink = Cache::get($cacheKey);
-            $originalLink = Crypt::decrypt($encryptedLink);
-            // return $originalLink;
+            $dir_link = Crypt::decrypt($encryptedLink);
+            // return $dir_link;
             // Make a HEAD request to check if the link is accessible
             try {
-                $response = Http::head($originalLink);
+                $response = Http::head($dir_link);
 
                 if ($response->successful()) {
                     // The link is working, proceed with redirection
-                    Log::info('Redirecting to: ' . $originalLink);
-                    return redirect()->away($originalLink);
+                    // Log::info('Redirecting to: ' . $dir_link);
+                    return view('game.download', compact('dir_link'));
+                    // return redirect()->away($dir_link);
                 } else {
                     // The link is not accessible
                     return abort(404, 'The download link is not accessible.');
                 }
             } catch (\Exception $e) {
-                // Handle the exception
                 return abort(500, 'An error occurred: ' . $e->getMessage());
             }
         } else {

@@ -70,6 +70,8 @@ class GameController extends Controller
             return view('game.index', compact('games', 'popular_games', 'user_name'));
         } elseif ($name === 'privacy-policy') {
             return $this->privacy_policy();
+        } elseif ($name === 'game-request') {
+            return $this->game_request();
         } elseif ($name === 'make-money') {
             return $this->make_money();
         } elseif (!Auth::check()) {
@@ -393,6 +395,10 @@ class GameController extends Controller
     public function privacy_policy()
     {
         return view('game.privacy');
+    }
+
+    public function game_request(){
+        return view('game.request');
     }
 
     function generateRandomPassword($length = 12)
