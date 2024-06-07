@@ -2,7 +2,9 @@
 <html>
 
 <head>
-    <title>Download</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Download {{$game->name}}</title>
     <meta name="referrer" content="no-referrer">
     @if (empty($dir_links))
         <meta http-equiv="refresh" content="0;url={{ $dir_link }}">
