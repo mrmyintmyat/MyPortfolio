@@ -111,7 +111,7 @@ class ScrapAn1Controller extends Controller
         if ($request->hasFile('newImage')) {
             // Handle file uploads
             foreach ($request->file('newImage') as $image) {
-                $imagePath = $image->store('images', 'public');
+                $imagePath = $image->store('games_images', 'public');
                 $imagePaths[] = $imagePath;
             }
         }

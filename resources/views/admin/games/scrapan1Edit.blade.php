@@ -225,7 +225,7 @@
                                             <button onclick="DeleteDownloadLink('{{ $loop->index }}')"
                                                 class="btn rounded-0 col-2 col-lg-1 h-100 bg-danger">
                                                 <i class="fa-solid fa-trash text-light"></i>
-                                            </button> 
+                                            </button>
                                         </div>
                                         <div class="p-0 col-lg-6 col-12">
                                             <input type="text" class="form-control rounded-0 appLink"
@@ -391,11 +391,11 @@
                         imageUploadContainer.innerHTML += imagePreviewContainer;
 
                         // Add the file name to the array
-                        arrayImageForPost.push(file.name);
+                        // arrayImageForPost.push(file.name);
 
                         // Update the text area value
-                        document.getElementById(`array_image_for_post`).value = JSON.stringify(
-                            arrayImageForPost);
+                        // document.getElementById(`array_image_for_post`).value = JSON.stringify(
+                        //     arrayImageForPost);
                     };
 
                     reader.readAsDataURL(file);
@@ -433,16 +433,16 @@
             const imageUploadContainer = document.getElementById('imageUploadContainer' + id);
             const imagePreviewContainer = button.parentElement;
             const fileName = imagePreviewContainer.dataset.fileName;
-            const arrayImageForPost = JSON.parse(document.getElementById(`array_image_for_post`).value);
+            const arrayImageForPostElement = document.getElementById('array_image_for_post');
+            const arrayImageForPost = JSON.parse(arrayImageForPostElement.value);
 
-            console.log('okkk')
             // Remove the file name from the array
             const indexToRemove = arrayImageForPost.indexOf(fileName);
             if (indexToRemove !== -1) {
                 arrayImageForPost.splice(indexToRemove, 1);
 
                 // Update the text area value
-                document.getElementById(`array_image_for_post`).value = JSON.stringify(arrayImageForPost);
+                arrayImageForPostElement.value = JSON.stringify(arrayImageForPost);
 
                 // Remove the file from the input element
                 const updatedFiles = Array.from(imageInput.files).filter((file) => file.name !== fileName);
@@ -460,6 +460,8 @@
 
                 // Remove the image preview container with the corresponding file name
                 imageUploadContainer.removeChild(imagePreviewContainer);
+            } else {
+                console.log('File not found in array');
             }
         }
 
