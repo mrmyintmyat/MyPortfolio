@@ -11,11 +11,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
+use App\Services\ScraperAnOneService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
 class DetailPageController extends Controller
 {
+    protected $scraperService;
+
+    public function __construct(ScraperAnOneService $scraperService)
+    {
+        $this->scraperService = $scraperService;
+    }
+
     public function detail(Request $request, $subdomain, $id)
     {
         $name = $request->subdomain;
@@ -174,7 +182,7 @@ class DetailPageController extends Controller
     public function download($request, $subdomain, $link)
     {
         $cacheKey = 'download_link_' . $link;
-        $id = $request->query('id');
+        $id = decrypt($request->query('id'));
         $game = Game::find($id);
         if (Cache::has($cacheKey)) {
             $encryptedLink = Cache::get($cacheKey);
@@ -187,7 +195,11 @@ class DetailPageController extends Controller
                 if ($response->successful()) {
                     // The link is working, proceed with redirection
                     // Log::info('Redirecting to: ' . $dir_link);
-                    return view('game.download', compact('dir_link'));
+                    $dir_links = null;
+                    if (strpos($dir_link, 'an1.com') !== false && strpos($dir_link, 'an1.net') === false) {
+                        $dir_links = $this->scraperService->scrapeDetailData($dir_link);
+                    }
+                    return view('game.download', compact('dir_link', 'dir_links', 'game'));
                     // return redirect()->away($dir_link);
                 } else {
                     // The link is not accessible

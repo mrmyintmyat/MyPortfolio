@@ -103,12 +103,13 @@
 
     }
 
-    .dark-mode .text-muted {
+    .dark-mod .text-muted {
         color: white;
     }
 </style>
 
 <body class="">
+    {{-- //darkmodclass --}}
     <?php
     use App\Models\Settings;
     $setting = Settings::first();

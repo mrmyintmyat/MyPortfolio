@@ -90,13 +90,13 @@ class IncrementGameController extends Controller
             $uniqueId = Str::uuid()->toString();
 
             // Cache::put($cacheKey, $scrappedLink, now()->addMinutes(10));
-            Cache::put('download_link_' . $uniqueId, $encryptedLink, now()->addMinutes(10));
+            Cache::put('download_link_' . $uniqueId, $encryptedLink, now()->addMinutes(60));
             $base_url = route('games.detail', ['subdomain' => 'download', 'id' => $uniqueId]);
 
-            $download_page_link = $base_url . "?id=$game->id";
+            $encryptedId = encrypt($game->id);
+            $download_page_link = $base_url . '?id=' . $encryptedId;
 
             $direct_link = $this->makeadslink($game, $download_page_link);
-
         } else {
             Log::warning('Link Name not found in download links:', [$linkName]);
         }

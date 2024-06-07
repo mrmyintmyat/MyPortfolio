@@ -416,11 +416,11 @@ h5{
     font-size: 80%;
 }
 
-.dark-mode{
+.dark-mod{
     background: #121416;
 }
 
-/* .dark-mode #navbar *{
+/* .dark-mod #navbar *{
     color: white;
   } */
 
@@ -428,26 +428,26 @@ h5{
     color: #09d309;
 }
 
-.dark-mode #navbar #nav_icon{
+.dark-mod #navbar #nav_icon{
     color: white;
   }
 
-.dark-mode #navbar li a{
+.dark-mod #navbar li a{
    color: #00FF00;
 }
 
-.dark-mode #navbar li *{
+.dark-mod #navbar li *{
     color: white;
  }
 
-.dark-mode .card{
+.dark-mod .card{
     background: #00000000;
 }
 
-.dark-mode .card .card-title{
+.dark-mod .card .card-title{
     color: #0dbe0d;
 }
 
-.dark-mode #item_title .text-muted {
+.dark-mod #item_title .text-muted {
     color: white;
 }

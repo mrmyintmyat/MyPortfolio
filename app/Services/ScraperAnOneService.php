@@ -21,7 +21,15 @@ class ScraperAnOneService
             $partialLink = $node->attr('href');
             $size = $node->filter('.size')->text();
             $name = $node->filter('div')->text();
-
+            if (stripos($name, 'Download') !== false && stripos($name, 'mod') !== false) {
+              $name = "Download Mod";
+            }else if(stripos($name, 'Download') !== false && stripos($name, 'data') !== false){
+                $name = "Download Data File";
+            }else if(stripos($name, 'Download') !== false && stripos($name, 'obb') !== false){
+                $name = "Download Obb File";
+            }else{
+                $name = "Download";
+            }
             return [
                 'partialLink' => $partialLink,
                 'size' => $size,
@@ -78,7 +86,7 @@ class ScraperAnOneService
         return $matches ? (int) $matches[1] / 20 : null;
     }
 
-    private function scrapeDetailData($url)
+    public function scrapeDetailData($url)
     {
         $crawler = $this->client->request('GET', $url);
 

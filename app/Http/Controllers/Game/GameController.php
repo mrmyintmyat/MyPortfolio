@@ -31,6 +31,7 @@ class GameController extends Controller
 
     public function index(Request $request)
     {
+        // return view('game.download');
         $category = $request->query('category', null);
         $games = $category ? $this->getCategoryGames($category, null) : $this->getAllGames();
 
