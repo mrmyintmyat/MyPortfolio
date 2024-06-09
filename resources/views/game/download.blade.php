@@ -6,15 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Download {{$game->name}}</title>
     <meta name="referrer" content="no-referrer">
-    @if (empty($dir_links))
-        <meta http-equiv="refresh" content="0;url={{ $dir_link }}">
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                var dirLink = @json($dir_link);
-                window.open(dirLink, '_blank', 'noopener,noreferrer');
-            });
-        </script>
-    @endif
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/f0be33b496.js" crossorigin="anonymous"></script>
@@ -131,6 +122,11 @@
                         <i class="fa-brands fa-telegram fa-fade"></i>
                         Join Telegram Channel
                     </a>
+                    <a href="https://www.youtube.com/@devzynn"
+                        class="btn btn-green card-text fw-semibold text-decoration-none shadow py-2 my-lg-2 mb-3 col-sm-6 col-12 rounded-pill fw-bold fs-5">
+                        <i class="fa-brands fa-youtube"></i>
+                        Subscribe Youtube Channel
+                    </a>
                 </li>
                 @if (empty($dir_links))
                     <li class="list-group-item text-center fw-medium fs-4">
@@ -165,6 +161,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+        @if (empty($dir_links))
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                var dirLink = @json($dir_link);
+                // Ensure the link is only opened once
+                // if (!sessionStorage.getItem('linkOpened')) {
+                    window.location.href = dirLink;
+                    // sessionStorage.setItem('linkOpened', 'true');
+                // }
+            });
+        </script>
+    @endif
 </body>
 
 </html>
