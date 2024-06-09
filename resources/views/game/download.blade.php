@@ -141,7 +141,7 @@
                             @if (filter_var($link['link'], FILTER_VALIDATE_URL))
                                 <a href="{{ $link['link'] }}" target="_blank" rel="noopener noreferrer"
                                     class="btn text-green shadow py-2 my-lg-2 mb-3 col-sm-6 col-12 rounded-pill fw-bold fs-5 adslink"
-                                    style="background-color: black;">
+                                    style="background-color: rgb(7, 6, 6);">
                                     {{ $link['name'] }}
                                 </a>
                             @else
