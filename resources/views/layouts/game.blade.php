@@ -40,7 +40,7 @@
 
         gtag('config', 'G-K91SSTJVVF');
     </script>
-    <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script>
+    {{-- <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script> --}}
     {{-- <script>
         window.fbAsyncInit = function() {
           FB.init({
