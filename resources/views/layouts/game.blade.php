@@ -9,7 +9,7 @@
 
     <meta name="description" content="A detailed review of @yield('title'), covering graphics, gameplay, and more.">
     <meta name="keywords"
-        content="@yield('keywords'),Games,myintmyat,myintmyat.dev,games.myintmyat.dev zynn,free games,old games">
+        content="@yield('keywords'),zynn.games,Games,myintmyat,myintmyat.dev,games.myintmyat.dev, zynn,free games,old games,childhood games,@yield('title')">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="@yield('web_url')">
     <link rel="alternate" href="@yield('web_url')" hreflang="en">
@@ -40,7 +40,7 @@
 
         gtag('config', 'G-K91SSTJVVF');
     </script>
-    {{-- <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script> --}}
+    <script type="text/javascript" data-url="https://myintmyat.dev" src="https://storage.n2olabs.pro/devtool.js"></script>
     {{-- <script>
         window.fbAsyncInit = function() {
           FB.init({
