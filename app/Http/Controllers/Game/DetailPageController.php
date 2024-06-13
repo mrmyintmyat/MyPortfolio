@@ -199,7 +199,9 @@ class DetailPageController extends Controller
                     if (strpos($dir_link, 'an1.com') !== false && strpos($dir_link, 'an1.net') === false) {
                         $dir_links = $this->scraperService->scrapeDetailData($dir_link);
                     }
-                    return view('game.download', compact('dir_link', 'dir_links', 'game'));
+
+                    $randomGames = Game::inRandomOrder()->limit(8)->get();
+                    return view('game.download', compact('dir_link', 'dir_links', 'game', 'randomGames'));
                     // return redirect()->away($dir_link);
                 } else {
                     // The link is not accessible

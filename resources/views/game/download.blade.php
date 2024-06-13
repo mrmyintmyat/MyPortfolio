@@ -84,7 +84,7 @@
 @endphp
 
 <body>
-    <main style="min-height: 100vh;" class="d-flex justify-content-center align-items-center px-2 bg-linear-dark">
+    <main style="min-height: 100vh;" class="d-flex justify-content-center align-items-center p-2 bg-linear-dark">
         <div class="card rounded-3" style="width: 50rem;">
             <ul class="list-group list-group-flush py-5">
                 <li class="list-group-item text-center fw-medium fs-4">
@@ -155,8 +155,43 @@
                         @endforeach
                     </li>
                 @endif
-                <li class="list-group-item text-center">Please follow my TikTok account to support me.</li>
+                <li class="list-group-item text-center fw-medium text-danger">Please follow my TikTok account to support me.</li>
+                <li class="list-group-item text-center fw-medium fs-4 mt-5">
+                    <h4 class="mb-4">Other Games You Might Like</h4>
+                    <div class="d-flex justify-content-center row row-cols-lg-4 row-cols-3">
+                        @foreach ($randomGames as $randomGame)
+                            <a href="{{ route('games.detail', [
+                                'subdomain' => Str::slug($randomGame->name),
+                                'id' => $randomGame->id,
+                            ]) }}"
+                                class="col card text-center mx-2 mb-3 text-decoration-none" style="width: 10rem;">
+                                {{-- <img src="{{ checkImage($randomGame->logo) }}" class="card-img-top rounded-3"
+                                    alt="{{ $randomGame->name }}"> --}}
+                                    <div class="position-relative">
+                                        <img
+                                            class="card-img-top rounded-4"
+                                            src="{{ checkImage($randomGame->logo) }}"
+                                            alt="Game Logo">
+                                        @if (stripos($randomGame->category, 'mod') !== false)
+                                            <span
+                                                class="position-absolute end-0 bottom-0 badge px-3"
+                                                style="font-size: 1rem; background-color: rgba(220, 53, 69, 0.5); border-bottom-left-radius: 0rem; border-top-right-radius: 0rem;">mod</span>
+                                        @else
+                                            <span
+                                                class="position-absolute end-0 bottom-0 badge px-3"
+                                                style="font-size: 1rem; background-color: rgba(53, 220, 61, 0.5); border-bottom-left-radius: 0rem; border-top-right-radius: 0rem;">free</span>
+                                        @endif
+
+                                    </div>
+                                <div class="card-body">
+                                    <h6 class="card-title text-green text-start text-truncate fw-bold">{{ $randomGame->name }}</h6>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                </li>
             </ul>
+
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -167,10 +202,10 @@
             document.addEventListener('DOMContentLoaded', function() {
                 var dirLink = @json($dir_link);
                 // Ensure the link is only opened once
-                // if (!sessionStorage.getItem('linkOpened')) {
-                window.location.href = dirLink;
-                // sessionStorage.setItem('linkOpened', 'true');
-                // }
+                if (!sessionStorage.getItem('linkOpened')) {
+                    window.location.href = dirLink;
+                    sessionStorage.setItem('linkOpened', 'true');
+                }
             });
         </script>
     @endif
