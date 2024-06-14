@@ -198,16 +198,47 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     @if (empty($dir_links))
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                var dirLink = @json($dir_link);
-                // Ensure the link is only opened once
-                if (!sessionStorage.getItem('linkOpened')) {
-                    window.location.href = dirLink;
-                    sessionStorage.setItem('linkOpened', 'true');
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var dirLink = @json($dir_link);
+            // Ensure the link is only opened once with an expiration time
+            if (!getSessionStorageWithExpiry('gamelinkOpened')) {
+                window.location.href = dirLink;
+                // Set expiry time to 24 hours (86400000 milliseconds)
+                setSessionStorageWithExpiry('gamelinkOpened', 'true', 86400000);
+            }
+
+            function setSessionStorageWithExpiry(key, value, ttl) {
+                const now = new Date();
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + ttl,
+                };
+                sessionStorage.setItem(key, JSON.stringify(item));
+            }
+
+            function getSessionStorageWithExpiry(key) {
+                const itemStr = sessionStorage.getItem(key);
+
+                // If the item doesn't exist, return null
+                if (!itemStr) {
+                    return null;
                 }
-            });
-        </script>
+
+                const item = JSON.parse(itemStr);
+                const now = new Date();
+
+                // Compare the expiry time of the item with the current time
+                if (now.getTime() > item.expiry) {
+                    // If the item is expired, delete the item from storage
+                    // and return null
+                    sessionStorage.removeItem(key);
+                    return null;
+                }
+                return item.value;
+            }
+        });
+    </script>
     @endif
 </body>
 
