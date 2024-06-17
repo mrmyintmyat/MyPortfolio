@@ -110,7 +110,14 @@ class IncrementGameController extends Controller
 
     public function makeadslink($game, $link)
     {
-        if (isset($game->setting['earthnewss24_ads']) && $game->setting['earthnewss24_ads'] && $game->user->w2ad_token != null) {
+        $user = Auth::user();
+        if (isset($user->setting['vip'])) {
+            $user_vip = $user->setting['vip'];
+        } else {
+            $user_vip = false;
+        }
+
+        if ($user_vip == false && isset($game->setting['earthnewss24_ads']) && $game->setting['earthnewss24_ads'] && $game->user->w2ad_token != null) {
             $response = Http::get("https://w2ad.link/api?api={$game->user->w2ad_token}&url=$link");
 
             if ($response->successful()) {

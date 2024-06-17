@@ -31,7 +31,7 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $hidden = ['password', 'remember_token', 'status', 'is_logged_in', 'device_token', 'user_token'];
+    protected $hidden = ['password', 'remember_token', 'is_logged_in', 'device_token'];
 
     /**
      * The attributes that should be cast.

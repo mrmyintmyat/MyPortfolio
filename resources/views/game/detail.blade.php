@@ -337,7 +337,7 @@
                                                                 href="{{ env('APP_URL') }}/{{ \Illuminate\Support\Str::slug($user->name) }}?id={{ $user->id }}">
                                                                 <div class="d-flex">
                                                                     <img class="w-auto rounded" style="height: 2.3rem;"
-                                                                        src="{{ $game->user->logo }}" alt="">
+                                                                        src="{{ checkImage($game->user->logo) }}" alt="">
                                                                     <div class="ms-1 text-start d-flex flex-column justify-content-center"
                                                                         style="line-height: 0.9rem;">
                                                                         <p style="font-size: 0.9rem;" class="m-0">

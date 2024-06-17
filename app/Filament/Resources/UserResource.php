@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\KeyValue;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,6 +55,7 @@ class UserResource extends Resource
                     '3' => 'Ban',
                 ])
                 ->native(false),
+                KeyValue::make('setting')->columnSpanFull(),
             ]);
     }
 

@@ -175,11 +175,11 @@
                                         @if (stripos($randomGame->category, 'mod') !== false)
                                             <span
                                                 class="position-absolute end-0 bottom-0 badge px-3"
-                                                style="font-size: 1rem; background-color: rgba(220, 53, 69, 0.5); border-bottom-left-radius: 0rem; border-top-right-radius: 0rem;">mod</span>
+                                                style="font-size: 1rem; background-color: rgba(220, 53, 69, 0.5); border-top-left-radius: 1rem; border-bottom-right-radius: 1rem;">mod</span>
                                         @else
                                             <span
                                                 class="position-absolute end-0 bottom-0 badge px-3"
-                                                style="font-size: 1rem; background-color: rgba(53, 220, 61, 0.5); border-bottom-left-radius: 0rem; border-top-right-radius: 0rem;">free</span>
+                                                style="font-size: 1rem; background-color: rgba(53, 220, 61, 0.5); border-top-left-radius: 1rem; border-bottom-right-radius: 1rem;">free</span>
                                         @endif
 
                                     </div>

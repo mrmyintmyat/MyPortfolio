@@ -223,7 +223,7 @@ class GameController extends Controller
                 'email' => $email,
                 'status' => 'guest',
                 'is_logged_in' => true,
-                'setting' => ['notification' => true],
+                'setting' => ['notification' => true, 'vip' => false],
                 'password' => bcrypt($password),
             ]);
            Auth::login($user);

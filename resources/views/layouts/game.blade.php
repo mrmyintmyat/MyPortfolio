@@ -149,7 +149,7 @@
                 data-aos-duration="1000" data-aos-easing="ease-out-cubic" data-aos-once="true" style="z-index: 1;">
                 <div class="container-md p-0">
                     <div class="d-flex align-items-center">
-                        <a href="{{env('APP_URL')}}" class="navbar-brand title_icon m-0" href="#">
+                        <a href="{{ env('APP_URL') }}" class="navbar-brand title_icon m-0" href="#">
                             ZYNN<span class="text-dark fs-6">v1</span>
                         </a>
 
@@ -225,7 +225,7 @@
                                         href="{{ env('APP_URL') }}/profile">
                                         <div>
                                             <img class="rounded-circle border shadow-sm" style="width: 1.5rem;"
-                                                src="{{ Auth::user()->logo }}" alt="">
+                                                src="{{ checkImage(Auth::user()->logo) }}" alt="">
                                         </div>
                                     </a>
                                 @endif
@@ -346,7 +346,8 @@
             </li>
             @if (!Auth::check() && $setting->register)
                 <li class="d-flex justify-content-center">
-                    <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted" href="{{ env('APP_URL') }}/login">
+                    <a class="btn rounded-pill fw-semibold d-flex flex-column border-0 text-muted"
+                        href="{{ env('APP_URL') }}/login">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <div class="d-flex justify-content-center">
                             <span>LOGIN</span>
@@ -399,7 +400,7 @@
                         href="{{ env('APP_URL') }}/profile">
                         <div>
                             <img class="rounded-circle border shadow-sm" style="width: 1.2rem;"
-                                src="{{ Auth::user()->logo }}" alt="">
+                                src="{{ checkImage(Auth::user()->logo) }}" alt="">
                         </div>
                         <div class="d-flex justify-content-center">
                             <span>PROFILE</span>
