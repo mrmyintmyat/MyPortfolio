@@ -18,6 +18,14 @@
     @endif
 @endsection
 @section('main')
+@php
+    function checkImage($image)
+        {
+            return \Illuminate\Support\Str::startsWith($image, '/storage/')
+                ? asset($image)
+                : asset('/storage/' . $image);
+        }
+@endphp
     <div class="px-0 container">
         <div class="d-flex flex-lg-row flex-column">
             <section class="col-lg-4 bg-danger rounded-3">
