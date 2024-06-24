@@ -2,7 +2,7 @@
 @section('title'){{ $game->name }}@endsection
 @section('logo'){{ \Illuminate\Support\Str::startsWith($game->logo, '/storage/') ? asset($game->logo) : asset('/storage/' . $game->logo) }}@endsection
 @section('web_url'){{ request()->url() }}@endsection
-@php$images = $game->image; @endphp
+@php $images = $game->image; @endphp
 @section('image')@if (!empty($images)){{ \Illuminate\Support\Str::startsWith($images[0], '/storage/') ? asset($images[0]) : asset('/storage/' . $images[0]) }}@endif @endsection
 @section('keywords'){{ $game->name }},{{ $game->category }}@endsection
 @section('style')

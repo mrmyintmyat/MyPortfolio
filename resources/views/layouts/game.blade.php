@@ -59,9 +59,9 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
       </script> --}}
-    @yield('style')
 
 </head>
+@yield('style')
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
