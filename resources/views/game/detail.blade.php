@@ -2,9 +2,8 @@
 @section('title'){{ $game->name }}@endsection
 @section('logo'){{ \Illuminate\Support\Str::startsWith($game->logo, '/storage/') ? asset($game->logo) : asset('/storage/' . $game->logo) }}@endsection
 @section('web_url'){{ request()->url() }}@endsection
-@php $images = $game->image; @endphp
-@section('image')@if (!empty($images)){{ \Illuminate\Support\Str::startsWith($images[0], '/storage/') ? asset($images[0]) : asset('/storage/' . $images[0]) }}@endif
-@endsection
+@php$images = $game->image; @endphp
+@section('image')@if (!empty($images)){{ \Illuminate\Support\Str::startsWith($images[0], '/storage/') ? asset($images[0]) : asset('/storage/' . $images[0]) }}@endif @endsection
 @section('keywords'){{ $game->name }},{{ $game->category }}@endsection
 @section('style')
     <style>
@@ -161,6 +160,61 @@
                 ? asset($image)
                 : asset('/storage/' . $image);
         }
+
+        function getUserCountryCode()
+        {
+            if (isset($_SERVER['HTTP_CF_IPCOUNTRY'])) {
+                return $_SERVER['HTTP_CF_IPCOUNTRY'];
+            }
+
+            $ip = getClientIP();
+            return $ip;
+            $url = "https://ipinfo.io/{$ip}?token=f354a0def2d5f6";
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5); // Set timeout for the request
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                // Handle CURL error
+                curl_close($ch);
+                return 'error';
+            }
+
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($http_code !== 200) {
+                // Handle non-200 response codes
+                return 'error';
+            }
+
+            $data = json_decode($response, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                // Handle JSON decode error
+                return 'error';
+            }
+
+            if (isset($data['country'])) {
+                return trim($data['country']);
+            }
+
+            return 'unknown';
+        }
+
+        function getClientIP()
+        {
+            $ip = $_SERVER['REMOTE_ADDR'];
+
+            if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+                $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+            }
+
+            return $ip;
+        }
+
+        $userCountryCode = getUserCountryCode();
 
         $user = $game->user;
         $setting = Settings::first();
@@ -332,12 +386,13 @@
                                             <table class="table table-bordered m-0">
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-center col-6">
+                                                        <td class="text-center col-12 d-flex">
                                                             <a class="d-flex fw-medium justify-content-center text-black w-100 btn rounded-0 p-0"
                                                                 href="{{ env('APP_URL') }}/{{ \Illuminate\Support\Str::slug($user->name) }}?id={{ $user->id }}">
                                                                 <div class="d-flex">
                                                                     <img class="w-auto rounded" style="height: 2.3rem;"
-                                                                        src="{{ checkImage($game->user->logo) }}" alt="">
+                                                                        src="{{ checkImage($game->user->logo) }}"
+                                                                        alt="">
                                                                     <div class="ms-1 text-start d-flex flex-column justify-content-center"
                                                                         style="line-height: 0.9rem;">
                                                                         <p style="font-size: 0.9rem;" class="m-0">
@@ -551,6 +606,109 @@
                                         </div>
                                     </div>
                                 @endif
+                                @if (!empty($questions))
+                                    <div class="d-flex justify-content-center">
+                                        <div class="modal-content col-lg-6">
+                                            <div class="modal-header p-0">
+                                                <div class="modal-title w-100" id="questionsModalLabel">
+                                                    <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
+                                                        <li class="nav-item col-6" role="presentation">
+                                                            <button class="nav-link w-100 active" id="eng-questions"
+                                                                data-bs-toggle="tab" data-bs-target="#eng-questions-pane"
+                                                                type="button" role="tab"
+                                                                aria-controls="eng-questions-pane" aria-selected="true">
+                                                                English
+                                                            </button>
+                                                        </li>
+                                                        <li class="nav-item col-6" role="presentation">
+                                                            <button class="nav-link w-100" id="mm-questions"
+                                                                data-bs-toggle="tab" data-bs-target="#mm-questions-pane"
+                                                                type="button" role="tab"
+                                                                aria-controls="mm-questions-pane" aria-selected="false">
+                                                                မြန်မာ
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body p-2">
+                                                <div class="accordion" id="questionsAccordion">
+                                                    <div class="card p-3 border-0">
+                                                        <div class="tab-content mt-2" id="myTabContent">
+                                                            <div class="tab-pane fade show active" id="eng-questions-pane"
+                                                                role="tabpanel" aria-labelledby="eng-questions"
+                                                                tabindex="0">
+                                                                @foreach ($questions->eng_questions as $question => $answer)
+                                                                    <div class="mb-2">
+                                                                        <div class=""
+                                                                            id="heading{{ \Illuminate\Support\Str::slug($question) }}">
+                                                                            @if (filter_var($answer, FILTER_VALIDATE_URL))
+                                                                                <a class="fw-medium text-decoration-none text-black"
+                                                                                    href="{{ $answer }}">
+                                                                                    {{ $question }}
+                                                                                </a>
+                                                                            @else
+                                                                                <a class="fw-medium text-decoration-none text-black"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    href="#collapse{{ \Illuminate\Support\Str::slug($question) }}"
+                                                                                    aria-expanded="false"
+                                                                                    aria-controls="collapseExample">
+                                                                                    {{ $question }}
+                                                                                </a>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div id="collapse{{ \Illuminate\Support\Str::slug($question) }}"
+                                                                            class="collapse"
+                                                                            aria-labelledby="heading{{ \Illuminate\Support\Str::slug($question) }}"
+                                                                            data-parent="#questionsAccordion">
+                                                                            <div class="card-body">
+                                                                                {{ $answer }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            <div class="tab-pane fade" id="mm-questions-pane"
+                                                                role="tabpanel" aria-labelledby="mm-questions"
+                                                                tabindex="0">
+                                                                @foreach ($questions->mm_questions as $question => $answer)
+                                                                    <div class="mb-2">
+                                                                        <div class=""
+                                                                            id="heading{{ \Illuminate\Support\Str::slug($question) }}">
+                                                                            @if (filter_var($answer, FILTER_VALIDATE_URL))
+                                                                                <a class="fw-medium text-decoration-none text-black"
+                                                                                    href="{{ $answer }}">
+                                                                                    {{ $question }}
+                                                                                </a>
+                                                                            @else
+                                                                                <a class="fw-medium text-decoration-none text-black"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    href="#collapse{{ \Illuminate\Support\Str::slug($question) }}"
+                                                                                    aria-expanded="false"
+                                                                                    aria-controls="collapseExample">
+                                                                                    {{ $question }}
+                                                                                </a>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div id="collapse{{ \Illuminate\Support\Str::slug($question) }}"
+                                                                            class="collapse"
+                                                                            aria-labelledby="heading{{ \Illuminate\Support\Str::slug($question) }}"
+                                                                            data-parent="#questionsAccordion">
+                                                                            <div class="card-body">
+                                                                                {{ $answer }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -1026,45 +1184,58 @@
         URL Copied!
     </div>
 
-        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
-            aria-modal="true" role="dialog">
-            <div class="modal-dialog modal-dialog-centered w-100 d-flex justify-content-center">
-                <div class="modal-content border-0 mx-3 shadow" style="width: 14rem;">
-                    <div class="modal-header border-0 pb-2">
-                        <h1 class="modal-title fs-5" id="errorModalLabel"></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center fw-medium pt-0 pb-4 text-danger">
-                        {{ request()->error }}
-                    </div>
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog modal-dialog-centered w-100 d-flex justify-content-center">
+            <div class="modal-content border-0 mx-3 shadow" style="width: 14rem;">
+                <div class="modal-header border-0 pb-2">
+                    <h1 class="modal-title fs-5" id="errorModalLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center fw-medium pt-0 pb-4 text-danger">
+                    {{ request()->error }}
                 </div>
             </div>
         </div>
+    </div>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <div class="modal fade" id="questionsModal" tabindex="-1" aria-labelledby="questionsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+
+        </div>
+    </div>
 @endsection
 @section('script')
     <script src="/js/game_scroll_data.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        var userCountryCode = '<?php echo $userCountryCode; ?>';
+        var burmeseOption = $("#mm-questions");
+        if (userCountryCode === "MM") {
+            burmeseOption.trigger('click');
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             var modalElement = document.getElementById('errorModal');
             var modal = new bootstrap.Modal(modalElement);
 
             // Automatically hide the modal when the close button is clicked
-            modalElement.addEventListener('hidden.bs.modal', function () {
+            modalElement.addEventListener('hidden.bs.modal', function() {
                 modalElement.style.display = 'none';
             });
 
             // Show the modal if there's an error
             var error = '{{ request()->error }}';
-        if (error) {
-            modal.show();
-            // Remove the error parameter from the route
-            var url = window.location.href;
-            var cleanUrl = url.replace(/(\?|&)error=[^&]*(&|$)/, '$1').replace(/(&|\?)$/, '');
-            window.history.replaceState({}, document.title, cleanUrl);
-        }
+            if (error) {
+                modal.show();
+                // Remove the error parameter from the route
+                var url = window.location.href;
+                var cleanUrl = url.replace(/(\?|&)error=[^&]*(&|$)/, '$1').replace(/(&|\?)$/, '');
+                window.history.replaceState({}, document.title, cleanUrl);
+            }
         });
     </script>
     <script>

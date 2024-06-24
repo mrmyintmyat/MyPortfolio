@@ -6,6 +6,7 @@ use App\Models\Game;
 use App\Models\User;
 use App\Models\Reply;
 use App\Models\Comment;
+use App\Models\Question;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -101,8 +102,10 @@ class DetailPageController extends Controller
             ->latest()
             ->paginate(8);
 
+        $questions = Question::where("title", "detail_page")->first();
+
         $game_user_id = $game->user->id;
-        return view('game.detail', compact('game', 'MediaFire', 'most_downloaded_games', 'today_most_downloaded_games', 'user_name', 'view_cm', 'view_rp', 'cm_id', 'cm_id_encrypt', 'rp_id_encrypt', 'game_user_id'));
+        return view('game.detail', compact('game', 'MediaFire', 'most_downloaded_games', 'today_most_downloaded_games', 'user_name', 'view_cm', 'view_rp', 'cm_id', 'cm_id_encrypt', 'rp_id_encrypt', 'game_user_id', 'questions'));
     }
 
     private function validateSlug($game, $name, $user_name = null)
