@@ -557,10 +557,10 @@
                                         </a>
                                     @endif
                                 </div>
-                                @if (isset($MediaFire))
+                                {{-- @if (isset($MediaFire))
                                     <div class="text-center mb-3"><strong class="text-danger">ဂိမ်းကို
                                             Vpnကျော်ပြီးမှဒေါင်းပါ!</strong></div>
-                                @endif
+                                @endif --}}
                                 @if (isset($MediaFire))
                                     <div class="card border-top border-0 px-2">
                                         <div class="card-body d-flex justify-content-center px-0">
