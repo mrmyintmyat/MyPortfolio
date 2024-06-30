@@ -185,7 +185,9 @@ class DetailPageController extends Controller
     public function download($request, $subdomain, $link)
     {
         $cacheKey = 'download_link_' . $link;
-        $id = decrypt($request->query('id'));
+        $gameId_key = 'game_id_' . $request->query('id');
+        $id = Cache::get($gameId_key);
+        $id = Crypt::decrypt($id);
         $game = Game::find($id);
         if (Cache::has($cacheKey)) {
             $encryptedLink = Cache::get($cacheKey);
@@ -219,6 +221,12 @@ class DetailPageController extends Controller
                 'id' => $game->id,
             ]);
         }
+    }
+
+    public function short_decrypt($value)
+    {
+        $decoded = base64_decode(strtr($value, '-_', '+/'));
+        return Crypt::decrypt($decoded);
     }
 
     public function scrap_mediafire($link)

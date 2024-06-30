@@ -93,7 +93,7 @@ class IncrementGameController extends Controller
             Cache::put('download_link_' . $uniqueId, $encryptedLink, now()->addMinutes(10));
             $base_url = route('games.detail', ['subdomain' => 'download', 'id' => $uniqueId]);
 
-            $encryptedId = encrypt($game->id);
+            $encryptedId = $this->short_encrypt($game->id);
             $download_page_link = $base_url . '?id=' . $encryptedId;
 
             $direct_link = $this->makeadslink($game, $download_page_link);
@@ -155,5 +155,19 @@ class IncrementGameController extends Controller
         } else {
             return '';
         }
+    }
+
+    public function short_encrypt($value)
+    {
+        $encrypted = Crypt::encrypt($value);
+        $uniqueId = Str::uuid()->toString();
+        Cache::put('game_id_' . $uniqueId, $encrypted, now()->addMinutes(10));
+        return $uniqueId;
+    }
+
+    public function short_decrypt($value)
+    {
+        $decoded = base64_decode(strtr($value, '-_', '+/'));
+        return Crypt::decrypt($decoded);
     }
 }
