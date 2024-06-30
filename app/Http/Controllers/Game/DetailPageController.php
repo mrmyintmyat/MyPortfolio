@@ -194,7 +194,7 @@ class DetailPageController extends Controller
             $dir_link = Crypt::decrypt($encryptedLink);
             // return $dir_link;
             // Make a HEAD request to check if the link is accessible
-            try {
+            // try {
                 $response = Http::head($dir_link);
 
                 if ($response->successful()) {
@@ -212,9 +212,9 @@ class DetailPageController extends Controller
                     // The link is not accessible
                     return abort(404, 'The download link is not accessible.');
                 }
-            } catch (\Exception $e) {
-                return abort(500, 'An error occurred: ' . $e->getMessage());
-            }
+            // } catch (\Exception $e) {
+            //     return abort(500, 'An error occurred: ' . $e->getMessage());
+            // }
         } else {
             return redirect()->route('games.detail', [
                 'subdomain' => Str::slug($game->name),
