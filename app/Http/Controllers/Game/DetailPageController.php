@@ -201,7 +201,7 @@ class DetailPageController extends Controller
                     // The link is working, proceed with redirection
                     // Log::info('Redirecting to: ' . $dir_link);
                     $dir_links = null;
-                    if (strpos($dir_link, 'an1.com') !== false && strpos($dir_link, 'an1.net') === false || strpos($dir_link, 'an1.co') === false) {
+                    if (strpos($dir_link, 'an1.com') !== false && strpos($dir_link, 'an1.net') === false && strpos($dir_link, 'an1.co') === false) {
                         $dir_links = $this->scraperService->scrapeDetailData($dir_link);
                     }
 
