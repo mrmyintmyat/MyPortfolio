@@ -25,6 +25,12 @@ class GameController extends Controller
         $publishedCount = $user->games()->where('post_status', 'Published')->count();
         $privateCount = $user->games()->where('post_status', 'Private')->count();
         $reviewingCount = $user->games()->where('post_status', 'Reviewing')->count();
+        $today_hot_games = $user->games()
+        ->where('post_status', '=', 'Published')
+        ->whereRaw("JSON_EXTRACT(downloads, '$[7]') > ?", [0])
+        ->orderByRaw("CAST(JSON_EXTRACT(downloads, '$[7]') AS UNSIGNED) DESC")
+        ->latest()
+        ->paginate(2);
 
         $counts = [
             'TOTAL GAMES' => $totalGamesCount,
@@ -51,7 +57,7 @@ class GameController extends Controller
 
         $totalDownloads = json_encode($totalDownloads);
 
-        return view('admin.games.index', compact('counts', 'totalDownloads'));
+        return view('admin.games.index', compact('counts', 'totalDownloads', 'today_hot_games'));
     }
 
     public function index(Request $request)

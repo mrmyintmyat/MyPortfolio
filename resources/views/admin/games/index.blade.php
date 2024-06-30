@@ -8,7 +8,52 @@
     </style>
 @endsection
 @section('page')
-    <div class=" mb-5">
+    @php
+        function checkImage($image)
+        {
+            return \Illuminate\Support\Str::startsWith($image, '/storage/')
+                ? asset($image)
+                : asset('/storage/' . $image);
+        }
+    @endphp
+    <div class="mb-5 mt-3">
+        <div class="row">
+            <div class="col">
+                <div class="border-0 card bg-white text-white px-2" style="min-height: 100%;">
+                    <div class="shadow-sm border border-1 rounded-3">
+                        <div class="text-dark fw-semibold mt-3 mb-2">
+                            TODAY MOST
+                        </div>
+                        <div class="card-body text-dark row row-cols-2 row-cols-sm-3 row-cols-lg-6 col-12 m-0 ps-0 pt-0">
+                            @foreach ($today_hot_games as $game)
+                                <div class="col d-flex">
+                                    <div>
+                                        <img class="rounded-circle" src="{{ checkImage($game->logo) }}" alt=""
+                                            style="width: 3.5rem;">
+                                    </div>
+                                    <div class="text-start">
+                                        <h6 class="ms-2 m-0 fs-6 fw-medium text-truncate w-100">
+                                            {{ $game->downloads[7] }}
+                                        </h6>
+                                        <h6 class="ms-2 m-0 fs-6 fw-medium text-truncate w-100">
+                                            @if (stripos($game->category, 'mod') !== false)
+                                                <p class="m-0 text-danger fw-semibold left_info_fz">
+                                                    Mod
+                                                </p>
+                                            @else
+                                                <p class="m-0 text-success fw-semibold left_info_fz">
+                                                    Free
+                                                </p>
+                                            @endif
+                                        </h6>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 col-12 m-0 g-3 px-2 mb-3">
             @foreach ($counts as $label => $count)
                 <div class="col ps-0">
@@ -33,6 +78,7 @@
                 </div>
             @endforeach
         </div>
+
         <div class="row">
             <div class="col-lg-6">
                 <canvas id="downloadsChart" class="w-100" style="min-height: 15rem;"></canvas>

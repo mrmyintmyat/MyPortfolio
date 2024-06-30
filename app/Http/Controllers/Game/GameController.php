@@ -10,6 +10,7 @@ use App\Models\Reply;
 use GuzzleHttp\Client;
 use App\Models\Comment;
 use App\Models\Category;
+use App\Models\GameRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -97,7 +98,8 @@ class GameController extends Controller
     {
         $mostDownloadedGame = Game::where('post_status', '=', 'Published')
             ->whereRaw("JSON_EXTRACT(downloads, '$[0]') > ?", [20])
-            ->orderByRaw("CAST(JSON_EXTRACT(downloads, '$[0]') AS UNSIGNED) DESC")->first();
+            ->orderByRaw("CAST(JSON_EXTRACT(downloads, '$[0]') AS UNSIGNED) DESC")
+            ->first();
         $userWithMostGames = User::select('users.*', 'games_count')->leftJoin(DB::raw('(SELECT user_id, COUNT(*) as games_count FROM games GROUP BY user_id) as game_counts'), 'users.id', '=', 'game_counts.user_id')->orderByDesc('games_count')->first();
 
         $totalDownloads = [];
@@ -226,7 +228,7 @@ class GameController extends Controller
                 'setting' => ['notification' => true, 'vip' => false],
                 'password' => bcrypt($password),
             ]);
-           Auth::login($user);
+            Auth::login($user);
             $from_user = $user->id;
             $name = $user->name;
         }
@@ -398,7 +400,8 @@ class GameController extends Controller
         return view('game.privacy');
     }
 
-    public function game_request(){
+    public function game_request()
+    {
         return view('game.request');
     }
 
@@ -436,4 +439,49 @@ class GameController extends Controller
             return back()->with('status', 'Your request has been submitted. We will review your request and get back to you shortly.');
         }
     }
+
+    public function checkGame(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'photo_link' => 'nullable|url',
+            'type' => 'required|string',
+            'version' => 'required|string',
+        ]);
+
+        $gameName = $request->input('name');
+        $games = Game::whereRaw('LOWER(REPLACE(name, " ", "")) LIKE ?', ['%' . strtolower(str_replace(' ', '', $gameName)) . '%'])
+            ->where('post_status', '=', 'Published')
+            ->latest()
+            ->get();
+
+        if ($games->isEmpty()) {
+            $this->requestGame($request);
+            return redirect()->back()->with('success', 'Your request has been submitted.');
+        }
+
+        return view('game.game-found', ['games' => $games, 'game_detail' => $request]);
+    }
+
+    public function requestGame(Request $request)
+    {
+        if (Auth::check()) {
+            $user_id = auth()->id();
+        }else{
+            $user_id = null;
+        }
+        GameRequest::create([
+            'user_id' => $user_id,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'photo_link' => $request->input('photo_link'),
+            'type' => $request->input('type'),
+            'version' => $request->input('version'),
+            'status' => 'Pending',
+        ]);
+
+        return redirect('/game-request')->with('success', 'Your request has been submitted.');
+    }
+
 }

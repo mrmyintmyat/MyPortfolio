@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CommentResource\Pages;
-use App\Filament\Resources\CommentResource\RelationManagers;
-use App\Models\Comment;
+use App\Filament\Resources\GameRequestResource\Pages;
+use App\Filament\Resources\GameRequestResource\RelationManagers;
+use App\Models\GameRequest;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,39 +13,34 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CommentResource extends Resource
+class GameRequestResource extends Resource
 {
-    protected static ?string $model = Comment::class;
+    protected static ?string $model = GameRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Table Management';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('post_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Textarea::make('name')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('from_user_id')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('to_user')
-                    ->required()
+                Forms\Components\Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('text')
+                Forms\Components\TextInput::make('photo_link')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('type')
                     ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('likes')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('version')
                     ->required()
-                    ->maxLength(65535)
-                    ->default(0)
-                    ->columnSpanFull(),
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('status')
+                    ->required()
+                    ->maxLength(255)
+                    ->default('Pending'),
             ]);
     }
 
@@ -53,13 +48,16 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('post_id')
-                    ->numeric()
-                    ->searchable()
-                    ->sortable(),
-                    Tables\Columns\TextColumn::make('text'),
-                Tables\Columns\TextColumn::make('from_user_id'),
-                Tables\Columns\TextColumn::make('to_user_id'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('photo_link')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('version')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -80,7 +78,7 @@ class CommentResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])->defaultSort('created_at', 'desc');
+            ]);
     }
 
     public static function getRelations(): array
@@ -88,14 +86,15 @@ class CommentResource extends Resource
         return [
             //
         ];
-    }
+    } 
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListComments::route('/'),
-            'create' => Pages\CreateComment::route('/create'),
-            'edit' => Pages\EditComment::route('/{record}/edit'),
+            'index' => Pages\ListGameRequests::route('/'),
+            'create' => Pages\CreateGameRequest::route('/create'),
+            'view' => Pages\ViewGameRequest::route('/{record}'),
+            'edit' => Pages\EditGameRequest::route('/{record}/edit'),
         ];
     }
 }

@@ -76,6 +76,10 @@ Route::group(['middleware' => ['check.site.status']], function () {
 
     Route::put('/update-profile', [UserController::class, 'update'])->name('update.profile');
 
+    Route::post('/check-game', [GameController::class, 'checkGame'])->name('check.game');
+
+    Route::post('/game-request', [GameController::class, 'RequestGame'])->name('request.game');
+
     Route::get('/privacy-policy', [GameController::class, 'privacy_policy']);
 });
 

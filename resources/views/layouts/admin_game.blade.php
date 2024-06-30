@@ -17,10 +17,22 @@
 @yield('style')
 <style>
     .select2-container {
-        width: 200px; /* Set the desired width */
+        width: 200px;
+        /* Set the desired width */
     }
 </style>
+
 <body class="overflow-auto">
+    <?php
+        if (!function_exists('checkImage')) {
+            function checkImage($image)
+            {
+                return \Illuminate\Support\Str::startsWith($image, '/storage/')
+                    ? asset($image)
+                    : asset('/storage/' . $image);
+            }
+        }
+    ?>
     <div aria-live="polite" aria-atomic="true" class="position-relative">
         <div class="toast-container top-0 end-0 p-3">
             <div id="toast" @if (session('success')) class="toast show" @endif class="toast"
@@ -192,9 +204,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/tagsinput/js/select2.min.js"></script>
-    <script>
-
-    </script>
+    <script></script>
     <script>
         AOS.init();
     </script>

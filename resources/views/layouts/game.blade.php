@@ -113,6 +113,14 @@
     <?php
     use App\Models\Settings;
     $setting = Settings::first();
+
+    if (!function_exists('checkImage')) {
+       function checkImage($image)
+       {
+           return \Illuminate\Support\Str::startsWith($image, '/storage/') ? asset($image) : asset('/storage/' . $image);
+       }
+    }
+
     ?>
     @yield('alert')
     <div class="loader_container" style="position: fixed; top: 0px; width: 100%; z-index: 2;">
